@@ -1,627 +1,715 @@
-<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MRA-Pro OPD/ER — ลำปาง</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MRA-Pro Audit v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Sarabun',sans-serif;background:#f1f5f9;color:#1e293b;font-size:12px}
-#app{max-width:980px;margin:0 auto;padding:4px 6px}
-.form-hdr{background:#fff;border:1px solid #ccc;border-radius:6px;padding:6px 10px;margin-bottom:5px}
-.form-hdr .tb{text-align:center;border-bottom:1px solid #e2e8f0;padding-bottom:3px;margin-bottom:4px}
-.form-hdr .tb h2{font-size:12px;font-weight:700;margin:0}.form-hdr .tb small{font-size:9px;color:#94a3b8}
-.r{display:flex;gap:4px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
-.r label{font-weight:600;font-size:11px;color:#555;white-space:nowrap}
-.r input[type=text],.r select{padding:2px 4px;border:1px solid #aaa;border-radius:3px;font-size:11px;font-family:inherit}
-.di{display:inline-flex;align-items:center;gap:2px}
-.di input[type=date]{padding:2px 2px;border:1px solid #aaa;border-radius:3px;font-size:10.5px;font-family:inherit;width:120px}
-.di .be{font-size:8.5px;color:#16a34a;font-weight:700}
-.sep{width:1px;height:16px;background:#ddd;margin:0 2px}
-.rg{display:flex;gap:5px}.rg label{font-weight:400;display:flex;align-items:center;gap:2px;cursor:pointer;font-size:11px}
-.tabs{display:flex;justify-content:center;gap:3px;margin:3px 0 4px}
-.tabs button{padding:5px 14px;border:none;border-radius:5px 5px 0 0;font-size:11px;font-weight:700;cursor:pointer;background:#e2e8f0;color:#64748b;font-family:inherit}.tabs button.on{background:#1e3a5f;color:#fff}
-.cd{background:#fff;border:1px solid #ddd;border-radius:5px;padding:5px 8px;margin-bottom:5px}
-table.mt{border-collapse:collapse;width:100%}table.mt th{background:#8b0000;color:#fff;padding:2px 1px;border:1px solid #600;font-size:8.5px;text-align:center;font-weight:600}table.mt td{border:1px solid #bbb;padding:1px;font-size:10px}
-.sc{cursor:pointer;text-align:center;font-weight:700;font-size:12px;min-width:24px;padding:1px 0;user-select:none}.sc:hover{background:#dbeafe!important}.sc.p1{background:#d4edda;color:#155724}.sc.p0{background:#f8d7da;color:#721c24}.sc.pn{background:#fff3cd;color:#856404}.sc.dis{background:#e9e9e9;color:#999;cursor:default}.sc.dis:hover{background:#e9e9e9!important}.sc.na{background:#fff3cd;color:#856404;cursor:default}.sc.na:hover{background:#fff3cd!important}
-.nt{cursor:pointer;padding:1px;text-align:center;font-size:9px;font-weight:600;user-select:none;border:1px solid #bbb}.nt:hover{background:#fff3cd}.nt.on{background:#fff3cd;color:#856404}.nt.ms{background:#f8d7da;color:#721c24}
-.totbar{display:flex;gap:10px;padding:5px 8px;background:#f0f4f8;border-radius:5px;border:1px solid #cbd5e1;margin-bottom:4px;flex-wrap:wrap;align-items:center;font-size:10px;color:#64748b}
-.btn{padding:5px 14px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}.btn-p{background:linear-gradient(135deg,#1e3a5f,#2563eb);color:#fff}.btn-s{background:#16a34a;color:#fff}.btn-o{background:#fff;color:#64748b;border:1.5px solid #cbd5e1}
-.msg{text-align:center;padding:5px;background:#dcfce7;border-radius:5px;color:#166534;font-weight:700;font-size:11px;margin-bottom:4px}.msg.w{background:#fef3c7;color:#92400e}
-.pov{position:fixed;top:0;left:0;right:0;bottom:0;z-index:100;background:rgba(0,0,0,.12)}.pop{position:fixed;z-index:101;background:#fff;border-radius:8px;box-shadow:0 5px 20px rgba(0,0,0,.2);border:2px solid #1e3a5f;padding:10px;max-width:340px;width:90vw}.pop h4{color:#1e3a5f;font-size:12px;margin:2px 0 4px}.pop .det{color:#334155;font-size:11px;line-height:1.6;white-space:pre-line;margin-bottom:8px;max-height:140px;overflow:auto;padding:3px 5px;background:#f8fafc;border-radius:4px;border:1px solid #e2e8f0}.pop .bns{margin-top:4px;padding:3px 5px;background:#f0fdf4;border-radius:4px;font-size:9.5px;color:#166534;white-space:pre-line}
-.pb{padding:5px 12px;border:none;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;opacity:.6;margin:0 2px}.pb.ps{background:#16a34a;color:#fff}.pb.fl{background:#dc2626;color:#fff}.pb.pna{background:#eab308;color:#fff}.pb.sl,.pb:hover{opacity:1;box-shadow:0 0 0 2px rgba(0,0,0,.1)}
-table.rl{border-collapse:collapse;width:100%;font-size:10px}table.rl th{background:#1e3a5f;color:#fff;padding:3px 4px;border:1px solid #334155;font-size:9px;text-align:center}table.rl td{border:1px solid #e2e8f0;padding:2px 3px;text-align:center}table.rl td.hn{color:#2563eb;font-weight:700;cursor:pointer;text-decoration:underline}
-.bar-chart{display:flex;align-items:flex-end;gap:4px;height:160px;padding:6px 0;border-bottom:2px solid #cbd5e1}.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px}.bar-col .bar{width:100%;border-radius:3px 3px 0 0;min-width:16px}.bar-col .lbl{font-size:7.5px;color:#64748b;font-weight:600}.bar-col .val{font-size:8.5px;font-weight:700}
-.del-btn{padding:1px 4px;border:1px solid #fca5a5;background:#fff;border-radius:3px;cursor:pointer;font-size:9px}.del-btn:hover{background:#fee2e2}
-.analysis{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:8px 10px;margin-top:6px;font-size:11px;line-height:1.7;color:#166534}
-.analysis b{color:#15803d}
-@media print{body{background:#fff!important}#app{padding:0}.tabs,.btn,.del-btn,.msg,.pov,.pop{display:none!important}.cd,.form-hdr{border:1px solid #999;page-break-inside:avoid}}
-/* Print form */
-.print-form{display:none}
-@media print{.print-form{display:block!important;page-break-before:always}.no-print{display:none!important}}
-</style>
-</head><body><div id="app"></div>
-<script>
-const H=[{c:"10672",n:"รพ.ลำปาง"},{c:"11146",n:"รพ.แม่เมาะ"},{c:"11147",n:"รพ.เกาะคา"},{c:"11148",n:"รพ.เสริมงาม"},{c:"11149",n:"รพ.งาว"},{c:"11150",n:"รพ.แจ้ห่ม"},{c:"11151",n:"รพ.วังเหนือ"},{c:"11152",n:"รพ.เถิน"},{c:"11153",n:"รพ.แม่พริก"},{c:"11154",n:"รพ.แม่ทะ"},{c:"11155",n:"รพ.สบปราบ"},{c:"11156",n:"รพ.ห้างฉัตร"},{c:"11157",n:"รพ.เมืองปาน"},{c:"40744",n:"รพ.ค่ายสุรศักดิ์มนตรี"},{c:"24711",n:"รพ.เขลางค์นคร-ราม"},{c:"11547",n:"รพ.เวชชารักษ์ ลำปาง"},{c:"10680",n:"รพ.มะเร็งลำปาง"},{c:"",n:"-- อื่นๆ --"}];
-function hN(c){const x=H.find(h=>h.c===c);return x?x.n:c;}
-const W=["MRA","EYE","ORTHO","MED","ENT","SKIN","CHN","SURG","PT","DENT","ER","ARI","ENOC"];
-const CL=["#c0392b","#e67e22","#27ae60","#2980b9","#8e44ad","#16a085","#d35400","#7f8c8d","#2c3e50","#e74c3c"];
-const SH=["Profile","Hist","Phys","Teat","Fol1","Fol2","Fol3","Oper","Inf","Reh"];
-const CNA={"4-1":1,"4-3":1,"4-5":1,"5-5":1,"5-6":1,"5b-5":1,"5b-6":1,"5c-5":1,"5c-6":1,"3-5":1,"2-6":1};
-function toBE(iso){if(!iso)return"";const p=iso.split("-");return p[2]+"/"+p[1]+"/"+(+p[0]+543);}
-function toISO(d,m,y){return y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");}
+:root{
+  /* Purple palette */
+  --pu-dark:#5e35b1;--pu-mid:#7e57c2;--pu-light:#ede7f6;--pu-pale:#f3eeff;--pu-border:#ce93d8;
+  /* Orange palette */
+  --or-dark:#e65100;--or-mid:#f57c00;--or-light:#fff3e0;--or-pale:#fff8f0;--or-border:#ffcc80;
+  /* Pastel green (ผ่าน) */
+  --pass-bg:#e8f5e9;--pass-b:#a5d6a7;--pass-t:#2e7d32;
+  /* Pastel pink/red (ไม่ผ่าน) */
+  --fail-bg:#fce4ec;--fail-b:#f48fb1;--fail-t:#ad1457;
+  /* Neutral */
+  --na-bg:#fffde7;--na-b:#fff176;--na-t:#e65100;
+  --miss-bg:#fce4ec;--miss-t:#ad1457;
+  --body-bg:#f5f0ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Sarabun,sans-serif;background:var(--body-bg);color:#2d2540;font-size:11px}
+#app{max-width:1200px;margin:0 auto;padding:6px}
 
-const R=[
-{no:1,nm:"Patient's Profile",ac:7,dNA:false,hB:false,hD:true,dN:"หัก 1 คะแนน กรณีแก้ไขข้อมูลโดยไม่ลงลายมือชื่อกำกับ",s:[{c:1,l:"ข้อมูลผู้ป่วย",d:"ชื่อ สกุล เพศ HN อายุ/วดปเกิด\n✦ ไม่ทราบวดเกิด→ปี พ.ศ."},{c:2,l:"ที่อยู่+เลขบัตร",d:"ที่อยู่+เลข13หลัก\n✦ ต่างด้าว/ไม่รู้สึกตัว→ระบุ"},{c:3,l:"ญาติ/ผู้ติดต่อ",d:"ชื่อญาติ+ความสัมพันธ์+ที่อยู่/โทร"},{c:4,l:"แพ้ยา",d:"ประวัติแพ้ยา+ระบุชื่อ (ไม่มี→NKDA)"},{c:5,l:"หมู่เลือด",d:"หมู่เลือด/ไม่ทราบ"},{c:6,l:"วันที่+ผู้บันทึก",d:"วดป+ชื่อผู้บันทึก"},{c:7,l:"ชื่อHNทุกแผ่น",d:"ชื่อ สกุล HN ทุกแผ่น"}]},
-{no:2,nm:"History (1st visit)",ac:7,dNA:false,hB:true,bL:"PI ครบ 5W2H",bD:"เพิ่ม1คะแนน PI ครบ 5W2H",s:[{c:1,l:"CC",d:"อาการ/ปัญหาที่มา"},{c:2,l:"PI",d:"อาการแสดง+การรักษาที่ได้มา"},{c:3,l:"U/D+Tx",d:"Underlying+การรักษาปัจจุบัน"},{c:4,l:"Past+FHx",d:"ประวัติอดีต+Family Hx"},{c:5,l:"แพ้ยา",d:"ประวัติแพ้ยา+ชื่อ"},{c:6,l:"ปจด/Vac/Soc",d:"หญิง→ปจด เด็ก→Vaccine อื่น→Social\n✦ ไม่เกี่ยว→NA"},{c:7,l:"สารเสพติด",d:"บุหรี่/สุรา จำนวน ความถี่\n✦ ไม่รู้สึกตัว→NA"}]},
-{no:3,nm:"Physical exam./Diagnosis",ac:7,dNA:false,hB:false,s:[{c:1,l:"วัน/เวลา",d:"วดป+เวลาประเมิน"},{c:2,l:"ดู/เคาะ",d:"ดู/เคาะ สอดคล้องCC"},{c:3,l:"คลำ/ฟัง",d:"คลำ/ฟัง สอดคล้องCC"},{c:4,l:"PR RR T",d:"Pulse RR Temp ทุกราย"},{c:5,l:"BP",d:"BP ทุกราย\n✦ เด็ก<3ปี→NA"},{c:6,l:"Wt(Ht)",d:"น้ำหนัก(+ส่วนสูง)"},{c:7,l:"สรุปDx",d:"Dx สอดคล้อง Hx+PE"}]},
-{no:4,nm:"Treatment/Investigation",ac:7,dNA:false,hB:true,bL:"ยานอกบัญชี",bD:"เพิ่ม1คะแนน สั่งยานอกบัญชีแล้วระบุเหตุผล",s:[{c:1,l:"Lab/Xray",d:"สั่ง+ผล Lab\n✦ ไม่สั่ง→NA"},{c:2,l:"Tx↔Dx",d:"Tx สอดคล้อง Dx"},{c:3,l:"สั่งยา",d:"ชื่อ ความแรง ขนาด จำนวน\n✦ ไม่สั่ง→NA"},{c:4,l:"คำแนะนำ",d:"คำแนะนำโรค/ปฏิบัติตัว/ยา"},{c:5,l:"Consult",d:"ผลConsult\n✦ ไม่มี→NA"},{c:6,l:"แผน/F/U",d:"แผนดูแล/นัดF/U"},{c:7,l:"ลายมือ+ชื่อ",d:"ลายมืออ่านออก+ลงชื่อ"}]},
-{no:5,nm:"Follow up ครั้งที่ 1",ac:7,dNA:true,hB:true,fu:1,bL:"ยานอกบัญชี",bD:"+1",s:[{c:1,l:"Hx F/U",d:"ประวัติ/เหตุผล"},{c:2,l:"Dx",d:"Dx↔Tx"},{c:3,l:"VS/PE",d:"VS+PE"},{c:4,l:"Eval+Tx",d:"ประเมิน+Tx"},{c:5,l:"Lab",d:"Lab(ไม่สั่ง=NA)"},{c:6,l:"แนะนำ",d:"คำแนะนำ(Admit=NA)"},{c:7,l:"ลายมือ",d:"ลายมือ+ชื่อ"}]},
-{no:"5b",nm:"Follow up ครั้งที่ 2",ac:7,dNA:true,hB:true,fu:2,bL:"ยานอกบัญชี",bD:"+1",s:[{c:1,l:"Hx",d:"ประวัติ"},{c:2,l:"Dx",d:"Dx"},{c:3,l:"VS",d:"VS/PE"},{c:4,l:"Eval",d:"Eval+Tx"},{c:5,l:"Lab",d:"Lab"},{c:6,l:"แนะนำ",d:"คำแนะนำ"},{c:7,l:"ลายมือ",d:"ลายมือ"}]},
-{no:"5c",nm:"Follow up ครั้งที่ 3",ac:7,dNA:true,hB:true,fu:3,bL:"ยานอกบัญชี",bD:"+1",s:[{c:1,l:"Hx",d:"ประวัติ"},{c:2,l:"Dx",d:"Dx"},{c:3,l:"VS",d:"VS"},{c:4,l:"Eval",d:"Eval"},{c:5,l:"Lab",d:"Lab"},{c:6,l:"แนะนำ",d:"คำแนะนำ"},{c:7,l:"ลายมือ",d:"ลายมือ"}]},
-{no:6,nm:"Operative note",ac:7,dNA:true,hB:false,s:[{c:1,l:"ชื่อ",d:"ชื่อ-สกุล"},{c:2,l:"Findings",d:"Op findings"},{c:3,l:"Procedures",d:"Op procedures"},{c:4,l:"ยาชา",d:"วิธียาชา"},{c:5,l:"ผล/Dx",d:"ผล+Post-opDx"},{c:6,l:"เวลา",d:"วดป+เวลา"},{c:7,l:"ลายมือ",d:"ลายมือ+ชื่อ"}]},
-{no:7,nm:"Informed consent",ac:7,dNA:true,hB:false,s:[{c:1,l:"ชื่อ",d:"ชื่อ-สกุล"},{c:2,l:"ผู้ยินยอม",d:"ลายมือชื่อ"},{c:3,l:"พยาน",d:"ลายมือพยาน"},{c:4,l:"เหตุผล",d:"เหตุผลผ่าตัด"},{c:5,l:"Comp",d:"ภาวะแทรกซ้อน"},{c:6,l:"ผู้ให้ข้อมูล",d:"ลายมือชื่อ"},{c:7,l:"วัน/เวลา",d:"วดป+เวลา"}]},
-{no:8,nm:"Rehabilitation record *",ac:7,dNA:true,hB:false,s:[{c:1,l:"ข้อมูล",d:"ชื่อ HN Dx"},{c:2,l:"Assess",d:"ประเมิน"},{c:3,l:"Goal",d:"เป้าหมาย"},{c:4,l:"Plan",d:"แผน"},{c:5,l:"Tx",d:"วิธี"},{c:6,l:"ผล",d:"ผล+คำแนะนำ"},{c:7,l:"ลายมือ",d:"ผู้ให้บริการ"}]},
+/* ===== Tabs ===== */
+.tabs{display:flex;gap:3px;margin-bottom:6px;justify-content:center;flex-wrap:wrap}
+.tabs button{padding:6px 14px;border:none;border-radius:6px 6px 0 0;font-size:11px;font-weight:700;cursor:pointer;background:#e8e0f7;color:#6a4fa0;font-family:inherit;transition:all .15s}
+.tabs button.on{background:var(--pu-dark);color:#fff;box-shadow:0 -2px 8px rgba(94,53,177,.25)}
+
+/* ===== Header card ===== */
+.hdr{background:linear-gradient(135deg,#fdf6ff 0%,#fff8f0 100%);border:1.5px solid var(--pu-border);border-radius:10px;padding:8px 12px;margin-bottom:6px;box-shadow:0 2px 8px rgba(126,87,194,.1)}
+.hdr-title{text-align:center;border-bottom:2px solid var(--or-mid);padding-bottom:4px;margin-bottom:6px}
+.hdr-title h2{font-size:13px;font-weight:800;color:var(--or-dark)}
+.hdr-title small{font-size:9px;color:#9e8fb5}
+
+/* Badges */
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:9px;font-weight:800;margin-left:5px}
+.badge.opd{background:#ede7f6;color:#4527a0;border:1px solid #b39ddb}
+.badge.ipd{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
+.badge.psych{background:#f8e8ff;color:#6a1b9a;border:1px solid #ce93d8}
+
+/* Form rows */
+.r{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.r label{font-weight:700;font-size:10px;color:#6a4fa0;white-space:nowrap}
+.r input[type=text],.r input[type=date],.r select{padding:2px 5px;border:1px solid #c5b3e6;border-radius:3px;font-size:10px;font-family:inherit;background:#fdfaff}
+.r input[type=date]{width:112px}
+.rg{display:flex;gap:6px;align-items:center}
+.rg label{font-weight:400;cursor:pointer;display:flex;align-items:center;gap:2px;color:#4a3568}
+.bef{font-size:8.5px;color:var(--or-dark);font-weight:700;margin-left:2px}
+.sep{height:16px;width:1px;background:#d4c5f0;margin:0 2px}
+.cd{background:#fff;border:1px solid #e0d5f5;border-radius:6px;padding:6px 8px;margin-bottom:5px;box-shadow:0 1px 4px rgba(126,87,194,.07)}
+
+/* ===== Score Table ===== */
+table.mt{border-collapse:collapse;width:100%;font-size:10px}
+table.mt th{background:var(--pu-dark);color:#fff;padding:3px;border:1px solid #4527a0;font-size:9px;text-align:center;font-weight:700}
+table.mt th.th2{background:var(--pu-mid)}
+table.mt th.th-sub{background:#fff3e0;color:#bf360c;border:1px solid #ffcc80;font-weight:700}
+table.mt td{border:1px solid #ddd5f5;padding:1px 2px;text-align:center;vertical-align:middle}
+
+/* แถวหมวดหลัก */
+.tr-main{background:#f5f0ff!important}
+.tr-main-na{background:#fffde7!important}
+.tr-main-ms{background:#fce4ec!important}
+/* แถวย่อย label */
+.tr-sub{background:#fdfaff!important}
+
+/* Score cells — pastel */
+.sc{cursor:pointer;font-weight:800;font-size:12px;user-select:none;min-width:24px;transition:filter .1s}
+.sc:hover{filter:brightness(.92)!important}
+.sc.p1{background:#c8e6c9;color:#1b5e20}
+.sc.p0{background:#ffcdd2;color:#b71c1c}
+.sc.pn{background:#fff9c4;color:#e65100}
+.sc.dis{background:#ede7f6;color:#b0a0d0;cursor:default}
+.sc.dis:hover{filter:none!important}
+
+/* NA/Miss toggle */
+.nt{cursor:pointer;font-size:9px;font-weight:700;border:1px solid #c5b3e6;background:#f5f0ff;user-select:none;padding:1px;transition:all .1s}
+.nt:hover{background:var(--na-bg)}
+.nt.na-on{background:var(--na-bg);color:var(--or-dark);border-color:var(--or-border);font-weight:800}
+.nt.ms-on{background:var(--fail-bg);color:var(--fail-t);border-color:var(--fail-b);font-weight:800}
+
+/* Totbar */
+.totbar{display:flex;gap:10px;padding:5px 10px;background:linear-gradient(135deg,var(--pu-light),var(--or-light));border:1px solid #d4b8f0;border-radius:6px;margin-bottom:4px;flex-wrap:wrap;align-items:center}
+.totbar>div{font-size:9px;color:#6a4fa0}.totbar b{font-size:14px}
+
+/* Info bar */
+.info-bar{display:flex;gap:8px;padding:4px 10px;background:linear-gradient(135deg,var(--pu-dark),var(--pu-mid));border-radius:6px;margin-bottom:4px;flex-wrap:wrap;align-items:center}
+.info-bar span{font-size:10px}.info-bar .sep2{color:rgba(255,255,255,.4);margin:0 1px}
+
+/* Buttons */
+.btn{padding:5px 14px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:filter .12s}
+.btn:hover{filter:brightness(.92)}
+.btn-p{background:var(--pu-dark);color:#fff}
+.btn-s{background:#388e3c;color:#fff}
+.btn-o{background:#fff;border:1.5px solid #c5b3e6;color:#6a4fa0}
+
+/* Save file btn */
+.btn-save{background:linear-gradient(135deg,var(--pu-mid),var(--or-mid));color:#fff}
+
+/* Messages */
+.msg{padding:5px;text-align:center;border-radius:5px;font-weight:700;margin-bottom:4px;font-size:11px;background:#ede7f6;color:#4527a0;border:1px solid #b39ddb}
+.msg.w{background:var(--or-light);color:var(--or-dark);border-color:var(--or-border)}
+
+/* Popup */
+.pov{position:fixed;inset:0;background:rgba(46,21,80,.12);z-index:99}
+.pop{position:fixed;z-index:100;background:#fff;border:2px solid var(--pu-mid);border-radius:10px;padding:12px;width:310px;max-width:92vw;box-shadow:0 8px 28px rgba(126,87,194,.22)}
+.pop h4{color:var(--pu-dark);font-size:12px;font-weight:800;margin-bottom:4px}
+.pop-det{white-space:pre-line;font-size:9.5px;color:#4a3568;line-height:1.55;max-height:110px;overflow:auto;padding:4px 6px;background:var(--pu-pale);border:1px solid #d4c5f0;border-radius:4px;margin-bottom:6px}
+.pop-na{font-size:8.5px;color:var(--or-dark);padding:2px 5px;background:var(--or-light);border-radius:3px;margin-bottom:5px;border:1px solid var(--or-border)}
+.pb{padding:5px 12px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;margin:0 2px;opacity:.72;font-family:inherit;transition:all .12s}
+.pb:hover{opacity:1;transform:translateY(-1px)}
+.pb.on{opacity:1;box-shadow:0 0 0 2px var(--pu-dark)}
+.pb-p{background:#c8e6c9;color:#1b5e20;border:1px solid #a5d6a7}
+.pb-f{background:#ffcdd2;color:#b71c1c;border:1px solid #f48fb1}
+.pb-n{background:var(--na-bg);color:var(--or-dark);border:1px solid var(--or-border)}
+
+/* ===== Report table ===== */
+table.rl{border-collapse:collapse;width:100%;font-size:10px}
+table.rl th{background:var(--pu-dark);color:#fff;padding:3px;border:1px solid #4527a0;font-size:9px;text-align:center}
+table.rl td{border:1px solid #e8def8;padding:2px 3px;text-align:center}
+table.rl tr.pass td{background:#f3fff4}
+table.rl tr.fail td{background:#fff5f8}
+.hn-lnk{color:var(--pu-dark);font-weight:700;cursor:pointer;text-decoration:underline}
+.del-btn{padding:1px 5px;border:1px solid var(--fail-b);background:#fff5f8;border-radius:3px;cursor:pointer;font-size:9px;color:var(--fail-t)}
+.del-btn:hover{background:var(--fail-bg)}
+
+/* Status badges */
+.status-pass{display:inline-block;padding:2px 9px;border-radius:10px;background:var(--pass-bg);color:var(--pass-t);font-weight:700;font-size:9.5px;border:1px solid var(--pass-b)}
+.status-fail{display:inline-block;padding:2px 9px;border-radius:10px;background:var(--fail-bg);color:var(--fail-t);font-weight:700;font-size:9.5px;border:1px solid var(--fail-b)}
+
+/* Chart */
+.chart{display:flex;align-items:flex-end;gap:3px;height:120px;padding:4px 0;border-bottom:2px solid #d4c5f0;overflow-x:auto}
+.bar-col{flex:1;min-width:22px;display:flex;flex-direction:column;align-items:center;gap:1px}
+.bar-fill{width:90%;border-radius:3px 3px 0 0}
+.bar-lbl{font-size:7px;color:#9e8fb5;font-weight:600;text-align:center}
+.bar-val{font-size:8px;font-weight:700}
+
+/* Filter + Analysis */
+.filter-box{background:linear-gradient(135deg,#fdf6ff,#fff8f0);border:1.5px solid var(--pu-border);border-radius:8px;padding:8px 12px;margin-bottom:8px}
+.filter-box h3{color:var(--pu-dark);font-size:12px;font-weight:700;margin-bottom:5px}
+.filter-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.filter-row label{font-weight:700;font-size:10px;color:#6a4fa0}
+.ana-box{background:#f5f0ff;border:1px solid #c5b3e6;border-radius:6px;padding:8px 10px;margin-bottom:5px;font-size:10.5px;line-height:1.8}
+.ana-box h4{color:var(--pu-dark);font-size:11px;font-weight:800;margin-bottom:4px}
+.weak-item{background:var(--or-pale);border:1px solid var(--or-border);border-left:4px solid var(--or-mid);border-radius:4px;padding:4px 8px;margin-bottom:4px;font-size:10px}
+.fail-item{background:var(--fail-bg);border:1px solid var(--fail-b);border-radius:3px;padding:3px 6px;margin-bottom:2px;font-size:9.5px}
+.kpi-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.kpi{flex:1;min-width:90px;background:linear-gradient(135deg,#fdf6ff,#fff8f0);border:1px solid #d4c5f0;border-radius:8px;padding:6px 6px;text-align:center;box-shadow:0 1px 4px rgba(126,87,194,.09)}
+.kpi .kl{font-size:8.5px;color:#9e8fb5;margin-bottom:2px}.kpi .kv{font-weight:800;font-size:13px}
+
+/* Report summary title */
+.rpt-title{text-align:center;font-weight:800;font-size:13px;color:var(--pu-dark);border-bottom:2px solid var(--or-mid);padding-bottom:3px;margin-bottom:5px}
+
+@media print{.tabs,.btn,.del-btn,.msg,.pov,.pop,.no-print{display:none!important}.cd,.hdr{box-shadow:none!important;border-color:#ddd!important}}
+</style></head><body><div id="app"><div class="tabs"><button class="on">📝 บันทึก</button><button class="">📊 รายงาน (17)</button><button style="padding: 4px 10px; font-size: 9px; border: 1px solid rgb(197, 179, 230); border-radius: 4px; background: rgb(237, 231, 246); color: rgb(69, 39, 160); cursor: pointer; font-weight: 700; font-family: inherit;">☁️ Sync Cloud</button><span id="syncMsg" style="font-size: 9px; color: rgb(22, 163, 74); align-self: center; margin-left: 4px;"></span></div><div class="hdr"><div class="hdr-title"><small>แบบตรวจประเมินคุณภาพการบันทึกเวชระเบียน MRA Guideline 2563</small><h2>Medical Record Audit Form</h2><span class="badge opd">OPD/ER (8 หมวด × 7 ข้อ)</span></div><div class="r"><label>ประเภท:</label><select style="width: 85px;"><option value="opd">OPD/ER</option><option value="ipd">IPD</option><option value="psych">จิตเวช</option></select><div class="sep"></div><label>โรงพยาบาล:</label><select style="min-width: 90px;"><option value="0">10672 รพ.ลำปาง</option><option value="1">11547 รพ.เวชชารักษ์</option><option value="2">10680 รพ.มะเร็ง</option><option value="3">11146 รพ.แม่เมาะ</option><option value="4">11147 รพ.เกาะคา</option><option value="5">11148 รพ.เสริมงาม</option><option value="6">11149 รพ.งาว</option><option value="7">11150 รพ.แจ้ห่ม</option><option value="8">11151 รพ.วังเหนือ</option><option value="9">11152 รพ.เถิน</option><option value="10">11153 รพ.แม่พริก</option><option value="11">11154 รพ.แม่ทะ</option><option value="12">11155 รพ.สบปราบ</option><option value="13">11156 รพ.ห้างฉัตร</option><option value="14">11157 รพ.เมืองปาน</option><option value="15">40744 รพ.ค่ายสุรศักดิ์</option><option value="16">24711 รพ.เขลางค์นคร</option><option value="17">-- อื่นๆ --</option></select><label>Hcode:</label><input type="text" style="width: 48px;"></div><div class="r"><label>HN:</label><input type="text" placeholder="HN" style="width: 75px; font-weight: 700;"><label>PID:</label><input type="text" placeholder="เลขบัตร 13 หลัก" style="width: 105px;"><label>ชื่อ-สกุล:</label><input type="text" style="width: 140px;"></div><div class="r"><label>Dx:</label><input type="text" placeholder="Principal Diagnosis" style="width: 200px;"><label>แพทย์:</label><input type="text" style="width: 50px;"><label>Ward:</label><select style="width: 60px;"><option value="MRA" selected="true">MRA</option><option value="ER" selected="false">ER</option><option value="MED" selected="false">MED</option><option value="SURG" selected="false">SURG</option><option value="OPD" selected="false">OPD</option><option value="OB" selected="false">OB</option><option value="PEDS" selected="false">PEDS</option><option value="ICU" selected="false">ICU</option><option value="CCU" selected="false">CCU</option><option value="EYE" selected="false">EYE</option><option value="ORTHO" selected="false">ORTHO</option><option value="ENT" selected="false">ENT</option><option value="PT" selected="false">PT</option><option value="DENT" selected="false">DENT</option></select></div><div class="r"><span class="rg"><label><input type="radio" name="ct"> General</label><label><input type="radio" name="ct"> Chronic</label></span><div class="sep"></div><span class="rg"><label><input type="radio" name="atv"> Internal Audit</label><label><input type="radio" name="atv"> External Audit</label></span></div><div class="r"><span style="display: inline-flex; gap: 3px; align-items: center;"><label>Visit Date:</label><input type="date"></span><span style="display: inline-flex; gap: 3px; align-items: center;"><label>Audit Date:</label><input type="date"><span class="bef">(14/06/2569)</span></span></div><div class="r"><span style="display: inline-flex; gap: 3px; align-items: center;"><label>1st Visit:</label><input type="date"></span><span style="display: inline-flex; gap: 3px; align-items: center;"><label>Last Visit:</label><input type="date"></span><div class="sep"></div><span style="display: inline-flex; gap: 3px; align-items: center;"><label>ช่วงเวลา:</label><input type="date"></span><label>ถึง</label><span style="display: inline-flex; gap: 3px; align-items: center;"><input type="date"></span></div></div><div class="cd" style="padding: 4px 8px; margin-bottom: 4px;"><div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><input type="radio" name="fd"><span style="font-size: 10.5px;">ข้อมูลไม่เพียงพอสำหรับการทบทวน</span></div><div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><input type="radio" name="fd"><span style="font-size: 10.5px;">ไม่มีปัญหาสำคัญจากการทบทวน</span></div><div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><input type="radio" name="fd"><span style="font-size: 10.5px;">มีปัญหา (ระบุรายละเอียด)</span></div></div><div style="display: flex; gap: 8px; padding: 3px 8px; background: rgb(30, 58, 95); border-radius: 4px; margin-bottom: 3px; flex-wrap: wrap;"><span style="color: rgb(237, 231, 246); font-weight: 800; font-size: 10px;">ประเภท: OPD</span><span class="sep2">│</span><span style="color: rgb(232, 213, 255); font-size: 10px;">Internal Audit</span><span class="sep2">│</span><span style="color: rgb(255, 216, 168); font-size: 10px;">General Case</span><span style="color: rgba(255, 255, 255, 0.7); font-size: 9px; margin-left: auto;">★ คลิกตัวเลขในช่อง → เลือก ผ่าน/ไม่ผ่าน/NA</span></div><div style="overflow-x: auto; margin-bottom: 4px;"><table class="mt"><thead><tr><th rowspan="2" style="width: 22px;">No</th><th rowspan="2" style="min-width: 120px; text-align: left; padding-left: 3px;">หมวด/ข้อกำหนด</th><th rowspan="2" style="width: 26px;">NA</th><th rowspan="2" style="width: 26px;">Miss</th><th colspan="7" style="background: rgb(255, 243, 224); color: rgb(191, 54, 12); border: 1px solid rgb(255, 204, 128);">เกณฑ์การประเมิน (7 ข้อ)</th><th rowspan="2" style="width: 26px;">เพิ่ม</th><th rowspan="2" style="width: 36px;">คะแนน</th></tr><tr><th class="th-sub" style="width: 28px;">ข้อ 1</th><th class="th-sub" style="width: 28px;">ข้อ 2</th><th class="th-sub" style="width: 28px;">ข้อ 3</th><th class="th-sub" style="width: 28px;">ข้อ 4</th><th class="th-sub" style="width: 28px;">ข้อ 5</th><th class="th-sub" style="width: 28px;">ข้อ 6</th><th class="th-sub" style="width: 28px;">ข้อ 7</th></tr></thead><tbody><tr class="tr-main" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">1</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">1. Patient's Profile</td><td class="nt">-</td><td class="nt">-</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;">-</td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(30, 58, 95); background: rgb(240, 248, 255);">7</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="ชื่อ-สกุล, เพศ, HN, อายุ/วดปเกิด
+↳ ไม่ทราบวดปเกิด → ปีพ.ศ.เท่านั้น" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ชื่อ-สกุล/เพศ/HN/อายุ</td><td title="ที่อยู่ปัจจุบัน + เลขบัตร 13 หลัก
+↳ ต่างด้าว → เลขหนังสือเดินทาง" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ที่อยู่+เลขบัตร13หลัก</td><td title="ชื่อญาติ + ความสัมพันธ์ + ที่อยู่/โทร
+↳ ไม่มีญาติ → ระบุ" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ชื่อ/โทรญาติ</td><td title="ประวัติแพ้ยา + ชื่อยา หรือ NKDA" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">แพ้ยา/สิ่งแปลกปลอม</td><td title="หมู่เลือด หรือ ไม่ทราบ/ไม่เคยตรวจ" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">หมู่เลือด</td><td title="วดป + ชื่อผู้บันทึก (อ่านออกได้)" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">วันที่+ผู้บันทึก</td><td title="ชื่อ-สกุล + HN ต้องมีทุกแผ่น/ทุกหน้า" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ชื่อ/HN ทุกแผ่น</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;"></td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">2</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">2. History</td><td class="nt">-</td><td class="nt">-</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"><span style="cursor: pointer; color: rgb(187, 187, 187); font-weight: 800; font-size: 12px;">0</span></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(30, 58, 95); background: rgb(240, 248, 255);">7</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="CC: อาการ/ปัญหา + ระยะเวลา" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Chief Complaint</td><td title="PI: อาการแสดง + การรักษาที่ได้มาก่อน
+↳ ไม่เคย → ระบุ" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Present Illness</td><td title="โรคประจำตัว + การรักษา
+↳ ไม่มี → ระบุ" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Underlying+Tx ปัจจุบัน</td><td title="ประวัติอดีต + ประวัติครอบครัว
+[NA] ไม่รู้สึกตัว/ซักไม่ได้" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Past Hx+Family Hx</td><td title="แพ้ยา + ชื่อยา หรือ NKDA
+[NA] ไม่รู้สึกตัว" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Drug Allergy</td><td title="หญิง 11-60 ปี → ประจำเดือน
+เด็ก 0-14 ปี → vaccine/growth
+[NA] ไม่เกี่ยว/ไม่รู้สึกตัว" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Social Hx</td><td title="จำนวน ความถี่ ระยะเวลา
+[NA] ไม่รู้สึกตัว/ไม่ใช้" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">สารเสพติด/บุหรี่/สุรา</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;">+1</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">3</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">3. Physical Exam/Diagnosis</td><td class="nt">-</td><td class="nt">-</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;">-</td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(30, 58, 95); background: rgb(240, 248, 255);">7</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="วดป + เวลาตรวจครั้งแรก" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">วันที่และเวลา</td><td title="ดู/เคาะ สอดคล้อง CC
+[NA] ไม่จำเป็น/ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Inspection/เคาะ</td><td title="คลำ/ฟัง สอดคล้อง CC
+[NA] ไม่จำเป็น/ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Palpation/ฟัง</td><td title="Pulse rate, Respiration rate, Temp
+[NA] ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">PR, RR, Temp</td><td title="BP ทุกราย
+[NA] เด็ก&lt;5ปี/ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Blood Pressure</td><td title="น้ำหนักทุกราย, ส่วนสูงเด็กทุกราย
+[NA] ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">น้ำหนัก(ส่วนสูง)</td><td title="Dx เป็น Clinical term (ไม่ใช่ ICD)
+สอดคล้อง Hx + PE" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Diagnosis</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;"></td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">4</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">4. Treatment/Investigation</td><td class="nt">-</td><td class="nt">-</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td class="sc p1">1</td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"><span style="cursor: pointer; color: rgb(187, 187, 187); font-weight: 800; font-size: 12px;">0</span></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(30, 58, 95); background: rgb(240, 248, 255);">7</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="สั่ง + มีผล
+[NA] ไม่จำเป็น" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Lab/X-ray/ตรวจพิเศษ</td><td title="การรักษาสอดคล้อง Diagnosis" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Tx สอดคล้อง Dx</td><td title="ชื่อยา+ความแรง+ขนาด+จำนวน/วัน
+[NA] ไม่สั่งยา" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">สั่งยา (ครบ 4 องค์ประกอบ)</td><td title="คำแนะนำโรค/ปฏิบัติตัว/ยา
+[NA] Admit" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Patient Education</td><td title="ผล Consult
+[NA] ไม่มี Consult" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Consultation</td><td title="แผน/นัด FU
+[NA] Admit" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Follow-up Plan</td><td title="ลายมือ + ชื่อ (อ่านออก)" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(250, 250, 250); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Signature</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;">+1</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main tr-main-na" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">5</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">5. Follow up ครั้งที่ 1<input type="date" style="margin-left: 5px; font-size: 9px; padding: 0px 2px; border: 1px solid rgb(204, 204, 204); border-radius: 2px; width: 90px;"></td><td class="nt na-on">NA</td><td class="nt">-</td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(153, 153, 153);">N</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="ประวัติ/เหตุผลการมา FU" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Hx/เหตุผล FU</td><td title="Dx สอดคล้อง Tx ครั้งก่อน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Diagnosis</td><td title="Vital Signs + PE ที่เกี่ยวข้อง
+[NA] ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">VS+PE</td><td title="ประเมินผล + การรักษาครั้งนี้" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Evaluation+Tx</td><td title="ผล Lab/Imaging
+[NA] ไม่สั่ง" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Lab/Imaging</td><td title="Recommendation
+[NA] Admit/ไม่มี FU" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">คำแนะนำ</td><td title="ลายมือ + ชื่อ" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Signature</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;">+1</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main tr-main-na" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">5b</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">5b. Follow up ครั้งที่ 2<input type="date" style="margin-left: 5px; font-size: 9px; padding: 0px 2px; border: 1px solid rgb(204, 204, 204); border-radius: 2px; width: 90px;"></td><td class="nt na-on">NA</td><td class="nt">-</td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(153, 153, 153);">N</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Hx FU</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Diagnosis</td><td title="[NA] ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">VS+PE</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Eval+Tx</td><td title="[NA] ไม่สั่ง" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Lab</td><td title="[NA] Admit" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">แนะนำ</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Signature</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;">+1</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main tr-main-na" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">5c</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">5c. Follow up ครั้งที่ 3<input type="date" style="margin-left: 5px; font-size: 9px; padding: 0px 2px; border: 1px solid rgb(204, 204, 204); border-radius: 2px; width: 90px;"></td><td class="nt na-on">NA</td><td class="nt">-</td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(153, 153, 153);">N</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Hx FU</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Diagnosis</td><td title="[NA] ญาติรับยาแทน" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">VS+PE</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Eval+Tx</td><td title="[NA] ไม่สั่ง" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Lab</td><td title="[NA] Admit" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">แนะนำ</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Signature</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;">+1</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main tr-main-na" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">6</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">6. Operative Note</td><td class="nt na-on">NA</td><td class="nt">-</td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(153, 153, 153);">N</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ชื่อ-สกุลผู้ป่วย</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Operative Findings</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Operative Procedures</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Anesthesia/วิธียาชา</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ผล+Post-op Dx</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">วันที่+เวลา</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Signature แพทย์ผ่าตัด</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;"></td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main tr-main-na" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">7</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">7. Informed Consent</td><td class="nt na-on">NA</td><td class="nt">-</td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(153, 153, 153);">N</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ชื่อ-สกุลผู้ป่วย</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ลายมือผู้ยินยอม</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ลายมือพยาน</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">เหตุผลการรักษา/ผ่าตัด</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ภาวะแทรกซ้อน</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ลายมือแพทย์ผู้อธิบาย</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">วันที่+เวลา</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;"></td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr><tr class="tr-main tr-main-na" style="border-top: 2px solid rgb(200, 223, 245);"><td style="text-align: center; font-weight: 800; font-size: 10px; background: rgb(30, 58, 95); color: rgb(255, 255, 255);">8</td><td style="text-align: left; font-weight: 800; font-size: 10px; padding-left: 4px; color: rgb(30, 58, 95); white-space: nowrap;">8. Rehabilitation</td><td class="nt na-on">NA</td><td class="nt">-</td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td class="sc dis"></td><td style="border: 1px solid rgb(200, 200, 200); text-align: center; font-size: 10px;"></td><td style="border: 1px solid rgb(200, 200, 200); font-weight: 800; font-size: 13px; text-align: center; color: rgb(153, 153, 153);">N</td></tr><tr class="tr-sub" style="border-bottom: 1px solid rgb(220, 232, 245);"><td style="background: rgb(240, 240, 240); border: 1px solid rgb(224, 224, 224);"></td><td style="text-align: left; font-size: 8.5px; color: rgb(100, 116, 139); padding-left: 8px; font-style: italic;">▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน</td><td colspan="2" style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ชื่อ HN Diagnosis</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Assessment สภาพผู้ป่วย</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Goal การรักษา</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Plan การฟื้นฟู</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">วิธีการรักษา</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">ผล+คำแนะนำ</td><td title="" style="font-size: 8px; color: rgb(71, 85, 105); padding: 1px 2px; background: rgb(245, 245, 245); border: 1px solid rgb(224, 224, 224); white-space: normal; line-height: 1.2; cursor: default;">Signature ผู้ให้บริการ</td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224); font-size: 8px; color: rgb(136, 136, 136); text-align: center;"></td><td style="background: rgb(249, 249, 249); border: 1px solid rgb(224, 224, 224);"></td></tr></tbody></table></div><div class="totbar"><div>Full: <b style="color: rgb(30, 58, 95);">30</b></div><div>Sum: <b style="color: rgb(37, 99, 235);">28</b></div><div>% <b style="color: rgb(46, 125, 50); font-size: 16px;">93.33</b></div></div><div style="display: flex; gap: 4px; justify-content: center; margin: 5px 0px;"><button class="btn btn-p">💾 บันทึก</button><button class="btn btn-s">📝 รายต่อไป</button><button class="btn btn-o">📊 รายงาน</button><button class="btn btn-save">💾 บันทึกไฟล์</button></div><div class="cd" style="padding: 4px 6px;"><div style="font-weight: 800; font-size: 10px; color: var(--pu-dark); margin-bottom: 3px; border-left: 3px solid var(--or-mid); padding-left: 5px;">📋 รายการที่บันทึก (17)</div><table class="rl"><thead><tr><th>#</th><th>รพ.</th><th>HN</th><th>ชื่อ-สกุล</th><th>Dx</th><th>Sum/Full</th><th>%</th><th>Type</th><th>VD</th><th>AD</th><th></th></tr></thead><tbody><tr class="fail"><td>1</td><td style="font-size: 9px; text-align: left;">รพ.แม่พริก</td><td class="hn-lnk">0010936</td><td style="font-size: 9px; text-align: left;">นายห่าน อินทร์จันทร์</td><td style="font-size: 9px; text-align: left;">HT,DLP,Peridontitis</td><td>40/51</td><td><span class="status-fail">78.43%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>2</td><td style="font-size: 9px; text-align: left;">รพ.มะเร็ง</td><td class="hn-lnk">690000711</td><td style="font-size: 9px; text-align: left;">นายคำอ้าย ธิวงศ์</td><td style="font-size: 9px; text-align: left;">CA prostate</td><td>28/41</td><td><span class="status-fail">68.29%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class=""><td>3</td><td style="font-size: 9px; text-align: left;">รพ.มะเร็ง</td><td class="hn-lnk">690000743</td><td style="font-size: 9px; text-align: left;">นายศาศวัต ทายะ</td><td style="font-size: 9px; text-align: left;">CA tongue</td><td>37/44</td><td><span class="status-pass">84.09%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>4</td><td style="font-size: 9px; text-align: left;">รพ.มะเร็ง</td><td class="hn-lnk">690000710</td><td style="font-size: 9px; text-align: left;">นายณัฐพล เมฆกวาว</td><td style="font-size: 9px; text-align: left;">CA </td><td>24/35</td><td><span class="status-fail">68.57%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>5</td><td style="font-size: 9px; text-align: left;">รพ.เกาะคา</td><td class="hn-lnk">6001156</td><td style="font-size: 9px; text-align: left;">น.ส.ภัคจีรา ตะมะพุฒ</td><td style="font-size: 9px; text-align: left;">DM,HT</td><td>28/44</td><td><span class="status-fail">63.64%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>6</td><td style="font-size: 9px; text-align: left;">รพ.เกาะคา</td><td class="hn-lnk">5604013</td><td style="font-size: 9px; text-align: left;">นายจิราวัฒน์ ประมาลย์</td><td style="font-size: 9px; text-align: left;">HT,DLP</td><td>34/46</td><td><span class="status-fail">73.91%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>7</td><td style="font-size: 9px; text-align: left;">รพ.เกาะคา</td><td class="hn-lnk">6508958</td><td style="font-size: 9px; text-align: left;">นายบุญรวย เหล่าจันตา</td><td style="font-size: 9px; text-align: left;">HT,DLP</td><td>26/43</td><td><span class="status-fail">60.47%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>8</td><td style="font-size: 9px; text-align: left;">รพ.แม่พริก</td><td class="hn-lnk">0012701</td><td style="font-size: 9px; text-align: left;">นายผ่าน ต๊ะมาเครือ</td><td style="font-size: 9px; text-align: left;">HT,DLP</td><td>37/49</td><td><span class="status-fail">75.51%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>9</td><td style="font-size: 9px; text-align: left;">รพ.เถิน</td><td class="hn-lnk">0142126</td><td style="font-size: 9px; text-align: left;">ด.ช.ณัฐชานนท์ ขัดสาย </td><td style="font-size: 9px; text-align: left;">common cold</td><td>21/28</td><td><span class="status-fail">75%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">03-02</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>10</td><td style="font-size: 9px; text-align: left;">รพ.แม่พริก</td><td class="hn-lnk">0005108</td><td style="font-size: 9px; text-align: left;">นางจันทร์แดง ขาดทาน</td><td style="font-size: 9px; text-align: left;">HT,MDD,1st DLP</td><td>40/52</td><td><span class="status-fail">76.92%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">-</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>11</td><td style="font-size: 9px; text-align: left;">เวชชารักษ์</td><td class="hn-lnk">6900085</td><td style="font-size: 9px; text-align: left;">น.ส.นภาพร แก้วเมืองมูล</td><td style="font-size: 9px; text-align: left;">Spastic hemiplegia</td><td>19/27</td><td><span class="status-fail">70.37%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">02-09</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>12</td><td style="font-size: 9px; text-align: left;">รพ.เถิน</td><td class="hn-lnk">0107523</td><td style="font-size: 9px; text-align: left;">ด.ญ.จิรัชญา เถินบุรินทร์</td><td style="font-size: 9px; text-align: left;">common cold</td><td>20/28</td><td><span class="status-fail">71.43%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">03-02</td><td style="font-size: 9px;">06-03</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>13</td><td style="font-size: 9px; text-align: left;">รพ.แจ้ห่ม</td><td class="hn-lnk">617</td><td style="font-size: 9px; text-align: left;">นางหน้อย คำเป็ง</td><td style="font-size: 9px; text-align: left;">็Ht,vertigo</td><td>20/29</td><td><span class="status-fail">68.97%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">01-08</td><td style="font-size: 9px;">06-11</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>14</td><td style="font-size: 9px; text-align: left;">รพ.วังเหนือ</td><td class="hn-lnk">57584</td><td style="font-size: 9px; text-align: left;">น.ส.ทองยิ้ม เมล์ทาง</td><td style="font-size: 9px; text-align: left;">DM,DLP</td><td>37/52</td><td><span class="status-fail">71.15%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">11-07</td><td style="font-size: 9px;">06-11</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>15</td><td style="font-size: 9px; text-align: left;">รพ.วังเหนือ</td><td class="hn-lnk">0051619</td><td style="font-size: 9px; text-align: left;">นายพงศ์ธวัฒน์ สว่างวงค์ </td><td style="font-size: 9px; text-align: left;">contusion of lower Leg</td><td>21/29</td><td><span class="status-fail">72.41%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">03-31</td><td style="font-size: 9px;">06-11</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>16</td><td style="font-size: 9px; text-align: left;">รพ.วังเหนือ</td><td class="hn-lnk">56945</td><td style="font-size: 9px; text-align: left;">ด.ช.ชนกันต์ วังท่า</td><td style="font-size: 9px; text-align: left;">FB in ear </td><td>22/28</td><td><span class="status-fail">78.57%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">03-28</td><td style="font-size: 9px;">06-11</td><td><button class="del-btn">🗑</button></td></tr><tr class="fail"><td>17</td><td style="font-size: 9px; text-align: left;">รพ.ลำปาง</td><td class="hn-lnk">312468</td><td style="font-size: 9px; text-align: left;">นายประทีป จรรณสุริยะ</td><td style="font-size: 9px; text-align: left;">NSTEMI</td><td>21/30</td><td><span class="status-fail">70%</span></td><td style="font-size: 9px;"></td><td style="font-size: 9px;">03-30</td><td style="font-size: 9px;">06-11</td><td><button class="del-btn">🗑</button></td></tr></tbody></table></div></div>
+<script>
+const H=[{c:"10672",n:"รพ.ลำปาง"},{c:"11547",n:"รพ.เวชชารักษ์"},{c:"10680",n:"รพ.มะเร็ง"},{c:"11146",n:"รพ.แม่เมาะ"},{c:"11147",n:"รพ.เกาะคา"},{c:"11148",n:"รพ.เสริมงาม"},{c:"11149",n:"รพ.งาว"},{c:"11150",n:"รพ.แจ้ห่ม"},{c:"11151",n:"รพ.วังเหนือ"},{c:"11152",n:"รพ.เถิน"},{c:"11153",n:"รพ.แม่พริก"},{c:"11154",n:"รพ.แม่ทะ"},{c:"11155",n:"รพ.สบปราบ"},{c:"11156",n:"รพ.ห้างฉัตร"},{c:"11157",n:"รพ.เมืองปาน"},{c:"40744",n:"รพ.ค่ายสุรศักดิ์"},{c:"24711",n:"รพ.เขลางค์นคร"},{c:"",n:"-- อื่นๆ --"}];
+const hN=c=>(H.find(x=>x.c===c)||{n:c}).n;
+const W=["MRA","ER","MED","SURG","OPD","OB","PEDS","ICU","CCU","EYE","ORTHO","ENT","PT","DENT"];
+const toBE=iso=>{if(!iso||iso.length<10)return"";const p=iso.split("-");return p[2]+"/"+p[1]+"/"+(+p[0]+543);};
+const TODAY=new Date().toISOString().slice(0,10);
+const GAS_URL="https://script.google.com/macros/s/AKfycbxwK9OipKfnJeCbf62rrLgmlIQqu4r2-0K2NbIkbUvdhYuwp5xjvBGVEGjNvNx7z1iNHw/exec";
+const _ED=[{"id":1780495777613,"hosp":8,"hcode":"11153","hn":"0010936","hname":"นายห่าน อินทร์จันทร์","pid":"3520900163399","dx":"HT,DLP,Peridontitis","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"2026-01-12","lvd":"","af":"2025-12-01","at2":"2026-03-04","hospNm":"รพ.แม่พริก","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":0,"1-3":1,"1-4":1,"1-5":1,"1-7":1,"2-1":1,"2-2":1,"2-3":0,"2-4":1,"2-5":1,"2-7":1,"3-1":1,"3-4":1,"3-5":1,"3-6":1,"3-7":1,"2-6":1,"3-2":1,"3-3":1,"4-1":1,"4-2":1,"4-3":1,"4-4":1,"4-5":1,"4-7":1,"4-6":1,"5-1":1,"5-2":1,"5-3":0,"5-4":0,"5-5":"N","5-6":1,"5-7":0,"5b-1":1,"5b-2":1,"5b-3":0,"5b-4":1,"5b-5":"N","5b-6":1,"5b-7":1,"5c-1":1,"5c-2":1,"5c-3":1,"5c-5":"N","5c-6":1,"5c-7":1},"na":{"5":false,"6":true,"7":true,"8":true,"5b":false,"5c":false},"ms":{},"bn":{},"dd":{},"fuD":{"1":"2026-01-09","2":"2026-02-06","3":"2026-03-04"},"sum":40,"full":51,"pct":78.43,"daStr":"03/06/2569"},{"id":1780493579080,"hosp":15,"hcode":"รพ.มะเร็ง","hn":"690000711","hname":"นายคำอ้าย ธิวงศ์","pid":"3521200239351","dx":"CA prostate","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"","lvd":"","af":"2026-03-12","at2":"2026-03-26","hospNm":"รพ.มะเร็ง","finding":"no_issue","fNote":"","sc":{"1-1":0,"1-2":1,"1-4":1,"1-5":1,"1-7":1,"2-1":1,"2-2":1,"2-3":1,"2-4":1,"2-5":1,"2-7":1,"3-1":0,"3-2":0,"3-3":0,"3-4":1,"3-5":1,"3-6":1,"3-7":0,"4-1":"N","4-2":1,"4-3":"N","4-4":1,"4-5":"N","4-6":0,"4-7":0,"7-1":1,"7-2":1,"7-3":1,"7-4":1,"7-5":1,"7-6":1,"7-7":1,"5-1":0,"5-2":1,"5-3":0,"5-4":1,"5-5":"N","5-6":1,"5-7":0},"na":{"5":false,"6":true,"7":false,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{"1":"2026-03-26"},"sum":28,"full":41,"pct":68.29,"daStr":"03/06/2569"},{"id":1780491837393,"hosp":15,"hcode":"รพ.มะเร็ง","hn":"690000743","hname":"นายศาศวัต ทายะ","pid":"3521200208439","dx":"CA tongue","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"","lvd":"","af":"2026-03-30","at2":"2026-03-31","hospNm":"รพ.มะเร็ง","finding":"no_issue","fNote":"","sc":{"1-1":0,"1-2":1,"1-3":1,"1-4":1,"1-5":1,"1-6":1,"1-7":1,"2-1":0,"2-2":1,"2-3":1,"2-4":1,"2-6":1,"2-7":1,"3-1":0,"3-2":1,"3-3":1,"3-4":1,"2-5":1,"3-5":1,"3-6":1,"3-7":1,"4-1":"N","4-2":1,"4-3":1,"4-4":1,"4-5":1,"4-6":1,"5-1":1,"7-1":1,"7-2":1,"7-3":1,"7-4":1,"7-5":1,"7-6":1,"7-7":0},"na":{"5":false,"6":true,"7":false,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{"1":"2026-03-31"},"sum":37,"full":44,"pct":84.09,"daStr":"03/06/2569"},{"id":1780490217466,"hosp":15,"hcode":"รพ.มะเร็ง","hn":"690000710","hname":"นายณัฐพล เมฆกวาว","pid":"3540100978185","dx":"CA ","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"2026-02-27","lvd":"","af":"2025-02-27","at2":"2026-03-09","hospNm":"รพ.มะเร็ง","finding":"no_issue","fNote":"","sc":{"1-1":0,"4-1":"N","1-2":1,"3-2":1,"1-3":1,"3-3":1,"4-5":"N","4-7":0,"5-1":1,"5-2":1,"5-3":0,"5-4":0,"5-5":1,"5-6":1,"5-7":0,"5b-1":1,"5b-2":1,"5b-3":0,"5b-4":0,"5b-5":"N","5b-6":1,"5b-7":0,"1-4":1,"1-5":1,"1-6":1,"1-7":1,"2-1":0,"2-2":1,"2-3":1,"2-5":1,"2-4":1,"2-6":1,"2-7":1,"3-1":0,"3-4":0,"3-5":1,"3-6":1,"3-7":1,"4-2":1,"4-3":"N","4-4":1,"4-6":1},"na":{"5":false,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{"5b":false},"bn":{},"dd":{},"fuD":{"1":"2026-03-09","2":""},"sum":24,"full":35,"pct":68.57,"daStr":"03/06/2569"},{"id":1780488186971,"hosp":2,"hcode":"11147","hn":"6001156","hname":"น.ส.ภัคจีรา ตะมะพุฒ","pid":"1529900070961","dx":"DM,HT","doc":"","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"2026-02-04","lvd":"","af":"2025-02-04","at2":"2026-04-01","hospNm":"รพ.เกาะคา","finding":"no_issue","fNote":"","sc":{"1-1":1,"4-1":0,"1-2":0,"3-2":0,"1-3":0,"3-3":0,"4-5":"N","4-7":0,"5-1":1,"5-2":1,"5-3":0,"5-4":0,"5-5":1,"5-6":1,"5-7":0,"5b-1":1,"5b-2":1,"5b-3":0,"5b-4":0,"5b-5":"N","5b-6":1,"5b-7":0},"na":{"5":false,"6":true,"7":true,"8":true,"5b":false,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{"1":"2026-03-04","2":"2026-04-01"},"sum":28,"full":44,"pct":63.64,"daStr":"03/06/2569"},{"id":1780484043230,"hosp":2,"hcode":"11147","hn":"5604013","hname":"นายจิราวัฒน์ ประมาลย์","pid":"15201001162328","dx":"HT,DLP","doc":"","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"2026-02-10","lvd":"","af":"2025-02-10","at2":"2026-04-21","hospNm":"รพ.เกาะคา","finding":"no_issue","fNote":"","sc":{"1-2":0,"3-2":0,"1-3":0,"3-3":0,"5-4":0,"5b-4":0,"5b-7":0,"5-7":0},"na":{"5":false,"6":true,"7":true,"8":true,"5b":false,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{"1":"2026-03-17","2":"2026-04-21"},"sum":34,"full":46,"pct":73.91,"daStr":"03/06/2569"},{"id":1780483708544,"hosp":2,"hcode":"11147","hn":"6508958","hname":"นายบุญรวย เหล่าจันตา","pid":"3521200199464","dx":"HT,DLP","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"","lvd":"","af":"2025-12-17","at2":"2026-04-20","hospNm":"รพ.เกาะคา","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":0,"3-2":0,"1-3":0,"3-3":0,"5-3":0,"5b-3":0,"2-4":0,"4-4":0,"4-5":"N","5-5":"N","5b-5":"N","5b-6":0,"5-6":0,"2-7":0,"4-7":0,"5-7":0},"na":{"5":false,"6":true,"7":true,"8":true,"5b":false,"5c":true},"ms":{"5c":false},"bn":{},"dd":{},"fuD":{"1":"2025-02-18","2":"2026-04-20","3":""},"sum":26,"full":43,"pct":60.47,"daStr":"03/06/2569"},{"id":1780482777706,"hosp":8,"hcode":"11153","hn":"0012701","hname":"นายผ่าน ต๊ะมาเครือ","pid":"3520900150157","dx":"HT,DLP","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"2025-06-09","lvd":"","af":"2025-06-09","at2":"2026-03-04","hospNm":"รพ.แม่พริก","finding":"no_issue","fNote":"","sc":{"3-2":0,"3-3":0,"4-3":1,"5-3":0,"5-7":0,"1-1":1,"1-2":0,"1-3":0,"1-4":1,"1-5":1,"1-6":1,"1-7":1,"2-1":1,"2-2":1,"2-3":1,"2-4":1,"2-5":1,"2-6":"N","2-7":1,"3-1":0,"3-4":1,"3-5":1,"3-6":1,"3-7":1,"4-1":"N","4-2":1,"4-4":1,"5-6":1,"4-5":"N","4-6":1,"4-7":1,"5-1":1,"5-2":1,"5-4":1,"5-5":"N","5b-1":1,"5b-2":1,"5b-3":1,"5b-4":1,"5b-5":"N","5b-6":1,"5b-7":1,"5c-1":1,"5c-2":1,"5c-3":1,"5c-4":1,"5c-5":1,"5c-6":1,"5c-7":1},"na":{"5":false,"6":true,"7":true,"8":true,"5b":false,"5c":false},"ms":{},"bn":{},"dd":{},"fuD":{"1":"2025-08-18","2":"2025-12-03","3":"2026-03-04"},"sum":37,"full":49,"pct":75.51,"daStr":"03/06/2569"},{"id":1780480807747,"hosp":7,"hcode":"11152","hn":"0142126","hname":"ด.ช.ณัฐชานนท์ ขัดสาย ","pid":"1528900068621","dx":"common cold","doc":"ไม่มี","at":"external","ct":"general","ward":"MRA","vd":"2026-03-02","da":"2026-06-03","fvd":"","lvd":"","af":"","at2":"","hospNm":"รพ.เถิน","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":0,"1-3":0,"1-5":1,"1-6":1,"1-7":1,"2-1":1,"2-2":1,"2-3":1,"2-4":0,"2-5":1,"2-6":1,"2-7":1,"3-1":1,"3-2":1,"3-3":1,"3-4":1,"3-5":1,"3-6":1,"3-7":1,"4-1":"N","4-2":1,"4-3":1,"4-4":0,"4-6":1,"4-7":0,"5-1":1,"5-2":1,"5-3":0,"5-4":1,"5-5":1,"5-6":1,"5-7":0,"5b-1":1,"5b-2":1,"5b-3":0,"5b-4":1,"5b-5":1,"5b-6":1,"5b-7":0,"1-4":1,"4-5":"N"},"na":{"5":true,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{"5":false,"5b":false},"bn":{},"dd":{},"fuD":{"1":"2026-03-17","2":"2026-04-21"},"sum":21,"full":28,"pct":75,"daStr":"03/06/2569"},{"id":1780480628595,"hosp":8,"hcode":"11153","hn":"0005108","hname":"นางจันทร์แดง ขาดทาน","pid":"3520900101571","dx":"HT,MDD,1st DLP","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"","da":"2026-06-03","fvd":"2025-07-23","lvd":"","af":"2025-07-23","at2":"2026-03-04","hospNm":"รพ.แม่พริก","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":0,"1-3":0,"1-4":1,"1-5":1,"1-6":1,"1-7":1,"2-1":1,"2-2":1,"2-3":1,"2-4":1,"2-5":1,"2-6":1,"2-7":1,"3-1":1,"3-2":0,"3-3":0,"3-4":1,"3-5":1,"3-6":1,"3-7":1,"4-1":1,"4-2":1,"4-3":1,"4-5":"N","4-6":1,"4-7":1,"5-1":1,"5-2":1,"5-3":0,"5-4":1,"5-5":"N","5-6":1,"5-7":1,"5b-1":1,"5b-2":1,"5b-3":1,"5b-4":1,"5b-6":1,"5b-5":1,"5b-7":0,"5c-1":1,"5c-2":1,"5c-3":1,"5c-4":1,"5c-5":1,"5c-6":1,"5c-7":0},"na":{"5":false,"6":true,"7":true,"8":true,"5b":false,"5c":false},"ms":{"5":false},"bn":{},"dd":{},"fuD":{"1":"2025-10-01","2":"2025-12-03","3":"2026-03-04"},"sum":40,"full":52,"pct":76.92,"daStr":"03/06/2569"},{"id":1780478734579,"hosp":15,"hcode":"เวชชารักษ์","hn":"6900085","hname":"น.ส.นภาพร แก้วเมืองมูล","pid":"3520100530885","dx":"Spastic hemiplegia","doc":"ไม่มี","at":"external","ct":"chronic","ward":"MRA","vd":"2026-02-09","da":"2026-06-03","fvd":"","lvd":"","af":"","at2":"","hospNm":"เวชชารักษ์","finding":"no_issue","fNote":"","sc":{"1-1":0,"1-2":1,"1-3":1,"1-4":0,"1-5":1,"1-6":1,"1-7":1,"2-1":1,"2-2":1,"2-3":1,"2-4":1,"2-5":0,"2-6":"N","2-7":0,"3-1":1,"3-2":1,"3-3":1,"3-4":1,"3-6":1,"3-7":1,"4-1":1,"4-2":1,"4-3":"N","4-4":0,"4-5":"N","4-6":1,"4-7":0},"na":{"5":true,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{},"sum":19,"full":27,"pct":70.37,"daStr":"03/06/2569"},{"id":1780477134393,"hosp":7,"hcode":"11152","hn":"0107523","hname":"ด.ญ.จิรัชญา เถินบุรินทร์","pid":"1529500037100","dx":"common cold","doc":"ไม่มี","at":"external","ct":"general","ward":"MRA","vd":"2026-03-02","da":"2026-06-03","fvd":"","lvd":"","af":"","at2":"","hospNm":"รพ.เถิน","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":0,"1-3":0,"1-4":1,"1-5":1,"1-6":1,"1-7":1,"2-1":1,"2-2":1,"2-3":1,"2-4":0,"2-5":1,"2-6":1,"2-7":1,"3-1":1,"3-2":1,"3-3":1,"3-4":1,"3-5":1,"3-6":1,"3-7":1,"4-1":"N","4-2":1,"4-3":1,"4-4":0,"4-5":"N","4-6":0,"4-7":0},"na":{"5":true,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{},"sum":20,"full":28,"pct":71.43,"daStr":"03/06/2569"},{"id":1781165793032,"hosp":5,"hcode":"11150","hn":"617","hname":"นางหน้อย คำเป็ง","pid":"3520600215512","dx":"็Ht,vertigo","doc":"ว36592","at":"external","ct":"chronic","ward":"MRA","vd":"2026-01-08","da":"2026-06-11","fvd":"","lvd":"","af":"","at2":"","hospNm":"รพ.แจ้ห่ม","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":1,"1-3":0,"1-4":1,"1-6":1,"1-7":1,"2-1":0,"2-2":1,"2-3":1,"2-4":1,"2-5":1,"3-6":1,"2-6":1,"2-7":1,"3-1":0,"3-2":0,"3-3":0,"3-4":1,"3-5":1,"3-7":1,"4-1":0,"4-2":0,"4-3":1,"4-4":1,"4-5":"N","4-6":1,"4-7":1},"na":{"5":true,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{},"sum":20,"full":29,"pct":68.97,"daStr":"11/06/2569"},{"id":1781168203615,"hosp":6,"hcode":"11151","hn":"57584","hname":"น.ส.ทองยิ้ม เมล์ทาง","pid":"3520700270256","dx":"DM,DLP","doc":"ว36253","at":"external","ct":"chronic","ward":"MRA","vd":"2025-11-07","da":"2026-06-11","fvd":"","lvd":"","af":"","at2":"","hospNm":"รพ.วังเหนือ","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":1,"1-3":0,"1-4":1,"1-5":1,"1-6":1,"1-7":1,"2-1":1,"2-2":1,"2-3":0,"2-4":0,"2-5":1,"2-6":1,"2-7":1,"3-1":0,"3-2":0,"3-3":0,"3-5":1,"3-6":1,"3-7":1,"4-1":"N","4-2":1,"4-3":1,"4-4":1,"4-5":"N","4-6":1,"4-7":1,"5-1":1,"5-2":0,"5-3":1,"5-4":1,"5-5":1,"5-6":1,"5-7":1,"5b-1":1,"5b-2":1,"5b-3":0,"5b-4":1,"5b-5":1,"5b-6":1,"5b-7":1,"5c-1":1,"5c-2":0,"5c-3":0,"3-4":1},"na":{"5":false,"6":true,"7":true,"8":true,"5b":false,"5c":false},"ms":{},"bn":{},"dd":{},"fuD":{"1":"2025-11-07","2":"2026-01-09","3":"2026-03-28"},"sum":37,"full":52,"pct":71.15,"daStr":"11/06/2569"},{"id":1781168820142,"hosp":6,"hcode":"11151","hn":"0051619","hname":"นายพงศ์ธวัฒน์ สว่างวงค์ ","pid":"1800801532290","dx":"contusion of lower Leg","doc":"ว36253","at":"external","ct":"general","ward":"MRA","vd":"2026-03-31","da":"2026-06-11","fvd":"","lvd":"","af":"","at2":"","hospNm":"รพ.วังเหนือ","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":1,"1-3":0,"2-1":1,"2-2":1,"2-3":0,"2-4":0,"2-5":1,"2-6":0,"2-7":0,"3-1":1,"3-2":1,"3-3":0,"3-4":1,"3-5":1,"3-6":1,"3-7":1,"4-1":"N","4-2":1,"4-3":1,"4-4":1,"4-6":1,"4-7":1},"na":{"5":true,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{},"sum":21,"full":29,"pct":72.41,"daStr":"11/06/2569"},{"id":1781170290661,"hosp":6,"hcode":"11151","hn":"56945","hname":"ด.ช.ชนกันต์ วังท่า","pid":"1529000419311","dx":"FB in ear ","doc":"ว36253","at":"external","ct":"general","ward":"MRA","vd":"2026-03-28","da":"2026-06-11","fvd":"","lvd":"","af":"","at2":"","hospNm":"รพ.วังเหนือ","finding":"no_issue","fNote":"","sc":{"1-1":1,"1-2":1,"1-3":1,"1-4":1,"1-5":1,"1-6":1,"1-7":1,"2-1":1,"2-2":1,"2-3":0,"2-4":0,"2-5":1,"2-6":1,"2-7":1,"3-1":1,"3-2":1,"3-3":0,"3-4":1,"3-5":1,"3-6":1,"3-7":1,"4-1":"N","4-2":1,"4-3":1,"4-4":1,"4-5":"N","4-6":1,"4-7":0},"na":{"5":true,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{},"sum":22,"full":28,"pct":78.57,"daStr":"11/06/2569"},{"id":1781201214898,"hosp":0,"hcode":"10672","hn":"312468","hname":"นายประทีป จรรณสุริยะ","pid":"3520101288531","dx":"NSTEMI","doc":"","at":"external","ct":"general","ward":"MRA","vd":"2026-03-30","da":"2026-06-11","fvd":"","lvd":"","af":"2026-03-30","at2":"","hospNm":"รพ.ลำปาง","finding":"none","fNote":"","sc":{"4-1":0,"1-4":0,"2-4":0,"1-5":0,"2-6":0,"2-7":0,"4-7":0},"na":{"5":true,"6":true,"7":true,"8":true,"5b":true,"5c":true},"ms":{},"bn":{},"dd":{},"fuD":{},"sum":21,"full":30,"pct":70,"daStr":"11/06/2569"}];
+
+const OPD_R=[
+{no:1,nm:"1. Patient's Profile",ac:7,dNA:false,hB:false,s:[
+{l:"ชื่อ-สกุล/เพศ/HN/อายุ",d:"ชื่อ-สกุล, เพศ, HN, อายุ/วดปเกิด\n↳ ไม่ทราบวดปเกิด → ปีพ.ศ.เท่านั้น"},
+{l:"ที่อยู่+เลขบัตร13หลัก",d:"ที่อยู่ปัจจุบัน + เลขบัตร 13 หลัก\n↳ ต่างด้าว → เลขหนังสือเดินทาง"},
+{l:"ชื่อ/โทรญาติ",d:"ชื่อญาติ + ความสัมพันธ์ + ที่อยู่/โทร\n↳ ไม่มีญาติ → ระบุ"},
+{l:"แพ้ยา/สิ่งแปลกปลอม",d:"ประวัติแพ้ยา + ชื่อยา หรือ NKDA"},
+{l:"หมู่เลือด",d:"หมู่เลือด หรือ ไม่ทราบ/ไม่เคยตรวจ"},
+{l:"วันที่+ผู้บันทึก",d:"วดป + ชื่อผู้บันทึก (อ่านออกได้)"},
+{l:"ชื่อ/HN ทุกแผ่น",d:"ชื่อ-สกุล + HN ต้องมีทุกแผ่น/ทุกหน้า"}
+]},
+{no:2,nm:"2. History",ac:7,dNA:false,hB:true,bD:"+1 ถ้า PI ครบ 5W2H",s:[
+{l:"Chief Complaint",d:"CC: อาการ/ปัญหา + ระยะเวลา"},
+{l:"Present Illness",d:"PI: อาการแสดง + การรักษาที่ได้มาก่อน\n↳ ไม่เคย → ระบุ"},
+{l:"Underlying+Tx ปัจจุบัน",d:"โรคประจำตัว + การรักษา\n↳ ไม่มี → ระบุ"},
+{l:"Past Hx+Family Hx",d:"ประวัติอดีต + ประวัติครอบครัว\n[NA] ไม่รู้สึกตัว/ซักไม่ได้"},
+{l:"Drug Allergy",d:"แพ้ยา + ชื่อยา หรือ NKDA\n[NA] ไม่รู้สึกตัว"},
+{l:"Social Hx",d:"หญิง 11-60 ปี → ประจำเดือน\nเด็ก 0-14 ปี → vaccine/growth\n[NA] ไม่เกี่ยว/ไม่รู้สึกตัว"},
+{l:"สารเสพติด/บุหรี่/สุรา",d:"จำนวน ความถี่ ระยะเวลา\n[NA] ไม่รู้สึกตัว/ไม่ใช้"}
+]},
+{no:3,nm:"3. Physical Exam/Diagnosis",ac:7,dNA:false,hB:false,s:[
+{l:"วันที่และเวลา",d:"วดป + เวลาตรวจครั้งแรก"},
+{l:"Inspection/เคาะ",d:"ดู/เคาะ สอดคล้อง CC\n[NA] ไม่จำเป็น/ญาติรับยาแทน"},
+{l:"Palpation/ฟัง",d:"คลำ/ฟัง สอดคล้อง CC\n[NA] ไม่จำเป็น/ญาติรับยาแทน"},
+{l:"PR, RR, Temp",d:"Pulse rate, Respiration rate, Temp\n[NA] ญาติรับยาแทน"},
+{l:"Blood Pressure",d:"BP ทุกราย\n[NA] เด็ก<5ปี/ญาติรับยาแทน"},
+{l:"น้ำหนัก(ส่วนสูง)",d:"น้ำหนักทุกราย, ส่วนสูงเด็กทุกราย\n[NA] ญาติรับยาแทน"},
+{l:"Diagnosis",d:"Dx เป็น Clinical term (ไม่ใช่ ICD)\nสอดคล้อง Hx + PE"}
+]},
+{no:4,nm:"4. Treatment/Investigation",ac:7,dNA:false,hB:true,bD:"+1 ระบุเหตุผลยานอกบัญชี",s:[
+{l:"Lab/X-ray/ตรวจพิเศษ",d:"สั่ง + มีผล\n[NA] ไม่จำเป็น"},
+{l:"Tx สอดคล้อง Dx",d:"การรักษาสอดคล้อง Diagnosis"},
+{l:"สั่งยา (ครบ 4 องค์ประกอบ)",d:"ชื่อยา+ความแรง+ขนาด+จำนวน/วัน\n[NA] ไม่สั่งยา"},
+{l:"Patient Education",d:"คำแนะนำโรค/ปฏิบัติตัว/ยา\n[NA] Admit"},
+{l:"Consultation",d:"ผล Consult\n[NA] ไม่มี Consult"},
+{l:"Follow-up Plan",d:"แผน/นัด FU\n[NA] Admit"},
+{l:"Signature",d:"ลายมือ + ชื่อ (อ่านออก)"}
+]},
+{no:5,nm:"5. Follow up ครั้งที่ 1",ac:7,dNA:true,hB:true,fu:1,bD:"+1 ยานอกบัญชี",s:[
+{l:"Hx/เหตุผล FU",d:"ประวัติ/เหตุผลการมา FU"},
+{l:"Diagnosis",d:"Dx สอดคล้อง Tx ครั้งก่อน"},
+{l:"VS+PE",d:"Vital Signs + PE ที่เกี่ยวข้อง\n[NA] ญาติรับยาแทน"},
+{l:"Evaluation+Tx",d:"ประเมินผล + การรักษาครั้งนี้"},
+{l:"Lab/Imaging",d:"ผล Lab/Imaging\n[NA] ไม่สั่ง"},
+{l:"คำแนะนำ",d:"Recommendation\n[NA] Admit/ไม่มี FU"},
+{l:"Signature",d:"ลายมือ + ชื่อ"}
+]},
+{no:"5b",nm:"5b. Follow up ครั้งที่ 2",ac:7,dNA:true,hB:true,fu:2,bD:"+1 ยานอกบัญชี",s:[
+{l:"Hx FU"},{l:"Diagnosis"},{l:"VS+PE",d:"[NA] ญาติรับยาแทน"},
+{l:"Eval+Tx"},{l:"Lab",d:"[NA] ไม่สั่ง"},{l:"แนะนำ",d:"[NA] Admit"},{l:"Signature"}
+]},
+{no:"5c",nm:"5c. Follow up ครั้งที่ 3",ac:7,dNA:true,hB:true,fu:3,bD:"+1 ยานอกบัญชี",s:[
+{l:"Hx FU"},{l:"Diagnosis"},{l:"VS+PE",d:"[NA] ญาติรับยาแทน"},
+{l:"Eval+Tx"},{l:"Lab",d:"[NA] ไม่สั่ง"},{l:"แนะนำ",d:"[NA] Admit"},{l:"Signature"}
+]},
+{no:6,nm:"6. Operative Note",ac:7,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุลผู้ป่วย"},{l:"Operative Findings"},{l:"Operative Procedures"},
+{l:"Anesthesia/วิธียาชา"},{l:"ผล+Post-op Dx"},{l:"วันที่+เวลา"},{l:"Signature แพทย์ผ่าตัด"}
+]},
+{no:7,nm:"7. Informed Consent",ac:7,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุลผู้ป่วย"},{l:"ลายมือผู้ยินยอม"},{l:"ลายมือพยาน"},
+{l:"เหตุผลการรักษา/ผ่าตัด"},{l:"ภาวะแทรกซ้อน"},{l:"ลายมือแพทย์ผู้อธิบาย"},{l:"วันที่+เวลา"}
+]},
+{no:8,nm:"8. Rehabilitation",ac:7,dNA:true,hB:false,s:[
+{l:"ชื่อ HN Diagnosis"},{l:"Assessment สภาพผู้ป่วย"},{l:"Goal การรักษา"},
+{l:"Plan การฟื้นฟู"},{l:"วิธีการรักษา"},{l:"ผล+คำแนะนำ"},{l:"Signature ผู้ให้บริการ"}
+]}
+];
+const IPD_R=[
+{no:1,nm:"1. Discharge Summary: Dx./OP",ac:9,dNA:false,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN",d:"ชื่อ-สกุล, HN, AN (Admit Number)"},
+{l:"วดป Admit/Discharge",d:"วันที่ Admit และ Discharge"},
+{l:"Principal Diagnosis",d:"Dx หลักที่ทำให้ Admit (Clinical term)"},
+{l:"Co-morbidity/Complication",d:"โรคร่วม หรือ ภาวะแทรกซ้อน"},
+{l:"Operative/Procedure",d:"รายการผ่าตัด/หัตถการ\n[NA] ไม่มีผ่าตัด"},
+{l:"Lab/Imaging สำคัญ",d:"ผลตรวจสำคัญที่สนับสนุน Dx"},
+{l:"สรุปการรักษา",d:"สรุปการรักษาตลอด Admit"},
+{l:"Discharge Plan",d:"แผนจำหน่าย/คำแนะนำ/นัด FU"},
+{l:"Signature แพทย์",d:"ลายมือ + ชื่อแพทย์ผู้รับผิดชอบ"}
+]},
+{no:2,nm:"2. Discharge Summary: Other",ac:9,dNA:false,hB:false,s:[
+{l:"Hcode/ชื่อ รพ.",d:"รหัสและชื่อสถานบริการ"},
+{l:"แพทย์ผู้รักษา",d:"ชื่อแพทย์ผู้รับผิดชอบ"},
+{l:"สิทธิ์การรักษา",d:"UC/ประกันสังคม/ข้าราชการ/ชำระเงิน"},
+{l:"Ward/ห้อง",d:"Ward และห้องที่นอน"},
+{l:"เลขบัตร/PID",d:"เลขบัตรประชาชน 13 หลัก"},
+{l:"Condition at Discharge",d:"สภาพผู้ป่วยขณะจำหน่าย\n(Good/Fair/Poor/Dead)"},
+{l:"LOS (จำนวนวันนอน)",d:"จำนวนวันนอน (Length of Stay)"},
+{l:"ที่อยู่/โทรผู้ป่วย",d:"ที่อยู่และเบอร์โทรศัพท์"},
+{l:"วันที่บันทึก+Signature",d:"วดปบันทึก + ลายมือแพทย์"}
+]},
+{no:3,nm:"3. Informed Consent",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุลผู้ป่วย",d:"ชื่อ-สกุลที่ถูกต้อง"},
+{l:"HN/AN",d:"HN และ AN"},
+{l:"ลายมือผู้ยินยอม",d:"ลายมือชื่อผู้ป่วยหรือผู้แทน"},
+{l:"ลายมือพยาน",d:"ลายมือชื่อพยานอย่างน้อย 1 คน"},
+{l:"ข้อบ่งชี้/วิธีการ",d:"เหตุผลและวิธีการรักษา/ผ่าตัด"},
+{l:"ภาวะแทรกซ้อน",d:"ภาวะแทรกซ้อนที่อาจเกิดขึ้น"},
+{l:"ทางเลือกอื่น",d:"ทางเลือกการรักษาอื่น"},
+{l:"ลายมือแพทย์ผู้อธิบาย",d:"ลายมือ + ชื่อ + ตำแหน่งแพทย์"},
+{l:"วันที่+เวลา",d:"วดป + เวลาที่ลงนาม (ก่อนผ่าตัด)"}
+]},
+{no:4,nm:"4. History",ac:9,dNA:false,hB:true,bD:"+1 ถ้า PI ครบ 5W2H",s:[
+{l:"CC",d:"Chief Complaint + ระยะเวลา"},
+{l:"PI",d:"Present Illness + การรักษาก่อน Admit"},
+{l:"Underlying+Tx",d:"โรคประจำตัว + การรักษาปัจจุบัน\n↳ ไม่มี → ระบุ"},
+{l:"Past Hx+Family Hx",d:"ประวัติอดีต + ครอบครัว\n[NA] ไม่รู้สึกตัว"},
+{l:"Drug Allergy",d:"แพ้ยา + ชื่อ หรือ NKDA\n[NA] ไม่รู้สึกตัว"},
+{l:"Social Hx",d:"ประวัติส่วนตัว/ครอบครัว\n[NA] ไม่เกี่ยว/ไม่รู้สึกตัว"},
+{l:"สารเสพติด",d:"บุหรี่/สุรา จำนวน ความถี่\n[NA] ไม่ใช้/ไม่รู้สึกตัว"},
+{l:"Review of Systems",d:"ระบบอื่นที่เกี่ยวข้อง\n[NA] ไม่จำเป็น"},
+{l:"วันที่+Signature",d:"วดป + ลายมือแพทย์"}
+]},
+{no:5,nm:"5. Physical Exam",ac:9,dNA:false,hB:false,s:[
+{l:"วันที่และเวลา",d:"วดป + เวลาตรวจแรกรับ"},
+{l:"General appearance",d:"ลักษณะทั่วไป/ระดับความรู้สึกตัว"},
+{l:"PR, RR, Temp",d:"Pulse rate, Respiration rate, Temperature"},
+{l:"BP",d:"Blood Pressure"},
+{l:"น้ำหนัก(ส่วนสูง)",d:"น้ำหนัก/ส่วนสูง\n[NA] วิกฤต/ซักไม่ได้"},
+{l:"Systemic PE",d:"ตรวจร่างกายตามระบบ สอดคล้อง CC"},
+{l:"Neurological",d:"ระบบประสาท (ถ้าเกี่ยวข้อง)\n[NA] ไม่เกี่ยว"},
+{l:"Diagnosis (Provisional)",d:"Provisional Dx หรือ Differential Dx"},
+{l:"Signature",d:"ลายมือ + ชื่อแพทย์"}
+]},
+{no:6,nm:"6. Progress Note",ac:9,dNA:false,hB:false,s:[
+{l:"วันที่และเวลา",d:"วดป + เวลาทุกครั้งที่บันทึก"},
+{l:"Subjective",d:"อาการ/ความเป็นไปของผู้ป่วย"},
+{l:"Objective/VS",d:"Vital signs + PE ที่สำคัญ"},
+{l:"Assessment",d:"การประเมิน/Dx"},
+{l:"Plan",d:"แผนการรักษา/เปลี่ยนแปลง Tx"},
+{l:"Lab/Imaging",d:"ผลตรวจที่ได้รับ\n[NA] ไม่สั่ง"},
+{l:"Response to Tx",d:"การตอบสนองต่อการรักษา"},
+{l:"ครอบคลุมทุกวัน/ทุก Shift",d:"บันทึกทุกวันหรือทุก Shift ที่มีเหตุการณ์"},
+{l:"Signature",d:"ลายมือ + ชื่อ ทุกครั้ง"}
+]},
+{no:7,nm:"7. Consultation Record",ac:9,dNA:true,hB:false,s:[
+{l:"วันที่+เวลา Consult",d:"วดป + เวลาที่ส่ง Consult"},
+{l:"เหตุผล/ปัญหา",d:"ระบุปัญหา/คำถามที่ Consult"},
+{l:"ประวัติ/PE สำคัญ",d:"ข้อมูลสำคัญที่ส่งให้ผู้รับ Consult"},
+{l:"Lab/Imaging",d:"ผลตรวจที่เกี่ยวข้อง\n[NA] ไม่มี"},
+{l:"ผลการตอบ Consult",d:"คำแนะนำจากผู้รับ Consult"},
+{l:"Dx จากผู้รับ Consult",d:"Diagnosis หรือ Impression"},
+{l:"แผนการรักษา",d:"Plan จากผู้รับ Consult"},
+{l:"วันที่+เวลาตอบ",d:"วดป + เวลาที่ตอบ Consult"},
+{l:"Signature ผู้รับ Consult",d:"ลายมือ + ชื่อ + สาขา"}
+]},
+{no:8,nm:"8. Anesthetic Record",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN",d:"ข้อมูลผู้ป่วย"},
+{l:"Pre-anesthetic assessment",d:"การประเมินก่อนให้ยาชา (ASA class)"},
+{l:"วิธีการระงับความรู้สึก",d:"ชนิดและวิธี Anesthesia"},
+{l:"ยาที่ใช้+ขนาด",d:"ชื่อยา + ขนาด + เวลาที่ให้"},
+{l:"VS during operation",d:"Vital signs ระหว่าง Op"},
+{l:"Fluid/Blood",d:"IV fluid + Blood product ที่ให้"},
+{l:"Complication",d:"ภาวะแทรกซ้อนระหว่าง Op\n[NA] ไม่มี"},
+{l:"Recovery",d:"สภาพหลัง Op / Recovery"},
+{l:"Signature วิสัญญี",d:"ลายมือ + ชื่อวิสัญญีแพทย์/พยาบาล"}
+]},
+{no:9,nm:"9. Operative Note",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN",d:"ข้อมูลผู้ป่วย"},
+{l:"วดป+เวลาผ่าตัด",d:"วดป + เวลาเริ่ม-สิ้นสุด"},
+{l:"ทีมผ่าตัด",d:"ชื่อแพทย์ผ่าตัด + ผู้ช่วย"},
+{l:"Pre-op/Post-op Dx",d:"Diagnosis ก่อนและหลังผ่าตัด"},
+{l:"Operative Procedures",d:"วิธีการผ่าตัดและหัตถการ"},
+{l:"Operative Findings",d:"สิ่งที่พบจากการผ่าตัด"},
+{l:"Specimen",d:"Specimen ที่ส่งตรวจ\n[NA] ไม่มี"},
+{l:"Blood loss/Fluid",d:"ปริมาณ Estimated blood loss + IV fluid"},
+{l:"Signature แพทย์ผ่าตัด",d:"ลายมือ + ชื่อแพทย์ผ่าตัด"}
+]},
+{no:10,nm:"10. Labour Record",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN",d:"ข้อมูลผู้ป่วย"},
+{l:"GA+ประวัติสูติ",d:"Gestational age + Obstetric history"},
+{l:"วดป+เวลาเจ็บครรภ์",d:"เวลาเริ่มเจ็บครรภ์"},
+{l:"Progress of Labour",d:"การดำเนินการคลอด (Partograph)"},
+{l:"Fetal heart rate",d:"การติดตาม FHR"},
+{l:"Complication",d:"ภาวะแทรกซ้อน\n[NA] ไม่มี"},
+{l:"วิธีคลอด",d:"Normal/Forceps/Vacuum/C-section"},
+{l:"ผลการคลอด",d:"เพศ/น้ำหนักทารก/Apgar score"},
+{l:"Signature",d:"ลายมือ + ชื่อ"}
+]},
+{no:11,nm:"11. Rehabilitation Record",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ HN AN Diagnosis",d:"ข้อมูลผู้ป่วย + Diagnosis"},
+{l:"Assessment สภาพ",d:"ประเมินสภาพปัจจุบัน"},
+{l:"Functional status",d:"ระดับความสามารถในการทำกิจวัตร (ADL)"},
+{l:"Goal การรักษา",d:"Short/Long term goal"},
+{l:"Plan การฟื้นฟู",d:"แผนการฟื้นฟูสมรรถภาพ"},
+{l:"วิธีการรักษา",d:"หัตถการ/อุปกรณ์ที่ใช้"},
+{l:"Progress",d:"ความก้าวหน้า/การตอบสนอง"},
+{l:"ผล+คำแนะนำ",d:"ผลการรักษา + คำแนะนำ"},
+{l:"Signature",d:"ลายมือ + ชื่อผู้ให้บริการ"}
+]},
+{no:12,nm:"12. Nurses' Note",ac:9,dNA:false,hB:false,s:[
+{l:"วดป+เวลา",d:"วดป + เวลาทุกการบันทึก"},
+{l:"การประเมิน (Assessment)",d:"ประเมินสภาพ/อาการ/VS"},
+{l:"การพยาบาล (Nursing Dx)",d:"ปัญหาการพยาบาล"},
+{l:"การปฏิบัติการพยาบาล",d:"กิจกรรมการพยาบาลที่ทำ"},
+{l:"การให้ยา",d:"ยาที่ให้ + เวลา + ปฏิกิริยา"},
+{l:"IV Fluid",d:"IV fluid ที่ให้ + อัตราหยด\n[NA] ไม่มี IV"},
+{l:"ผลการพยาบาล",d:"ผลลัพธ์ / การตอบสนอง"},
+{l:"การสื่อสาร/Refer",d:"การรายงานแพทย์ / Refer\n[NA] ไม่มี"},
+{l:"Signature",d:"ลายมือ + ชื่อพยาบาล"}
+]}
 ];
 
-// EMBEDDED DATA (auto-filled when saving with data)
-const _ED=[];
 
-// ===== GOOGLE SHEETS SYNC =====
-// ★★★ วาง URL ที่ได้จาก Deploy GAS ตรงนี้ ★★★
-// ตัวอย่าง: const GAS_URL = "https://script.google.com/macros/s/AKfycbx.../exec";
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxwK9OipKfnJeCbf62rrLgmlIQqu4r2-0K2NbIkbUvdhYuwp5xjvBGVEGjNvNx7z1iNHw/exec";
-let syncing=false;
-let lastSyncTime="";
+const PSYCH_R=[
+{no:1,nm:"1. Discharge Summary: Dx./OP",ac:9,dNA:false,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN",d:"ชื่อ-สกุล, HN, AN"},{l:"วดป Admit/Discharge",d:"วันที่ Admit และ Discharge"},
+{l:"Principal Diagnosis",d:"Dx หลัก (DSM-5/ICD-10)"},{l:"Co-morbidity",d:"โรคร่วม/ภาวะแทรกซ้อน"},
+{l:"Operative/Procedure",d:"หัตถการ ECT/อื่นๆ\n[NA] ไม่มี"},{l:"Lab/Imaging สำคัญ",d:"ผลตรวจสำคัญ"},
+{l:"สรุปการรักษา",d:"สรุปการรักษาตลอด Admit"},{l:"Discharge Plan",d:"แผนจำหน่าย/นัด FU"},
+{l:"Signature แพทย์",d:"ลายมือ + ชื่อแพทย์"}
+]},
+{no:2,nm:"2. Discharge Summary: Other",ac:9,dNA:false,hB:false,s:[
+{l:"Hcode/ชื่อ รพ."},{l:"แพทย์ผู้รักษา"},{l:"สิทธิ์การรักษา"},{l:"Ward/ห้อง"},
+{l:"เลขบัตร/PID"},{l:"Condition at Discharge",d:"Good/Fair/Poor/Dead"},{l:"LOS"},
+{l:"ที่อยู่/โทร"},{l:"วันที่+Signature"}
+]},
+{no:3,nm:"3. Informed Consent",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุลผู้ป่วย"},{l:"HN/AN"},{l:"ลายมือผู้ยินยอม"},
+{l:"ลายมือพยาน"},{l:"ข้อบ่งชี้/วิธีการ"},{l:"ภาวะแทรกซ้อน"},
+{l:"ทางเลือกอื่น"},{l:"ลายมือแพทย์ผู้อธิบาย"},{l:"วันที่+เวลา"}
+]},
+{no:4,nm:"4. History",ac:9,dNA:false,hB:true,bD:"+1 ถ้า PI ครบ 5W2H",s:[
+{l:"CC",d:"Chief Complaint + ระยะเวลา"},{l:"PI",d:"Present Illness"},
+{l:"Psychiatric Hx",d:"ประวัติการรักษาจิตเวชก่อนหน้า"},{l:"Past Med Hx+Family",d:"ประวัติอดีต+ครอบครัว\n[NA] ไม่รู้สึกตัว"},
+{l:"Drug Allergy",d:"แพ้ยา + ชื่อ หรือ NKDA\n[NA] ไม่รู้สึกตัว"},{l:"Social/Forensic Hx",d:"ประวัติสังคม/กฎหมาย"},
+{l:"สารเสพติด",d:"บุหรี่/สุรา/ยา จำนวน ความถี่"},{l:"Premorbid Personality",d:"บุคลิกภาพก่อนป่วย"},
+{l:"วันที่+Signature",d:"วดป + ลายมือแพทย์"}
+]},
+{no:5,nm:"5. Physical & Mental Status Exam",ac:9,dNA:false,hB:false,s:[
+{l:"วันที่และเวลา"},{l:"General appearance+VS",d:"Vital signs + ลักษณะทั่วไป"},
+{l:"BP",d:"Blood Pressure"},{l:"น้ำหนัก(ส่วนสูง)"},{l:"Physical Exam",d:"ตรวจร่างกายตามระบบ"},
+{l:"Mental Status Exam",d:"MSE: Appearance/Behaviour/Speech/Mood/Affect/Thought/Perception/Cognition/Insight"},
+{l:"Neurological",d:"ระบบประสาท (ถ้าเกี่ยวข้อง)\n[NA] ไม่เกี่ยว"},
+{l:"Diagnosis (DSM-5/ICD)",d:"Psychiatric Dx ตาม DSM-5 หรือ ICD-10"},{l:"Signature"}
+]},
+{no:6,nm:"6. Progress Note",ac:9,dNA:false,hB:false,s:[
+{l:"วันที่และเวลา"},{l:"Mental Status Update",d:"อาการ/พฤติกรรม/อารมณ์"},
+{l:"Objective/VS",d:"Vital signs + การสังเกต"},{l:"Assessment",d:"การประเมิน/Dx"},
+{l:"Plan",d:"แผนการรักษา"},{l:"Lab/Imaging",d:"ผลตรวจ\n[NA] ไม่สั่ง"},
+{l:"Response to Tx",d:"การตอบสนองต่อการรักษา"},{l:"ครอบคลุมทุกวัน",d:"บันทึกทุกวัน/Shift"},
+{l:"Signature"}
+]},
+{no:7,nm:"7. Consultation Record",ac:9,dNA:true,hB:false,s:[
+{l:"วันที่+เวลา Consult"},{l:"เหตุผล/ปัญหา"},{l:"ประวัติ/PE สำคัญ"},
+{l:"Lab/Imaging",d:"[NA] ไม่มี"},{l:"ผลการตอบ Consult"},{l:"Dx จากผู้รับ Consult"},
+{l:"แผนการรักษา"},{l:"วันที่+เวลาตอบ"},{l:"Signature ผู้รับ Consult"}
+]},
+{no:8,nm:"8. Psychosocial Intervention",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN",d:"ข้อมูลผู้ป่วย"},
+{l:"Assessment",d:"ประเมินปัญหาสังคม/จิตวิทยา"},
+{l:"ประเภท Intervention",d:"การบำบัดทางจิตวิทยา/สังคม\nเช่น CBT, Family therapy, Social work"},
+{l:"เป้าหมาย",d:"Goal ของ Psychosocial intervention"},
+{l:"วิธีการ",d:"วิธีและเทคนิคที่ใช้"},
+{l:"ผลการบำบัด",d:"ผลลัพธ์/การตอบสนอง"},
+{l:"ครั้งที่/ความถี่",d:"จำนวนครั้ง/ความถี่"},
+{l:"Family involvement",d:"การมีส่วนร่วมของครอบครัว\n[NA] ไม่มีญาติ"},
+{l:"Signature",d:"ลายมือ + ชื่อผู้บำบัด"}
+]},
+{no:9,nm:"9. ECT Record",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN",d:"ข้อมูลผู้ป่วย"},
+{l:"Pre-ECT Assessment",d:"ประเมินก่อน ECT (ASA/contraindication)"},
+{l:"ครั้งที่/วันที่",d:"จำนวนครั้ง ECT + วดป"},
+{l:"ยาชา+ยาคลายกล้ามเนื้อ",d:"ชื่อยา + ขนาด"},
+{l:"พลังงานที่ใช้",d:"Energy level (Joules/%) + Seizure duration"},
+{l:"VS during ECT",d:"Vital signs ระหว่าง ECT"},
+{l:"Complication",d:"ภาวะแทรกซ้อน\n[NA] ไม่มี"},
+{l:"Recovery",d:"สภาพหลัง ECT"},
+{l:"Signature วิสัญญี/จิตแพทย์",d:"ลายมือ + ชื่อ"}
+]},
+{no:10,nm:"10. Labour Record",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ-สกุล/HN/AN"},{l:"GA+ประวัติสูติ",d:"Gestational age + Obstetric history"},
+{l:"วดป+เวลาเจ็บครรภ์"},{l:"Progress of Labour",d:"Partograph"},
+{l:"Fetal heart rate"},{l:"Complication",d:"[NA] ไม่มี"},
+{l:"วิธีคลอด"},{l:"ผลการคลอด",d:"เพศ/น้ำหนัก/Apgar"},{l:"Signature"}
+]},
+{no:11,nm:"11. Rehabilitation Record",ac:9,dNA:true,hB:false,s:[
+{l:"ชื่อ HN AN Diagnosis"},{l:"Assessment สภาพ"},{l:"Functional status",d:"ADL"},
+{l:"Goal การรักษา"},{l:"Plan การฟื้นฟู"},{l:"วิธีการรักษา"},
+{l:"Progress"},{l:"ผล+คำแนะนำ"},{l:"Signature"}
+]},
+{no:12,nm:"12. Nurses' Note",ac:9,dNA:false,hB:false,s:[
+{l:"วดป+เวลา"},{l:"การประเมิน (Assessment)",d:"ประเมินสภาพ/อาการ/VS/พฤติกรรม"},
+{l:"Nursing Diagnosis",d:"ปัญหาการพยาบาล"},{l:"การพยาบาล",d:"กิจกรรมที่ทำ"},
+{l:"การให้ยา",d:"ยา + เวลา + ปฏิกิริยา"},{l:"IV Fluid",d:"[NA] ไม่มี IV"},
+{l:"ผลการพยาบาล"},{l:"การสื่อสาร/Refer",d:"[NA] ไม่มี"},{l:"Signature"}
+]}
+];
 
-async function cloudLoad(){
-  if(!GAS_URL){updSync("⚠️ ยังไม่ได้ตั้ง GAS_URL","warn");return [];}
-  try{
-    updSync("☁️ กำลังโหลด...","info");
-    const r=await fetch(GAS_URL,{redirect:"follow"});
-    if(!r.ok)throw new Error("HTTP "+r.status);
-    const j=await r.json();
-    if(j.ok){
-      const recs=j.data||j.records||[];
-      lastSyncTime=new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"});
-      updSync("☁️ โหลดสำเร็จ "+recs.length+" ราย ("+lastSyncTime+")","ok");
-      return recs;
-    }
-    throw new Error(j.error||"Unknown error");
-  }catch(e){
-    console.log("cloudLoad err:",e);
-    updSync("⚠️ โหลดไม่ได้: "+e.message,"warn");
-    return [];
-  }
-}
+function getR(){return S.auditType==="ipd"?IPD_R:S.auditType==="psych"?PSYCH_R:OPD_R;}
+function loadLS(){let r=JSON.parse(localStorage.getItem("mra_v6")||"[]");if(_ED.length){const ids=new Set(r.map(x=>String(x.id)));_ED.forEach(x=>{if(!ids.has(String(x.id)))r.push(x);});localStorage.setItem("mra_v6",JSON.stringify(r));}return r;}
+const TODAY2=TODAY;
+let S={tab:"form",auditType:"opd",records:loadLS(),i:{hcode:"10672",hn:"",hname:"",pid:"",dx:"",doc:"",at:"internal",ct:"general",ward:"MRA",vd:"",da:TODAY2,fvd:"",lvd:"",af:"",at2:""},finding:"no_issue",fNote:"",sc:{},na:{},ms:{},bn:{},fuD:{},pop:null,editId:null,msg:"",rptFrom:"",rptTo:"",rptSvcFrom:"",rptSvcTo:""};
+function initNA(){S.na={};getR().forEach(row=>{if(row.dNA)S.na[row.no]=true;});}
+initNA();
 
-async function cloudSave(records){
-  if(!GAS_URL){updSync("⚠️ ยังไม่ได้ตั้ง GAS_URL","warn");return;}
-  syncing=true;updSync("☁️ กำลัง sync...","info");
-  try{
-    const r=await fetch(GAS_URL,{
-      method:"POST",
-      redirect:"follow",
-      headers:{"Content-Type":"text/plain"},
-      body:JSON.stringify({action:"sync",records:records})
-    });
-    const j=await r.json();
-    if(!j.ok)throw new Error(j.error||"Save failed");
-    syncing=false;
-    lastSyncTime=new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"});
-    updSync("✅ sync สำเร็จ ("+lastSyncTime+")","ok");
-  }catch(e){
-    syncing=false;
-    console.log("cloudSave err:",e);
-    updSync("⚠️ sync ไม่ได้: "+e.message,"warn");
-  }
-}
-
-async function cloudUpsert(record){
-  if(!GAS_URL)return;
-  try{
-    await fetch(GAS_URL,{
-      method:"POST",redirect:"follow",
-      headers:{"Content-Type":"text/plain"},
-      body:JSON.stringify({action:"upsert",record:record})
-    });
-  }catch(e){console.log("cloudUpsert err:",e);}
-}
-
-async function cloudDelete(id){
-  if(!GAS_URL)return;
-  try{
-    await fetch(GAS_URL,{
-      method:"POST",redirect:"follow",
-      headers:{"Content-Type":"text/plain"},
-      body:JSON.stringify({action:"delete",id:id})
-    });
-  }catch(e){console.log("cloudDelete err:",e);}
-}
-
-async function cloudRefresh(){
-  updSync("☁️ รีเฟรช...","info");
-  const cloud=await cloudLoad();
-  if(cloud.length){
-    const ids=new Set(S.records.map(r=>String(r.id)));
-    let added=0;
-    cloud.forEach(r=>{if(!ids.has(String(r.id))){S.records.push(r);ids.add(String(r.id));added++;}});
-    // อัปเดต records ที่มีอยู่แล้ว (ใช้ cloud version)
-    const cloudMap={};cloud.forEach(r=>{cloudMap[String(r.id)]=r;});
-    S.records=S.records.map(r=>{const cr=cloudMap[String(r.id)];return cr||r;});
-    localStorage.setItem("mra_v5",JSON.stringify(S.records));
-    if(added)S.msg="☁️ เพิ่มจาก Cloud: "+added+" ราย (รวม "+S.records.length+" ราย)";
-    else S.msg="☁️ ข้อมูลอัปเดตแล้ว ("+S.records.length+" ราย)";
-    ren();
-  }
-}
-
-function updSync(txt,type){
-  const el=document.getElementById("syncSt");
-  if(!el)return;
-  if(syncing&&!txt){el.textContent="☁️ กำลัง sync...";el.style.color="#2563eb";return;}
-  el.textContent=txt||"";
-  el.style.color=type==="ok"?"#16a34a":type==="warn"?"#dc2626":"#2563eb";
-}
-
-// STATE
-function loadR(){let r=JSON.parse(localStorage.getItem("mra_v5")||"[]");if(_ED.length){const ids=new Set(r.map(x=>x.id));_ED.forEach(x=>{if(!ids.has(x.id)){r.push(x);ids.add(x.id);}});localStorage.setItem("mra_v5",JSON.stringify(r));}if(!r.length){["mra_v4","mra_v3","mra_v2","mra_records_v1"].forEach(k=>{const o=JSON.parse(localStorage.getItem(k)||"[]");if(o.length)r=r.concat(o);});if(r.length)localStorage.setItem("mra_v5",JSON.stringify(r));}return r;}
-let S={tab:"form",records:loadR(),
-  i:{hosp:0,hcode:H[0].c,hn:"",hname:"",pid:"",dx:"",doc:"",at:"internal",ct:"general",ward:"MRA",vd:"",da:new Date().toISOString().slice(0,10),fvd:"",lvd:"",af:"",at2:""},
-  finding:"no_issue",fNote:"",sc:{},na:{},ms:{},bn:{},dd:{},fuD:{},pop:null,editId:null,msg:"",
-  rptFrom:"",rptTo:""};
-R.forEach(r=>{if(r.dNA)S.na[r.no]=true;});
-function sv(rec){localStorage.setItem("mra_v5",JSON.stringify(S.records));if(rec)cloudUpsert(rec);else cloudSave(S.records);}
-function gV(n,c){if(S.na[n]||S.ms[n])return undefined;const k=n+"-"+c;return S.sc[k]==="N"?"N":(S.sc[k]??1);}
-function cR(row,sc,na,ms,bn,dd){const _na=na||S.na,_ms=ms||S.ms;if(_na[row.no])return{s:0,f:0,na:1};if(_ms[row.no])return{s:0,f:0,ms:1};const _s=sc||S.sc,_b=bn||S.bn,_d=dd||S.dd;let s=0,f=0;for(let c=1;c<=row.ac;c++){const v=_s[row.no+"-"+c];if(v==="N")continue;s+=(v??1);f++;}if(row.hB)f++;return{s:s+(_b[row.no]||0)-(_d[row.no]||0),f};}
-function cT(sc,na,ms,bn,dd){let s=0,f=0;R.forEach(r=>{const x=cR(r,sc,na,ms,bn,dd);if(!x.na&&!x.ms){s+=x.s;f+=x.f;}});return{s,f,p:f?Math.round(s/f*10000)/100:0};}
-function rst(){S.sc={};S.bn={};S.dd={};S.na={};S.ms={};S.fuD={};S.finding="no_issue";S.fNote="";S.editId=null;S.i={...S.i,hn:"",hname:"",pid:"",dx:"",ct:"general",vd:"",da:new Date().toISOString().slice(0,10),fvd:"",lvd:""};R.forEach(r=>{if(r.dNA)S.na[r.no]=true;});}
-
-function h(t,a,...ch){const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==="style"&&typeof v==="object")Object.assign(e.style,v);else if(k.startsWith("on"))e.addEventListener(k.slice(2).toLowerCase(),v);else if(k==="className")e.className=v;else if(k==="value"&&(t==="input"||t==="select"||t==="textarea"))e.value=v;else if(k==="checked")e.checked=v;else if(k==="disabled")e.disabled=v;else e.setAttribute(k,v);});ch.flat(9).forEach(c=>{if(c!=null&&c!==false)e.appendChild(typeof c==="string"||typeof c==="number"?document.createTextNode(String(c)):c);});return e;}
-
-function dI(val,onChange,lbl){
-  const w=h("span",{className:"di"});
-  if(lbl)w.appendChild(h("label",null,lbl));
-  w.appendChild(h("input",{type:"date",value:val||"",lang:"th-TH",onChange:e=>{onChange(e.target.value);ren();}}));
-  if(val)w.appendChild(h("span",{className:"be"},"("+toBE(val)+")"));
-  return w;
-}
+const sv=()=>localStorage.setItem("mra_v6",JSON.stringify(S.records));
+const gV=(n,c)=>{if(S.na[n]||S.ms[n])return undefined;const k=n+"-"+c;return S.sc[k]==="N"?"N":(S.sc[k]??1);};
+function cR(row,sc,na,ms,bn){const _na=na||S.na,_ms=ms||S.ms;if(_na[row.no])return{s:0,f:0,na:1};if(_ms[row.no])return{s:0,f:0,ms:1};const _s=sc||S.sc,_b=bn||S.bn;let s=0,f=0;for(let c=1;c<=row.ac;c++){const v=_s[row.no+"-"+c];if(v==="N")continue;s+=(v??1);f++;}if(row.hB)f++;return{s:s+(_b[row.no]||0),f};}
+function cT(sc,na,ms,bn,atype){const R=(atype==="ipd")?IPD_R:(atype==="psych")?PSYCH_R:OPD_R;let s=0,f=0;R.forEach(r=>{const x=cR(r,sc,na,ms,bn);if(!x.na&&!x.ms){s+=x.s;f+=x.f;}});return{s,f,p:f?Math.round(s/f*10000)/100:0};}
+function h(t,a,...ch){const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==="style"&&typeof v==="object")Object.assign(e.style,v);else if(k.startsWith("on"))e.addEventListener(k.slice(2).toLowerCase(),v);else if(k==="className")e.className=v;else if(k==="value"&&t!=="option")e.value=v;else if(k==="checked")e.checked=v;else e.setAttribute(k,v);});ch.flat(9).forEach(c=>{if(c!=null&&c!==false)e.appendChild(typeof c==="string"||typeof c==="number"?document.createTextNode(String(c)):c);});return e;}
+function dI(val,onChg,lbl){const w=h("span",{style:{display:"inline-flex",gap:"3px",alignItems:"center"}});if(lbl)w.appendChild(h("label",null,lbl));const inp=h("input",{type:"date",value:val||""});inp.addEventListener("change",e=>{onChg(e.target.value);ren();});w.appendChild(inp);if(val)w.appendChild(h("span",{className:"bef"},"("+toBE(val)+")"));return w;}
 
 function ren(){
-  const app=document.getElementById("app");app.innerHTML="";const tot=cT();
+  const app=document.getElementById("app");app.innerHTML="";
+  const R=getR();const tot=cT(S.sc,S.na,S.ms,S.bn,S.auditType);
+  const syncEl=h("span",{id:"syncMsg",style:{fontSize:"9px",color:"#16a34a",alignSelf:"center",marginLeft:"4px"}},"");
+  const syncBtn=h("button",{style:{padding:"4px 10px",fontSize:"9px",border:"1px solid #c5b3e6",borderRadius:"4px",background:"#ede7f6",color:"#4527a0",cursor:"pointer",fontWeight:"700",fontFamily:"inherit"}},"☁️ Sync Cloud");
+  syncBtn.addEventListener("click",cloudRefresh);
   app.appendChild(h("div",{className:"tabs"},
-    h("button",{className:"tab"+(S.tab==="form"?" on":""),onClick:()=>{S.tab="form";ren();}},"📝 บันทึก"),
-    h("button",{className:"tab"+(S.tab==="report"?" on":""),onClick:()=>{S.tab="report";ren();}},"📊 รายงาน ("+S.records.length+")"),
-    GAS_URL?h("button",{className:"tab",style:{background:"#dbeafe",color:"#1e40af",fontSize:"9px"},onClick:cloudRefresh},"☁️ Sync"):null,
-    h("span",{id:"syncSt",style:{fontSize:"9px",color:"#16a34a",alignSelf:"center",marginLeft:"4px"}},""),
+    h("button",{className:S.tab==="form"?"on":"",onClick:()=>{S.tab="form";ren();}},"📝 บันทึก"),
+    h("button",{className:S.tab==="report"?"on":"",onClick:()=>{S.tab="report";ren();}},"📊 รายงาน ("+S.records.length+")"),
+    syncBtn,syncEl,
   ));
-  if(S.msg){app.appendChild(h("div",{className:"msg"+(S.msg[0]==="⚠"?" w":"")},S.msg));setTimeout(()=>{S.msg="";ren();},3000);}
-  if(S.tab==="form")rF(app,tot);else rR(app);
-  if(S.pop)rP(app);
+  if(S.msg){app.appendChild(h("div",{className:"msg"+(S.msg[0]==="⚠"?" w":"")},S.msg));setTimeout(()=>{S.msg="";ren();},2500);}
+  if(S.tab==="form")rF(app,tot,R);
+  else rR(app);
+  if(S.pop)rP(app,R);
 }
 
-function rF(app,tot){
-  if(S.editId)app.appendChild(h("div",{className:"msg w"},"✏️ แก้ไข HN: "+S.i.hn+" ",h("button",{className:"btn btn-o",style:{padding:"1px 6px",fontSize:"9px"},onClick:()=>{rst();ren();}},"ยกเลิก")));
-  const hSel=h("select",{onChange:e=>{S.i.hosp=+e.target.value;S.i.hcode=H[+e.target.value].c;ren();}});
-  H.forEach((hp,i)=>{const o=h("option",{value:String(i)},hp.c?(hp.c+" "+hp.n):hp.n);if(S.i.hosp===i)o.selected=true;hSel.appendChild(o);});
-
-  app.appendChild(h("div",{className:"form-hdr"},
-    h("div",{className:"tb"},h("small",null,"แบบตรวจประเมินคุณภาพการบันทึกเวชระเบียนผู้ป่วยนอก/ฉุกเฉิน"),h("h2",null,"Medical Record Audit Form (OPD/ER)")),
-    h("div",{className:"r"},h("label",null,"Hcode"),hSel,h("input",{type:"text",value:S.i.hcode,style:{width:"48px"},onChange:e=>{S.i.hcode=e.target.value;}}),h("label",null,"Hname"),h("input",{type:"text",value:S.i.hname,style:{width:"130px"},onChange:e=>{S.i.hname=e.target.value;},placeholder:"ชื่อ-สกุล"}),h("label",null,"HN"),h("input",{type:"text",value:S.i.hn,style:{width:"75px",fontWeight:"700"},onChange:e=>{S.i.hn=e.target.value;},placeholder:"HN"}),h("label",null,"PID"),h("input",{type:"text",value:S.i.pid,style:{width:"105px"},onChange:e=>{S.i.pid=e.target.value;},placeholder:"13 หลัก"})),
-    h("div",{className:"r"},h("span",{className:"rg"},h("label",null,h("input",{type:"radio",name:"ct",checked:S.i.ct==="general",onChange:()=>{S.i.ct="general";ren();}}),"General case"),h("label",null,h("input",{type:"radio",name:"ct",checked:S.i.ct==="chronic",onChange:()=>{S.i.ct="chronic";ren();}}),"Chronic case"),h("label",null,h("input",{type:"radio",name:"ct",checked:S.i.ct==="psychiatric",onChange:()=>{S.i.ct="psychiatric";ren();}}),"Psychiatric")),h("label",null,"Diagnosis"),h("input",{type:"text",value:S.i.dx,style:{width:"140px"},onChange:e=>{S.i.dx=e.target.value;}}),h("div",{className:"sep"}),h("span",{className:"rg"},h("label",null,h("input",{type:"radio",name:"at",checked:S.i.at==="internal",onChange:()=>{S.i.at="internal";ren();}}),"Internal"),h("label",null,h("input",{type:"radio",name:"at",checked:S.i.at==="external",onChange:()=>{S.i.at="external";ren();}}),"External"))),
-    h("div",{className:"r"},dI(S.i.vd,v=>{S.i.vd=v;},"Visit date"),dI(S.i.da,v=>{S.i.da=v;},"Date Audit"),h("div",{className:"sep"}),h("label",null,"ช่วงเวลาที่ตรวจสอบ"),dI(S.i.af,v=>{S.i.af=v;}),h("label",null,"ถึง"),dI(S.i.at2,v=>{S.i.at2=v;})),
-    h("div",{className:"r"},dI(S.i.fvd,v=>{S.i.fvd=v;},"1st Visit Date"),dI(S.i.lvd,v=>{S.i.lvd=v;},"Last Visit Date"),h("div",{className:"sep"}),h("label",null,"Ward"),h("select",{value:S.i.ward,onChange:e=>{S.i.ward=e.target.value;}},...W.map(w=>h("option",null,w))),h("label",null,"Sub"),h("select",null,h("option",null,"SUB")),h("label",null,"Ins"),h("select",null,h("option",null,"INS"),h("option",null,"UC"),h("option",null,"SSS"),h("option",null,"CSMBS")),h("div",{className:"sep"}),h("label",null,"ว.แพทย์"),h("input",{type:"text",value:S.i.doc,style:{width:"50px"},onChange:e=>{S.i.doc=e.target.value;}})),
+function rF(app,tot,R){
+  if(S.editId)app.appendChild(h("div",{className:"msg w",style:{display:"flex",justifyContent:"space-between"}},"✏️ แก้ไข HN: "+S.i.hn,h("button",{className:"btn btn-o",style:{padding:"1px 6px",fontSize:"9px"},onClick:()=>{S.editId=null;rst();ren();}},"ยกเลิก")));
+  const hSel=h("select",{style:{minWidth:"90px"}});H.forEach((hp,i)=>{const o=h("option",{value:String(i)},hp.c?(hp.c+" "+hp.n):hp.n);if(hp.c===S.i.hcode)o.selected=true;hSel.appendChild(o);});hSel.addEventListener("change",e=>{const i=+e.target.value;S.i.hcode=H[i].c;ren();});
+  const atSel=h("select",{style:{width:"85px"}});[["opd","OPD/ER"],["ipd","IPD"],["psych","จิตเวช"]].forEach(([v,l])=>{const o=document.createElement("option");o.value=v;o.textContent=l;if(S.auditType===v)o.selected=true;atSel.appendChild(o);});atSel.addEventListener("change",e=>{S.auditType=e.target.value;S.sc={};S.na={};S.ms={};S.bn={};initNA();ren();});
+  app.appendChild(h("div",{className:"hdr"},
+    h("div",{className:"hdr-title"},h("small",null,"แบบตรวจประเมินคุณภาพการบันทึกเวชระเบียน MRA Guideline 2563"),h("h2",null,"Medical Record Audit Form"),h("span",{className:"badge "+(S.auditType==="opd"?"opd":S.auditType==="psych"?"psych":"ipd")},S.auditType==="ipd"?"IPD (12 หมวด × 9 ข้อ)":S.auditType==="psych"?"จิตเวช (12 หมวด × 9 ข้อ)":"OPD/ER (8 หมวด × 7 ข้อ)")),
+    h("div",{className:"r"},h("label",null,"ประเภท:"),atSel,h("div",{className:"sep"}),h("label",null,"โรงพยาบาล:"),hSel,h("label",null,"Hcode:"),h("input",{type:"text",value:S.i.hcode,style:{width:"48px"},onChange:e=>{S.i.hcode=e.target.value;}})),
+    h("div",{className:"r"},h("label",null,"HN:"),h("input",{type:"text",value:S.i.hn,style:{width:"75px",fontWeight:"700"},onChange:e=>{S.i.hn=e.target.value;},placeholder:"HN"}),h("label",null,"PID:"),h("input",{type:"text",value:S.i.pid,style:{width:"105px"},onChange:e=>{S.i.pid=e.target.value;},placeholder:"เลขบัตร 13 หลัก"}),h("label",null,"ชื่อ-สกุล:"),h("input",{type:"text",value:S.i.hname,style:{width:"140px"},onChange:e=>{S.i.hname=e.target.value;}})),
+    h("div",{className:"r"},h("label",null,"Dx:"),h("input",{type:"text",value:S.i.dx,style:{width:"200px"},onChange:e=>{S.i.dx=e.target.value;},placeholder:"Principal Diagnosis"}),h("label",null,"แพทย์:"),h("input",{type:"text",value:S.i.doc,style:{width:"50px"},onChange:e=>{S.i.doc=e.target.value;}}),h("label",null,"Ward:"),h("select",{style:{width:"60px"},onChange:e=>{S.i.ward=e.target.value;}},...W.map(w=>h("option",{value:w,selected:S.i.ward===w},w)))),
+    h("div",{className:"r"},h("span",{className:"rg"},h("label",null,h("input",{type:"radio",name:"ct",checked:S.i.ct==="general",onChange:()=>{S.i.ct="general";ren();}})," General"),h("label",null,h("input",{type:"radio",name:"ct",checked:S.i.ct==="chronic",onChange:()=>{S.i.ct="chronic";ren();}})," Chronic")),h("div",{className:"sep"}),h("span",{className:"rg"},h("label",null,h("input",{type:"radio",name:"atv",checked:S.i.at==="internal",onChange:()=>{S.i.at="internal";ren();}})," Internal Audit"),h("label",null,h("input",{type:"radio",name:"atv",checked:S.i.at==="external",onChange:()=>{S.i.at="external";ren();}})," External Audit"))),
+    h("div",{className:"r"},dI(S.i.vd,v=>{S.i.vd=v;},"Visit Date:"),dI(S.i.da,v=>{S.i.da=v;},"Audit Date:")),
+    h("div",{className:"r"},dI(S.i.fvd,v=>{S.i.fvd=v;},"1st Visit:"),dI(S.i.lvd,v=>{S.i.lvd=v;},"Last Visit:"),h("div",{className:"sep"}),dI(S.i.af,v=>{S.i.af=v;},"ช่วงเวลา:"),h("label",null,"ถึง"),dI(S.i.at2,v=>{S.i.at2=v;})),
   ));
-  // Finding
-  const fD=h("div",{className:"cd",style:{padding:"3px 6px"}});
-  [{v:"none",t:"Documentation inadequate for meaningful review (ข้อมูลไม่เพียงพอ)"},{v:"no_issue",t:"No significant medical recode issue identified (ไม่มีปัญหาสำคัญ)"},{v:"issue",t:"Certain issue in question specify (มีปัญหา ระบุ)"}].forEach(f=>{const r=h("div",{style:{display:"flex",gap:"3px",alignItems:"center",marginBottom:"1px",fontSize:"10.5px",flexWrap:"wrap"}},h("input",{type:"radio",name:"fd",checked:S.finding===f.v,style:{margin:"0"},onChange:()=>{S.finding=f.v;ren();}}),h("span",null,f.t));if(f.v==="issue"&&S.finding==="issue")r.appendChild(h("input",{type:"text",value:S.fNote,placeholder:"ระบุ...",style:{flex:"1",minWidth:"80px",padding:"1px 3px",border:"1px solid #bbb",borderRadius:"2px",fontSize:"10px"},onChange:e=>{S.fNote=e.target.value;}}));fD.appendChild(r);});
-  app.appendChild(fD);
-  // TABLE
-  const tw=h("div",{style:{overflowX:"auto",marginBottom:"3px"}});const tbl=h("table",{className:"mt"});
-  tbl.appendChild(h("thead",null,h("tr",null,h("th",{style:{width:"20px"}},"No"),h("th",{style:{minWidth:"100px"}},"Contents"),h("th",{style:{width:"24px"}},"NA"),h("th",{style:{width:"24px"}},"Miss"),...[1,2,3,4,5,6,7,8,9].map(c=>h("th",null,"ข้อ"+c)),h("th",{style:{width:"22px"}},"เพิ่ม"),h("th",{style:{width:"30px"}},"คะแนน"))));
+  /* Finding */
+  const fdiv=h("div",{className:"cd",style:{padding:"4px 8px",marginBottom:"4px"}});
+  [{v:"none",t:"ข้อมูลไม่เพียงพอสำหรับการทบทวน"},{v:"no_issue",t:"ไม่มีปัญหาสำคัญจากการทบทวน"},{v:"issue",t:"มีปัญหา (ระบุรายละเอียด)"}].forEach(f=>{const rw=h("div",{style:{display:"flex",gap:"4px",alignItems:"center",marginBottom:"2px"}},h("input",{type:"radio",name:"fd",checked:S.finding===f.v,onChange:()=>{S.finding=f.v;ren();}}),h("span",{style:{fontSize:"10.5px"}},f.t));if(f.v==="issue"&&S.finding==="issue")rw.appendChild(h("input",{type:"text",value:S.fNote,style:{flex:"1",minWidth:"80px",padding:"1px 4px",border:"1px solid #bbb",borderRadius:"2px",fontSize:"10px"},onChange:e=>{S.fNote=e.target.value;}}));fdiv.appendChild(rw);});
+  app.appendChild(fdiv);
+  /* Info bar */
+  app.appendChild(h("div",{style:{display:"flex",gap:"8px",padding:"3px 8px",background:"#1e3a5f",borderRadius:"4px",marginBottom:"3px",flexWrap:"wrap"}},h("span",{style:{color:"#ede7f6",fontWeight:"800",fontSize:"10px"}},"ประเภท: "+S.auditType.toUpperCase()),h("span",{className:"sep2"},"│"),h("span",{style:{color:"#e8d5ff",fontSize:"10px"}},(S.i.at==="external"?"External":"Internal")+" Audit"),h("span",{className:"sep2"},"│"),h("span",{style:{color:"#ffd8a8",fontSize:"10px"}},(S.i.ct==="chronic"?"Chronic":"General")+" Case"),h("span",{style:{color:"rgba(255,255,255,.7)",fontSize:"9px",marginLeft:"auto"}},"★ คลิกตัวเลขในช่อง → เลือก ผ่าน/ไม่ผ่าน/NA")));
+  /* Table */
+  const maxC=S.auditType==="ipd"?9:7;
+  const tw=h("div",{style:{overflowX:"auto",marginBottom:"4px"}});const tbl=h("table",{className:"mt"});
+  const thead=h("thead");
+  const hr1=h("tr",null,h("th",{rowSpan:"2",style:{width:"22px"}},"No"),h("th",{rowSpan:"2",style:{minWidth:"120px",textAlign:"left",paddingLeft:"3px"}},"หมวด/ข้อกำหนด"),h("th",{rowSpan:"2",style:{width:"26px"}},"NA"),h("th",{rowSpan:"2",style:{width:"26px"}},"Miss"),h("th",{colSpan:String(maxC),style:{background:"#fff3e0",color:"#bf360c",border:"1px solid #ffcc80"}},"เกณฑ์การประเมิน ("+maxC+" ข้อ)"),h("th",{rowSpan:"2",style:{width:"26px"}},"เพิ่ม"),h("th",{rowSpan:"2",style:{width:"36px"}},"คะแนน"));
+  thead.appendChild(hr1);
+  thead.appendChild(h("tr",null,...Array.from({length:maxC},(_,i)=>h("th",{className:"th-sub",style:{width:"28px"}},"ข้อ "+(i+1)))));
+  tbl.appendChild(thead);
   const tb=h("tbody");
-  R.forEach(row=>{const rna=S.na[row.no],rms=S.ms[row.no],dis=rna||rms,res=cR(row);const tr=h("tr",{style:{background:rna?"#fffbe6":rms?"#fff0f0":"#fff"}});
-    tr.appendChild(h("td",{style:{textAlign:"center",fontWeight:"700",fontSize:"9px"}},typeof row.no==="number"?String(row.no):""));
-    const nm=h("td",{style:{fontSize:"10px",fontWeight:"600",paddingLeft:row.fu?"7px":"2px",whiteSpace:"nowrap"}},row.nm);
-    if(row.fu)nm.appendChild(h("input",{type:"date",lang:"th-TH",style:{marginLeft:"2px",fontSize:"9px",padding:"0 1px",border:"1px solid #ccc",borderRadius:"2px",width:"88px"},value:S.fuD[row.fu]||"",onChange:e=>{S.fuD[row.fu]=e.target.value;}}));
-    tr.appendChild(nm);
-    tr.appendChild(h("td",{className:"nt"+(rna?" on":""),onClick:()=>{S.na[row.no]=!S.na[row.no];if(S.na[row.no])S.ms[row.no]=false;ren();}},rna?"N":"-"));
-    tr.appendChild(h("td",{className:"nt"+(rms?" ms":""),onClick:()=>{S.ms[row.no]=!S.ms[row.no];if(S.ms[row.no])S.na[row.no]=false;ren();}},rms?"M":"-"));
-    for(let c=1;c<=9;c++){if(dis){tr.appendChild(h("td",{className:"sc dis"}));continue;}if(c>row.ac){tr.appendChild(h("td",{className:"sc na"},"N"));continue;}const v=gV(row.no,c);tr.appendChild(h("td",{className:"sc"+(v==="N"?" pn":v===1?" p1":v===0?" p0":""),onClick:e=>{const r=e.currentTarget.getBoundingClientRect();S.pop={rn:row.no,c,y:r.bottom+3,x:r.left+r.width/2};ren();}},v==="N"?"N":String(v??1)));}
-    const bT=h("td",{style:{textAlign:"center",fontSize:"9px",fontWeight:"600",border:"1px solid #bbb"}});
-    if(row.hB&&!dis)bT.appendChild(h("span",{style:{cursor:"pointer",color:S.bn[row.no]?"#16a34a":"#aaa"},onClick:()=>{S.bn[row.no]=S.bn[row.no]?0:1;ren();}},String(S.bn[row.no]||0)));
-    else if(row.hD&&!dis)bT.appendChild(h("span",{style:{cursor:"pointer",color:S.dd[row.no]?"#dc2626":"#aaa"},onClick:()=>{S.dd[row.no]=S.dd[row.no]?0:1;ren();}},S.dd[row.no]?"-1":"0"));
-    else if(!dis)bT.textContent="0";tr.appendChild(bT);
-    tr.appendChild(h("td",{style:{textAlign:"center",fontWeight:"800",fontSize:"11px",border:"1px solid #bbb",color:res.na?"#856404":res.ms?"#dc2626":"#1e293b"}},res.na?"N":res.ms?"M":String(res.s)));tb.appendChild(tr);});
+  R.forEach(row=>{
+    const rna=S.na[row.no],rms=S.ms[row.no],dis=rna||rms,res=cR(row);
+    const tr=h("tr",{className:"tr-main"+(rna?" tr-main-na":rms?" tr-main-ms":""),style:{borderTop:"2px solid #c8dff5"}});
+    tr.appendChild(h("td",{style:{textAlign:"center",fontWeight:"800",fontSize:"10px",background:"#1e3a5f",color:"#fff"}},String(row.no)));
+    const nmTd=h("td",{style:{textAlign:"left",fontWeight:"800",fontSize:"10px",paddingLeft:"4px",color:"#1e3a5f",whiteSpace:"nowrap"}},row.nm);
+    if(row.fu)nmTd.appendChild(h("input",{type:"date",value:S.fuD[row.fu]||"",style:{marginLeft:"5px",fontSize:"9px",padding:"0 2px",border:"1px solid #ccc",borderRadius:"2px",width:"90px"},onChange:e=>{S.fuD[row.fu]=e.target.value;}}));
+    tr.appendChild(nmTd);
+    const naTd=h("td",{className:"nt"+(rna?" na-on":"")},rna?"NA":"-");naTd.addEventListener("click",()=>{S.na[row.no]=!S.na[row.no];if(S.na[row.no])S.ms[row.no]=false;ren();});tr.appendChild(naTd);
+    const msTd=h("td",{className:"nt"+(rms?" ms-on":"")},rms?"M":"-");msTd.addEventListener("click",()=>{S.ms[row.no]=!S.ms[row.no];if(S.ms[row.no])S.na[row.no]=false;ren();});tr.appendChild(msTd);
+    for(let c=1;c<=maxC;c++){
+      if(dis){tr.appendChild(h("td",{className:"sc dis"},""));continue;}
+      if(c>row.ac){tr.appendChild(h("td",{style:{background:"#f0f0f0",border:"1px solid #ddd"}},""));continue;}
+      const v=gV(row.no,c);
+      const cell=h("td",{className:"sc"+(v==="N"?" pn":v===1?" p1":v===0?" p0":"")},v==="N"?"N":String(v??1));
+      cell.addEventListener("click",e=>{const r=e.currentTarget.getBoundingClientRect();S.pop={rn:row.no,c,y:r.bottom+5,x:r.left+r.width/2};ren();});
+      tr.appendChild(cell);
+    }
+    const bTd=h("td",{style:{border:"1px solid #c8c8c8",textAlign:"center",fontSize:"10px"}});
+    if(row.hB&&!dis){const sp=h("span",{style:{cursor:"pointer",color:S.bn[row.no]?"#16a34a":"#bbb",fontWeight:"800",fontSize:"12px"}},String(S.bn[row.no]||0));sp.addEventListener("click",()=>{S.bn[row.no]=S.bn[row.no]?0:1;ren();});bTd.appendChild(sp);}else if(!dis)bTd.textContent="-";
+    tr.appendChild(bTd);
+    tr.appendChild(h("td",{style:{border:"1px solid #c8c8c8",fontWeight:"800",fontSize:"13px",textAlign:"center",color:res.na?"#999":res.ms?"#dc2626":"#1e3a5f",background:res.na||res.ms?"":"#f0f8ff"}},res.na?"N":res.ms?"M":String(res.s)));
+    tb.appendChild(tr);
+    /* sub row: label ข้อย่อย */
+    const subTr=h("tr",{className:"tr-sub",style:{borderBottom:"1px solid #dce8f5"}});
+    subTr.appendChild(h("td",{style:{background:"#f0f0f0",border:"1px solid #e0e0e0"}},""));
+    subTr.appendChild(h("td",{style:{textAlign:"left",fontSize:"8.5px",color:"#64748b",paddingLeft:"8px",fontStyle:"italic"}},"▲ คลิกตัวเลขด้านบนเพื่อให้คะแนน"));
+    subTr.appendChild(h("td",{colSpan:"2",style:{background:"#f9f9f9",border:"1px solid #e0e0e0"}},""));
+    for(let c=1;c<=maxC;c++){
+      if(c>row.ac){subTr.appendChild(h("td",{style:{background:"#f0f0f0",border:"1px solid #e0e0e0"}},""));continue;}
+      const sub=row.s[c-1];
+      subTr.appendChild(h("td",{style:{fontSize:"8px",color:"#475569",padding:"1px 2px",background:dis?"#f5f5f5":"#fafafa",border:"1px solid #e0e0e0",whiteSpace:"normal",lineHeight:"1.2",cursor:"default"},title:sub&&sub.d?sub.d:""},sub?sub.l:""));
+    }
+    subTr.appendChild(h("td",{style:{background:"#f9f9f9",border:"1px solid #e0e0e0",fontSize:"8px",color:"#888",textAlign:"center"}},row.hB?"+1":""));
+    subTr.appendChild(h("td",{style:{background:"#f9f9f9",border:"1px solid #e0e0e0"}},""));
+    tb.appendChild(subTr);
+  });
   tbl.appendChild(tb);tw.appendChild(tbl);app.appendChild(tw);
-  // TOTALS
-  app.appendChild(h("div",{className:"totbar"},h("div",null,"Full ",h("b",{style:{fontSize:"14px",color:"#1e3a5f"}},String(tot.f))),h("div",null,"Sum ",h("b",{style:{fontSize:"14px",color:"#2563eb"}},String(tot.s))),h("div",null,"% ",h("b",{style:{fontSize:"16px",color:tot.p>=80?"#16a34a":tot.p>=60?"#f59e0b":"#dc2626"}},tot.p+"%"))));
-  app.appendChild(h("div",{style:{fontSize:"9px",color:"#8b0000",fontWeight:"700",padding:"2px 4px",marginBottom:"3px"}},"★ คลิกช่องคะแนน → ดูเกณฑ์ + เลือก ผ่าน(1)/ไม่ผ่าน(0)/NA"));
-  // BUTTONS
-  app.appendChild(h("div",{style:{display:"flex",gap:"4px",justifyContent:"center",marginBottom:"4px"}},
+  app.appendChild(h("div",{className:"totbar"},h("div",null,"Full: ",h("b",{style:{color:"#1e3a5f"}},String(tot.f))),h("div",null,"Sum: ",h("b",{style:{color:"#2563eb"}},String(tot.s))),h("div",null,"% ",h("b",{style:{color:tot.p>=80?"#2e7d32":tot.p>=60?"var(--or-dark)":"#b71c1c",fontSize:"16px"}},String(tot.p)))));
+  app.appendChild(h("div",{style:{display:"flex",gap:"4px",justifyContent:"center",margin:"5px 0"}},
     h("button",{className:"btn btn-p",onClick:()=>{
-      if(!S.i.hn){S.msg="⚠️ กรุณาใส่ HN";ren();return;}const t=cT();
-      const rec={id:S.editId||Date.now(),...JSON.parse(JSON.stringify(S.i)),hospNm:hN(S.i.hcode),finding:S.finding,fNote:S.fNote,sc:{...S.sc},na:{...S.na},ms:{...S.ms},bn:{...S.bn},dd:{...S.dd},fuD:{...S.fuD},sum:t.s,full:t.f,pct:t.p,daStr:toBE(S.i.da)};
+      if(!S.i.hn){S.msg="⚠️ กรุณาใส่ HN";ren();return;}
+      const t=cT(S.sc,S.na,S.ms,S.bn,S.auditType);
+      const rec={id:S.editId||Date.now(),...JSON.parse(JSON.stringify(S.i)),hospNm:hN(S.i.hcode),finding:S.finding,fNote:S.fNote,sc:{...S.sc},na:{...S.na},ms:{...S.ms},bn:{...S.bn},fuD:{...S.fuD},sum:t.s,full:t.f,pct:t.p,auditType:S.auditType,daStr:toBE(S.i.da)};
       if(S.editId){S.records=S.records.map(r=>r.id===S.editId?rec:r);S.editId=null;}else S.records.unshift(rec);
-      sv(rec);S.msg="✅ HN:"+S.i.hn+" — "+t.s+"/"+t.f+" ("+t.p+"%)";ren();
+      sv();S.msg="✅ HN:"+S.i.hn+" = "+t.s+"/"+t.f+" ("+t.p+"%)";ren();
     }},"💾 บันทึก"),
     h("button",{className:"btn btn-s",onClick:()=>{rst();ren();}},"📝 รายต่อไป"),
     h("button",{className:"btn btn-o",onClick:()=>{S.tab="report";ren();}},"📊 รายงาน"),
+    h("button",{className:"btn btn-save",onClick:saveWithData},"💾 บันทึกไฟล์"),
   ));
-  // Save with data button
-  app.appendChild(h("div",{style:{display:"flex",gap:"4px",justifyContent:"center",marginBottom:"6px"}},
-    h("button",{className:"btn btn-o",style:{background:"#1565c0",color:"#fff",fontSize:"10px",padding:"4px 10px"},onClick:saveWithData},"💾 บันทึกไฟล์พร้อมข้อมูล (ย้ายเครื่อง)"),
-  ));
-  // RECORDS LIST
   if(S.records.length){
-    const cd=h("div",{className:"cd"},h("div",{style:{fontSize:"10px",fontWeight:"700",color:"#475569",marginBottom:"3px"}},"📋 รายการที่บันทึก ("+S.records.length+" ราย)"));
-    const tw2=h("div",{style:{overflowX:"auto"}});const t2=h("table",{className:"rl"});
-    t2.appendChild(h("thead",null,h("tr",null,...["#","โรงพยาบาล","HN","ชื่อ-สกุล","Dx","คะแนน","%","INT/EXT","Audit","",""].map(x=>h("th",null,x)))));
+    const t2=h("table",{className:"rl"});t2.appendChild(h("thead",null,h("tr",null,...["#","รพ.","HN","ชื่อ-สกุล","Dx","Sum/Full","%","Type","VD","AD",""].map(x=>h("th",null,x)))));
     const tb2=h("tbody");
-    S.records.forEach((r,i)=>{tb2.appendChild(h("tr",{style:{background:i%2?"#f8fafc":"#fff"}},
-      h("td",null,String(i+1)),h("td",{style:{fontSize:"9px",textAlign:"left"}},r.hospNm||hN(r.hcode)),
-      h("td",{className:"hn",onClick:()=>{S.editId=r.id;const keys=["hosp","hcode","hn","hname","pid","dx","doc","at","ct","ward","vd","da","fvd","lvd","af","at2"];S.i={};keys.forEach(k=>S.i[k]=r[k]||"");S.i.hosp=H.findIndex(hp=>hp.c===r.hcode);if(S.i.hosp<0)S.i.hosp=H.length-1;S.finding=r.finding;S.fNote=r.fNote||"";S.sc={...r.sc};S.na={...r.na};S.ms={...r.ms};S.bn={...r.bn};S.dd={...r.dd};S.fuD=r.fuD?{...r.fuD}:{};window.scrollTo({top:0,behavior:"smooth"});ren();}},r.hn),
-      h("td",{style:{fontSize:"9px",textAlign:"left"}},r.hname||"-"),h("td",{style:{fontSize:"9px",textAlign:"left"}},r.dx||"-"),
-      h("td",{style:{fontWeight:"700",color:"#2563eb"}},r.sum+"/"+r.full),
-      h("td",{style:{fontWeight:"700",color:r.pct>=80?"#16a34a":r.pct>=60?"#f59e0b":"#dc2626"}},String(r.pct)),
-      h("td",null,r.at==="internal"?"Int":"Ext"),h("td",null,r.daStr||toBE(r.da)||"-"),
-      h("td",null,h("button",{className:"btn btn-o",style:{padding:"1px 5px",fontSize:"9px"},onClick:()=>printCase(r)},"🖨")),
-      h("td",null,h("button",{className:"del-btn",onClick:()=>{S.records=S.records.filter(x=>x.id!==r.id);cloudDelete(r.id);sv();ren();}},"🗑")),
-    ));});
-    t2.appendChild(tb2);tw2.appendChild(t2);cd.appendChild(tw2);app.appendChild(cd);
+    S.records.forEach((r,i)=>{
+      const pass=(r.pct||0)>=80;
+      const tr2=h("tr",{className:pass?"":"fail"},h("td",null,String(i+1)),h("td",{style:{fontSize:"9px",textAlign:"left"}},r.hospNm||""));
+      const hnTd=h("td",{className:"hn-lnk"},r.hn);hnTd.addEventListener("click",()=>loadEdit(r));tr2.appendChild(hnTd);
+      tr2.appendChild(h("td",{style:{fontSize:"9px",textAlign:"left"}},r.hname||""));
+      tr2.appendChild(h("td",{style:{fontSize:"9px",textAlign:"left"}},r.dx||""));
+      tr2.appendChild(h("td",null,(r.sum||0)+"/"+(r.full||0)));
+      tr2.appendChild(h("td",null,h("span",{className:pass?"status-pass":"status-fail"},String(r.pct||0)+"%")));
+      tr2.appendChild(h("td",{style:{fontSize:"9px"}},r.auditType||""));
+      tr2.appendChild(h("td",{style:{fontSize:"9px"}},r.vd?r.vd.slice(5):"-"));
+      tr2.appendChild(h("td",{style:{fontSize:"9px"}},r.da?r.da.slice(5):"-"));
+      const dB=h("button",{className:"del-btn"},"🗑");dB.addEventListener("click",()=>{S.records=S.records.filter(x=>x.id!==r.id);sv();ren();});tr2.appendChild(h("td",null,dB));
+      tb2.appendChild(tr2);
+    });
+    t2.appendChild(tb2);app.appendChild(h("div",{className:"cd",style:{padding:"4px 6px"}},h("div",{style:{fontWeight:"800",fontSize:"10px",color:"var(--pu-dark)",marginBottom:"3px",borderLeft:"3px solid var(--or-mid)",paddingLeft:"5px"}},"📋 รายการที่บันทึก ("+S.records.length+")"),t2));
   }
 }
 
-// ===== PRINT CASE as สปสช FORM (100% match) =====
-function printCase(rec){
-  const t=cT(rec.sc,rec.na,rec.ms,rec.bn,rec.dd);
-  let rows="";
-  R.forEach(row=>{
-    const res=cR(row,rec.sc,rec.na,rec.ms,rec.bn,rec.dd);
-    let cells="";
-    const rna=rec.na[row.no],rms=rec.ms[row.no],dis=rna||rms;
-    cells+='<td style="text-align:center;font-weight:700;border:1px solid #999;padding:2px 3px">'+(typeof row.no==="number"?row.no:"")+'</td>';
-    cells+='<td style="text-align:left;font-weight:600;padding-left:'+(row.fu?'10px':'4px')+';border:1px solid #999;padding:2px 4px;white-space:nowrap">'+row.nm+(row.fu&&rec.fuD[row.fu]?' '+toBE(rec.fuD[row.fu]):'')+'</td>';
-    cells+='<td style="text-align:center;border:1px solid #999;padding:2px">'+(rna?'N':'-')+'</td>';
-    cells+='<td style="text-align:center;border:1px solid #999;padding:2px">'+(rms?'M':'-')+'</td>';
-    for(let c=1;c<=7;c++){
-      if(dis){cells+='<td style="text-align:center;border:1px solid #999;padding:2px;background:#f5f5f5">-</td>';continue;}
-      const v=rec.sc[row.no+"-"+c];const val=v==="N"?"N":String(v??1);
-      cells+='<td style="text-align:center;font-weight:700;border:1px solid #999;padding:2px">'+val+'</td>';
-    }
-    cells+='<td style="text-align:center;border:1px solid #999;padding:2px">'+(!dis&&row.hB?(rec.bn[row.no]||0):(!dis&&row.hD&&rec.dd[row.no]?"-1":"0"))+'</td>';
-    cells+='<td style="text-align:center;font-weight:800;border:1px solid #999;padding:2px">'+(res.na?"N":res.ms?"M":res.s)+'</td>';
-    cells+='<td style="border:1px solid #999;padding:2px"></td>';
-    rows+='<tr>'+cells+'</tr>';
-  });
+function loadEdit(r){S.editId=r.id;S.i={hcode:r.hcode||"",hn:r.hn||"",hname:r.hname||"",pid:r.pid||"",dx:r.dx||"",doc:r.doc||"",at:r.at||"internal",ct:r.ct||"general",ward:r.ward||"MRA",vd:r.vd||"",da:r.da||TODAY,fvd:r.fvd||"",lvd:r.lvd||"",af:r.af||"",at2:r.at2||""};S.auditType=r.auditType||"opd";S.finding=r.finding||"no_issue";S.fNote=r.fNote||"";S.sc={...r.sc};S.na={...r.na};S.ms={...r.ms};S.bn={...r.bn};S.fuD=r.fuD?{...r.fuD}:{};window.scrollTo({top:0,behavior:"smooth"});ren();}
+function rst(){S.sc={};S.bn={};S.na={};S.ms={};S.fuD={};S.finding="no_issue";S.fNote="";S.editId=null;S.i={hcode:"10672",hn:"",hname:"",pid:"",dx:"",doc:"",at:"internal",ct:"general",ward:"MRA",vd:"",da:TODAY,fvd:"",lvd:"",af:"",at2:""};initNA();}
 
-  const w=window.open("","_blank");
-  w.document.write('<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>MRA-OPD '+rec.hn+'</title>');
-  w.document.write('<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">');
-  w.document.write('<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Sarabun",sans-serif;font-size:11px;padding:8mm 10mm}');
-  w.document.write('@page{size:landscape;margin:6mm 8mm}');
-  w.document.write('@media print{body{padding:0}}');
-  w.document.write('table{border-collapse:collapse;width:100%}th,td{border:1px solid #999;padding:2px 3px;font-size:10px}');
-  w.document.write('</style></head><body>');
-
-  // === HEADER ===
-  w.document.write('<div style="text-align:right;font-size:9px;color:#666;margin-bottom:2px">'+new Date().toLocaleDateString("th-TH")+' '+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"})+'</div>');
-
-  // === สปสช LOGO + TITLE ===
-  w.document.write('<div style="text-align:center;margin-bottom:6px">');
-  w.document.write('<div style="font-size:8px;color:#888;margin-bottom:1px">⊕ สปสช.</div>');
-  w.document.write('<div style="font-size:10px;margin-bottom:1px">แบบตรวจประเมินคุณภาพการบันทึกเวชระเบียนผู้ป่วยนอก/ฉุกเฉิน &nbsp; <b>Medical Record Audit Form (OPD/ER)</b></div>');
-  w.document.write('</div>');
-
-  // === PATIENT INFO ===
-  w.document.write('<div style="font-size:10.5px;margin-bottom:2px">');
-  w.document.write('Hcode <b>'+rec.hcode+'</b> <span style="margin-right:4px">'+(rec.hospNm||"")+'</span>');
-  w.document.write('Hname <b>'+(rec.hname||"..........")+'</b> &nbsp;');
-  w.document.write('HN <b>'+rec.hn+'</b> &nbsp;');
-  w.document.write('PID <b>'+(rec.pid||"..........")+'</b>');
-  w.document.write('</div>');
-
-  w.document.write('<div style="font-size:10.5px;margin-bottom:2px">');
-  w.document.write('<span style="margin-right:8px">'+(rec.ct==="general"?'☑':'☐')+' General case</span>');
-  w.document.write('<span style="margin-right:8px">'+(rec.ct==="chronic"?'☑':'☐')+' Chronic case</span>');
-  w.document.write('ช่วงเวลาที่ตรวจสอบ <b>'+toBE(rec.af)+'</b> ถึง <b>'+toBE(rec.at2)+'</b> &nbsp;');
-  w.document.write('ถึง ......');
-  w.document.write('</div>');
-
-  w.document.write('<div style="font-size:10.5px;margin-bottom:2px">');
-  w.document.write('Visit Date <b>'+toBE(rec.vd)+'</b> &nbsp;');
-  w.document.write('Diagnosis <b>'+(rec.dx||"..........")+'</b> &nbsp;');
-  w.document.write('</div>');
-
-  w.document.write('<div style="font-size:10.5px;margin-bottom:4px">');
-  w.document.write('1<sup>st</sup> Visit Date <b>'+toBE(rec.fvd)+'</b>');
-  w.document.write('</div>');
-
-  // === RULES TEXT ===
-  w.document.write('<div style="font-size:8.5px;color:#333;margin-bottom:3px;line-height:1.5;border-top:1px solid #ccc;padding-top:2px">');
-  w.document.write('<b>การบันทึกที่จะ NA:</b> กรณีไม่จำเป็นต้องมีเวชสาร์ใน Content ได้แก่ Follow up, Operative note, Informed consent, Rehabilitation record เมื่อขาดไม่มีกิจกรรม ให้บันทึก ในช่อง NA<br>');
-  w.document.write('<b>การบันทึกที่จะ Missing:</b> กรณีไม่มีเอกสารที่ต้องตรวจ เวชระเบียนไม่ครบ หรือหาไม่เจอ ให้กรอกจำนวน ในช่อง Missing<br>');
-  w.document.write('<b>การบันทึกคะแนน:</b> (1) กรณีมีข้อมูลที่ใช้แต่ละข้อ ให้ 1 คะแนน (2) กรณีไม่มีข้อมูลคะแนนที่แต่ละข้อ ให้ 0 คะแนน (3) กรณีไม่จำเป็นต้องลงในข้อนั้น/ไม่มีข้อมูลในเอกสารที่เรียกร้องเป็นไป NA ให้ NA');
-  w.document.write('</div>');
-
-  // === SCORE TABLE ===
-  w.document.write('<table style="margin-bottom:4px">');
-  w.document.write('<thead><tr style="background:#f8c8c8">');
-  w.document.write('<th style="width:22px;background:#f8c8c8;color:#333">No</th>');
-  w.document.write('<th style="min-width:120px;background:#f8c8c8;color:#333">Contents</th>');
-  w.document.write('<th style="width:22px;background:#f8c8c8;color:#333">NA</th>');
-  w.document.write('<th style="width:24px;background:#f8c8c8;color:#333">Miss</th>');
-  for(let i=1;i<=7;i++) w.document.write('<th style="background:#f8c8c8;color:#333">คะแนน<br>ข้อ '+i+'</th>');
-  w.document.write('<th style="background:#f8c8c8;color:#333">เพิ่ม<br>คะแนน</th>');
-  w.document.write('<th style="background:#f8c8c8;color:#333">คะแนน<br>ที่ได้</th>');
-  w.document.write('<th style="width:50px;background:#f8c8c8;color:#333">หมาย<br>เหตุ</th>');
-  w.document.write('</tr></thead>');
-  w.document.write('<tbody>'+rows+'</tbody></table>');
-
-  // === BOTTOM SECTION ===
-  w.document.write('<div style="font-size:10px;margin-top:4px;line-height:1.7">');
-  w.document.write('คะแนนเต็ม (Full score) รวม <b>'+t.f+'</b> คะแนน');
-  w.document.write(' &nbsp;&nbsp;(คะแนนเต็ม มีมูลค่ากว่า 14 คะแนน สำหรับผู้ป่วยนอกที่ไม่มีqualified : General case)<br>');
-  w.document.write('<span style="visibility:hidden">คะแนนเต็ม (Full score) รวม 00 คะแนน</span>');
-  w.document.write(' &nbsp;&nbsp;(คะแนนเต็ม ไม่น้อยกว่า 18 คะแนน สำหรับผู้ป่วยโรคเรื้อรัง : Chronic case ที่มีการตรวจ follow up อย่างน้อย 1 ครั้ง)<br>');
-  w.document.write('</div>');
-  w.document.write('<div style="font-size:10px;margin-top:2px">');
-  w.document.write('คะแนนที่ได้ (Sum score) รวม <b>'+t.s+'</b> คะแนน &nbsp;&nbsp; ร้อยละ <b>'+t.p+'%</b>');
-  w.document.write('</div>');
-
-  // === OVERALL FINDING ===
-  w.document.write('<div style="font-size:10px;margin-top:4px;line-height:1.7">');
-  w.document.write('<b>ประเมินคุณภาพการบันทึกเวชระเบียนในภาพรวม</b><br>');
-  w.document.write('Overall finding &nbsp;(เลือกเพียง 1 ข้อ)<br>');
-  w.document.write('&nbsp;&nbsp;('+(rec.finding==="none"?'✓':' ')+') &nbsp;Documentation inadequate for meaningful review (ข้อมูลไม่เพียงพอสำหรับการทบทวน)<br>');
-  w.document.write('&nbsp;&nbsp;('+(rec.finding==="no_issue"?'✓':' ')+') &nbsp;No significant medical record issue identified (ไม่มีปัญหาสำคัญจากการทบทวนเวน)<br>');
-  w.document.write('&nbsp;&nbsp;('+(rec.finding==="issue"?'✓':' ')+') &nbsp;Certain issues in question specify (มีปัญหาจากการทบทวนที่ต้องระบุ ระบุ '+(rec.fNote||'.....................')+')<br>');
-  w.document.write('</div>');
-
-  // === FOOTER NOTE ===
-  w.document.write('<div style="font-size:9px;color:#555;margin-top:6px;border-top:1px solid #ccc;padding-top:3px">');
-  w.document.write('หมายเหตุ Rehabilitation record * ให้ในการประเมินคุณภาพการบันทึกระบียนผู้ป่วยสิทธิ์ (ผู้ป่วยนอก/ฉุกเฉิน)');
-  w.document.write('</div>');
-
-  // === AUDIT SIGNATURE ===
-  w.document.write('<div style="font-size:10px;margin-top:8px;text-align:right">');
-  w.document.write('Ward: <b>'+(rec.ward||'MRA')+'</b> | '+(rec.at==="internal"?"Internal":"External")+' | เขต ว.แพทย์: '+(rec.doc||"ไม่มี")+'<br>');
-  w.document.write('Audit by ................................. &nbsp;&nbsp; Audit Date <b>'+toBE(rec.da)+'</b>');
-  w.document.write('</div>');
-
-  w.document.write('</body></html>');
-  w.document.close();
-  setTimeout(()=>w.print(),500);
-}
-
-// ===== REPORT =====
 function rR(app){
-  if(!S.records.length){app.appendChild(h("div",{style:{textAlign:"center",padding:"25px",color:"#94a3b8"}},"ยังไม่มีข้อมูล"));return;}
-  // Date filter
-  const filterDiv=h("div",{className:"cd",style:{display:"flex",gap:"6px",alignItems:"center",flexWrap:"wrap"}},
-    h("label",{style:{fontWeight:"700",fontSize:"11px"}},"📅 เลือกช่วงเดือน:"),
-    dI(S.rptFrom,v=>{S.rptFrom=v;},"จาก"),dI(S.rptTo,v=>{S.rptTo=v;},"ถึง"),
-    h("button",{className:"btn btn-o",style:{padding:"3px 10px",fontSize:"10px"},onClick:()=>{S.rptFrom="";S.rptTo="";ren();}},"ดูทั้งหมด"),
-  );
-  app.appendChild(filterDiv);
+  if(!S.records.length){app.appendChild(h("div",{style:{textAlign:"center",padding:"30px",color:"#aaa"}},"ยังไม่มีข้อมูล"));return;}
+  app.appendChild(h("div",{className:"filter-box"},
+    h("h3",null,"📅 กรองข้อมูลรายงาน"),
+    h("div",{className:"filter-row"},h("label",null,"Audit Date ตั้งแต่:"),dI(S.rptFrom,v=>{S.rptFrom=v;}),h("span",{style:{fontWeight:"700",color:"#1e3a5f"}},"ถึง"),dI(S.rptTo,v=>{S.rptTo=v;}),h("button",{className:"btn btn-o",style:{padding:"2px 8px",fontSize:"10px"},onClick:()=>{S.rptFrom="";S.rptTo="";ren();}},"ล้าง")),
+    h("div",{className:"filter-row"},h("label",null,"Service Date ตั้งแต่:"),dI(S.rptSvcFrom,v=>{S.rptSvcFrom=v;}),h("span",{style:{fontWeight:"700",color:"#1e3a5f"}},"ถึง"),dI(S.rptSvcTo,v=>{S.rptSvcTo=v;}),h("button",{className:"btn btn-o",style:{padding:"2px 8px",fontSize:"10px"},onClick:()=>{S.rptSvcFrom="";S.rptSvcTo="";ren();}},"ล้าง")),
+    h("div",{style:{fontSize:"9px",color:"#666",marginTop:"3px"}},"* Audit Date = วันที่บันทึกผลตรวจ | Service Date = วันที่ผู้ป่วยมารับบริการ"),
+  ));
   let recs=S.records;
-  if(S.rptFrom||S.rptTo){recs=recs.filter(r=>{const d=r.da||"";if(S.rptFrom&&d<S.rptFrom)return false;if(S.rptTo&&d>S.rptTo)return false;return true;});}
-  if(!recs.length){app.appendChild(h("div",{style:{textAlign:"center",padding:"15px",color:"#94a3b8"}},"ไม่มีข้อมูลในช่วงนี้"));return;}
+  if(S.rptFrom||S.rptTo)recs=recs.filter(r=>{const d=r.da||"";if(S.rptFrom&&d<S.rptFrom)return false;if(S.rptTo&&d>S.rptTo)return false;return true;});
+  if(S.rptSvcFrom||S.rptSvcTo)recs=recs.filter(r=>{const d=r.vd||"";if(S.rptSvcFrom&&d<S.rptSvcFrom)return false;if(S.rptSvcTo&&d>S.rptSvcTo)return false;return true;});
+  if(!recs.length){app.appendChild(h("div",{style:{textAlign:"center",padding:"20px",color:"#aaa"}},"ไม่มีข้อมูลในช่วงที่กรอง"));return;}
 
-  const dateRange=(S.rptFrom?toBE(S.rptFrom):"เริ่มต้น")+" ถึง "+(S.rptTo?toBE(S.rptTo):"ปัจจุบัน");
-  const uniqueHosps=[...new Set(recs.map(r=>r.hospNm||hN(r.hcode)))];
-  const hospNm=uniqueHosps.join(", ");
-  const intExt=recs.filter(r=>r.at==="external").length>=recs.filter(r=>r.at==="internal").length?"External":"Internal";
+  const isExt=recs.some(r=>r.at==="external");
+  const totalSum=recs.reduce((a,r)=>a+(r.sum||0),0);
+  const totalFull=recs.reduce((a,r)=>a+(r.full||0),0);
+  const avgPct=recs.length?(recs.reduce((a,r)=>a+(r.pct||0),0)/recs.length).toFixed(1):0;
+  const passN=recs.filter(r=>(r.pct||0)>=80).length;
+  const failN=recs.length-passN;
+  const od1=S.rptFrom?toBE(S.rptFrom):"ทั้งหมด";const od2=S.rptTo?toBE(S.rptTo):"";
 
-  // Calc per-content stats
-  const cd=R.map((row,i)=>{let sum=0,full=0,cnt=0;recs.forEach(rec=>{const x=cR(row,rec.sc,rec.na,rec.ms,rec.bn,rec.dd);if(!x.na&&!x.ms){sum+=x.s;full+=x.f;cnt++;}});return{nm:SH[i],sum,full,cnt,pct:full?Math.round(sum/full*10000)/100:0,avg:cnt?(sum/cnt).toFixed(2):"0",avgF:cnt?(full/cnt).toFixed(2):"0"};});
-  const totalSum=recs.reduce((a,r)=>a+r.sum,0);
-  const totalFull=recs.reduce((a,r)=>a+r.full,0);
-  const avgPct=recs.length?(recs.reduce((a,r)=>a+r.pct,0)/recs.length).toFixed(2):0;
+  /* KPI */
+  const sumBox=h("div",{className:"cd"});
+  sumBox.appendChild(h("div",{className:"rpt-title"},"สรุปผลการตรวจประเมินคุณภาพการบันทึกเวชระเบียน"));
+  sumBox.appendChild(h("div",{style:{textAlign:"center",fontSize:"9.5px",color:"#555",marginBottom:"5px"}},"ช่วงตรวจ: "+od1+(od2?" ถึง "+od2:"")));
+  const kpis=h("div",{className:"kpi-row"});
+  [{l:"จำนวนเวชระเบียน",v:recs.length+" ราย",c:"#1e3a5f"},{l:"Full Score รวม",v:totalFull,c:"#1e3a5f"},{l:"Sum Score รวม",v:totalSum,c:"#2563eb"},{l:"ร้อยละเฉลี่ย",v:avgPct+"%",c:+avgPct>=80?"#16a34a":"#dc2626"},{l:"✅ ผ่านเกณฑ์ ≥80%",v:passN+" ราย",c:"#2e7d32"},{l:"⚠️ ต้องปรับปรุง",v:failN+" ราย",c:failN?"#b71c1c":"#90a4ae"}].forEach(k=>{kpis.appendChild(h("div",{className:"kpi"},h("div",{className:"kl"},k.l),h("div",{className:"kv",style:{color:k.c}},k.v)));});
+  sumBox.appendChild(kpis);app.appendChild(sumBox);
 
-  // ===== 1. CHART =====
-  const cd1=h("div",{className:"cd"},
-    h("div",{style:{textAlign:"center",fontSize:"12px",fontWeight:"700",color:"#1e3a5f",marginBottom:"2px"}},"ผลการตรวจประเมินคุณภาพ OPD"),
-    h("div",{style:{textAlign:"center",fontSize:"9.5px",color:"#64748b",marginBottom:"4px"}},"จำนวน "+recs.length+" ราย ช่วงข้อมูล "+dateRange+" รูปแบบการ Audit "+intExt)
-  );
-  const chart=h("div",{className:"bar-chart"});
-  cd.forEach((d,i)=>{chart.appendChild(h("div",{className:"bar-col"},h("div",{className:"val",style:{color:CL[i]}},String(d.pct)),h("div",{className:"bar",style:{height:Math.max(2,d.pct*1.5)+"px",background:CL[i]}}),h("div",{className:"lbl"},d.nm)));});
-  cd1.appendChild(chart);app.appendChild(cd1);
+  /* คะแนนรายหมวด — รวมทุก auditType */
+  const allR=[...OPD_R,...IPD_R];
+  const usedRows=[];
+  recs.forEach(rec=>{const R2x=rec.auditType==="ipd"?IPD_R:rec.auditType==="psych"?PSYCH_R:OPD_R;R2x.forEach(row=>{if(!usedRows.find(r=>r.no===row.no&&r.nm===row.nm))usedRows.push(row);});(row=>{if(!usedRows.find(r=>r.no===row.no&&r.nm===row.nm))usedRows.push(row);});});
+  const secData=usedRows.map(row=>{let sum=0,full=0,cnt=0;recs.forEach(rec=>{const x=cR(row,rec.sc,rec.na,rec.ms,rec.bn);if(!x.na&&!x.ms){sum+=x.s;full+=x.f;cnt++;}});return{no:row.no,nm:row.nm,sum,full,cnt,pct:full?Math.round(sum/full*10000)/100:0};}).filter(d=>d.full>0);
 
-  // ===== 2. SUMMARY TABLE (แยกตาม รพ.) =====
-  // Group records by hospital
-  const hospGrp={};
-  recs.forEach(rec=>{
-    const key=rec.hcode||"unknown";
-    if(!hospGrp[key])hospGrp[key]={hcode:key,name:rec.hospNm||hN(key),recs:[]};
-    hospGrp[key].recs.push(rec);
-  });
-  const hospKeys=Object.keys(hospGrp).sort((a,b)=>(hospGrp[a].name||"").localeCompare(hospGrp[b].name||""));
+  const secBox=h("div",{className:"cd"});
+  secBox.appendChild(h("div",{style:{fontWeight:"800",fontSize:"11px",color:"var(--pu-dark)",marginBottom:"4px",borderLeft:"3px solid var(--or-mid)",paddingLeft:"6px"}},"📊 คะแนนรายหมวด"));
+  const chart=h("div",{className:"chart"});
+  secData.forEach(d=>{chart.appendChild(h("div",{className:"bar-col"},h("div",{className:"bar-val",style:{color:d.pct>=80?"#16a34a":"#dc2626",fontWeight:"800"}},String(d.pct)),h("div",{className:"bar-fill",style:{height:Math.max(2,d.pct)+"px",background:d.pct>=80?"#a5d6a7":"#f48fb1"}}),h("div",{className:"bar-lbl"},String(d.no))));});
+  secBox.appendChild(chart);
+  const secTbl=h("table",{className:"rl",style:{marginTop:"5px"}});
+  secTbl.appendChild(h("thead",null,h("tr",null,...["No","หมวด","ราย","Full","Sum","ร้อยละ","สถานะ"].map(x=>h("th",null,x)))));
+  const secTb=h("tbody");
+  secData.forEach(d=>{const pass=d.pct>=80;secTb.appendChild(h("tr",{style:{background:pass?"#f0fdf4":"#fff5f5"}},h("td",null,String(d.no)),h("td",{style:{textAlign:"left",fontWeight:"600",fontSize:"10px"}},d.nm),h("td",null,String(d.cnt)),h("td",null,String(d.full)),h("td",null,String(d.sum)),h("td",{style:{fontWeight:"800",color:pass?"#16a34a":"#dc2626"}},String(d.pct)+"%"),h("td",null,h("span",{className:pass?"status-pass":"status-fail"},pass?"✅ ผ่านเกณฑ์":"⚠️ ต้องปรับปรุง"))));});
+  secTbl.appendChild(secTb);secBox.appendChild(secTbl);app.appendChild(secBox);
 
-  const cd2=h("div",{className:"cd"},
-    h("div",{style:{textAlign:"center",fontSize:"11px",fontWeight:"700",color:"#1e3a5f",marginBottom:"2px"}},"รายงานผลการตรวจประเมินคุณภาพ OPD แยกตามหน่วยบริการ (Sum คะแนนทั้งหมด)"),
-    h("div",{style:{textAlign:"center",fontSize:"9px",color:"#64748b",marginBottom:"4px"}},"เขตสุขภาพที่ 1 ช่วงข้อมูล "+dateRange+" รูปแบบการ Audit "+intExt)
-  );
-  const tw1=h("div",{style:{overflowX:"auto"}});const t1=h("table",{className:"rl"});
-  t1.appendChild(h("thead",null,h("tr",null,...["ที่","หน่วยบริการ",...SH,"Sum","Full","Percent"].map(x=>h("th",null,x)))));
-  const tb1=h("tbody");
-
-  // Per-hospital data rows
-  hospKeys.forEach((key,hi)=>{
-    const g=hospGrp[key];
-    const hcd=R.map((row)=>{let sum=0,full=0;g.recs.forEach(rec=>{const x=cR(row,rec.sc,rec.na,rec.ms,rec.bn,rec.dd);if(!x.na&&!x.ms){sum+=x.s;full+=x.f;}});return{sum,full};});
-    const hTotalSum=g.recs.reduce((a,r)=>a+r.sum,0);
-    const hTotalFull=g.recs.reduce((a,r)=>a+r.full,0);
-    const hPct=hTotalFull?(hTotalSum/hTotalFull*100).toFixed(2):"0";
-    const dr=h("tr",null,h("td",null,String(hi+1)),h("td",{style:{textAlign:"left",fontSize:"9px"}},g.name+" ("+g.recs.length+")"));
-    hcd.forEach(d=>dr.appendChild(h("td",{style:{fontWeight:"600"}},String(d.sum))));
-    dr.appendChild(h("td",{style:{fontWeight:"700"}},String(hTotalSum)));
-    dr.appendChild(h("td",null,String(hTotalFull)));
-    dr.appendChild(h("td",{style:{fontWeight:"700",color:hPct>=80?"#16a34a":"#e74c3c"}},String(hPct)));
-    tb1.appendChild(dr);
-  });
-
-  // Sum row
-  const sr=h("tr",{style:{background:"#f1f5f9",fontWeight:"700"}},h("td",{colSpan:"2"},"Sum"));
-  cd.forEach(d=>sr.appendChild(h("td",null,String(d.sum))));sr.appendChild(h("td",null,String(totalSum)));sr.appendChild(h("td",null,""));sr.appendChild(h("td",null,""));tb1.appendChild(sr);
-  // Full row
-  const fr=h("tr",{style:{background:"#f1f5f9",fontWeight:"700"}},h("td",{colSpan:"2"},"Full"));
-  cd.forEach(d=>fr.appendChild(h("td",null,String(d.full))));fr.appendChild(h("td",null,""));fr.appendChild(h("td",null,String(totalFull)));fr.appendChild(h("td",null,""));tb1.appendChild(fr);
-  // Percentage row
-  const pr=h("tr",{style:{background:"#fef3c7",fontWeight:"700"}},h("td",{colSpan:"2"},"Percentage"));
-  cd.forEach(d=>pr.appendChild(h("td",{style:{color:d.pct>=80?"#16a34a":"#e74c3c"}},String(d.pct))));pr.appendChild(h("td",null,""));pr.appendChild(h("td",null,""));pr.appendChild(h("td",{style:{fontSize:"12px",color:avgPct>=80?"#16a34a":"#e74c3c"}},String(avgPct)));tb1.appendChild(pr);
-  t1.appendChild(tb1);tw1.appendChild(t1);cd2.appendChild(tw1);app.appendChild(cd2);
-
-  // ===== 3. AVG TABLE (แยกตาม รพ.) =====
-  const cd3=h("div",{className:"cd"},
-    h("div",{style:{textAlign:"center",fontSize:"11px",fontWeight:"700",color:"#1e3a5f",marginBottom:"4px"}},"รายงานแยกตามหน่วยบริการ (Avg คะแนนเฉลี่ยรายข้อ)")
-  );
-  const tw2=h("div",{style:{overflowX:"auto"}});const t2=h("table",{className:"rl"});
-  t2.appendChild(h("thead",null,h("tr",null,...["ที่","หน่วยบริการ",...SH,"Sum","Full","Percent"].map(x=>h("th",null,x)))));
-  const tb2=h("tbody");
-
-  hospKeys.forEach((key,hi)=>{
-    const g=hospGrp[key];
-    const n=g.recs.length;
-    const hcd=R.map((row)=>{let sum=0,full=0,cnt=0;g.recs.forEach(rec=>{const x=cR(row,rec.sc,rec.na,rec.ms,rec.bn,rec.dd);if(!x.na&&!x.ms){sum+=x.s;full+=x.f;cnt++;}});return{avg:cnt?(sum/cnt).toFixed(2):"0"};});
-    const hTotalSum=g.recs.reduce((a,r)=>a+r.sum,0);
-    const hTotalFull=g.recs.reduce((a,r)=>a+r.full,0);
-    const hPct=hTotalFull?(hTotalSum/hTotalFull*100).toFixed(2):"0";
-    const avgR=h("tr",null,h("td",null,String(hi+1)),h("td",{style:{textAlign:"left",fontSize:"9px"}},g.name+" (n="+n+")"));
-    hcd.forEach(d=>avgR.appendChild(h("td",null,d.avg)));
-    avgR.appendChild(h("td",{style:{fontWeight:"700"}},(hTotalSum/n).toFixed(2)));
-    avgR.appendChild(h("td",null,(hTotalFull/n).toFixed(2)));
-    avgR.appendChild(h("td",{style:{fontWeight:"700",color:hPct>=80?"#16a34a":"#e74c3c"}},String(hPct)));
-    tb2.appendChild(avgR);
-  });
-
-  t2.appendChild(tb2);tw2.appendChild(t2);cd3.appendChild(tw2);app.appendChild(cd3);
-
-  // ===== 4. ANALYSIS =====
-  const lowItems=cd.filter(d=>d.pct<80&&d.pct>0).sort((a,b)=>a.pct-b.pct);
-  const highItems=cd.filter(d=>d.pct>=80).sort((a,b)=>b.pct-a.pct);
-  const failRecs=recs.filter(r=>r.pct<80);
-
-  let aHTML="<b style='font-size:13px'>📌 บทวิเคราะห์ผลการตรวจประเมินคุณภาพเวชระเบียน OPD/ER</b>\n\n";
-  aHTML+="<b>1. ข้อมูลทั่วไป:</b>\n";
-  aHTML+="   • หน่วยบริการ: <b>"+hospNm+"</b>\n";
-  aHTML+="   • จำนวนเวชระเบียนที่ตรวจประเมิน: <b>"+recs.length+"</b> ราย\n";
-  aHTML+="   • ช่วงเวลาที่ตรวจสอบ: "+dateRange+"\n";
-  aHTML+="   • ประเภทการตรวจ: <b>"+intExt+"</b>\n\n";
-
-  aHTML+="<b>2. ผลการประเมินภาพรวม:</b>\n";
-  aHTML+="   • คะแนนเฉลี่ยรวม: <b>"+avgPct+"%</b> "+(+avgPct>=80?"✅ ผ่านเกณฑ์":"❌ ไม่ผ่านเกณฑ์ (เกณฑ์ ≥80%)")+"\n";
-  aHTML+="   • คะแนนรวมเฉลี่ยต่อราย: <b>"+(totalSum/recs.length).toFixed(1)+"</b> จากเต็ม <b>"+(totalFull/recs.length).toFixed(1)+"</b>\n\n";
-
-  aHTML+="<b>3. ผลวิเคราะห์รายหมวด:</b>\n";
-  if(highItems.length){
-    aHTML+="   ✅ <b>หมวดที่ผ่านเกณฑ์ (≥80%):</b>\n";
-    highItems.forEach(d=>{aHTML+="      • "+d.nm+" = <b>"+d.pct+"%</b> ("+d.sum+"/"+d.full+")\n";});
-    aHTML+="\n";
-  }
-  if(lowItems.length){
-    aHTML+="   ❌ <b>หมวดที่ไม่ผ่านเกณฑ์ (<80%):</b>\n";
-    lowItems.forEach(d=>{aHTML+="      • "+d.nm+" = <b style='color:#dc2626'>"+d.pct+"%</b> ("+d.sum+"/"+d.full+") — ต้องปรับปรุง\n";});
-    aHTML+="\n";
-  }
-  const zeroItems=cd.filter(d=>d.pct===0&&d.cnt===0);
-  if(zeroItems.length){
-    aHTML+="   ⬜ <b>หมวดที่ไม่ได้ประเมิน (NA ทั้งหมด):</b> "+zeroItems.map(d=>d.nm).join(", ")+"\n\n";
+  /* แยก รพ. (External) */
+  if(isExt){
+    const hospMap={};recs.forEach(r=>{const k=r.hcode||"X";if(!hospMap[k])hospMap[k]={name:r.hospNm||hN(r.hcode),recs:[]};hospMap[k].recs.push(r);});
+    const hKeys=Object.keys(hospMap).sort((a,b)=>hospMap[a].name.localeCompare(hospMap[b].name));
+    const extBox=h("div",{className:"cd"});
+    extBox.appendChild(h("div",{style:{fontWeight:"800",fontSize:"11px",color:"var(--pu-dark)",marginBottom:"4px",borderLeft:"3px solid var(--or-mid)",paddingLeft:"6px"}},"🏥 ผลแยกตามหน่วยบริการ (External Audit)"));
+    const extTbl=h("table",{className:"rl"});
+    const extHdr=h("tr",null,h("th",null,"ที่"),h("th",null,"หน่วยบริการ"),h("th",null,"จำนวน"));
+    secData.forEach(d=>extHdr.appendChild(h("th",{title:d.nm},String(d.no))));
+    extHdr.appendChild(h("th",null,"เฉลี่ย%"));extHdr.appendChild(h("th",null,"สถานะ"));
+    extTbl.appendChild(h("thead",null,extHdr));
+    const extTb=h("tbody");
+    hKeys.forEach((k,hi)=>{
+      const g=hospMap[k];const hAvg=(g.recs.reduce((a,r)=>a+(r.pct||0),0)/g.recs.length).toFixed(1);const hPass=+hAvg>=80;
+      const tr=h("tr",{style:{background:hi%2?"#f7fbff":"#fff"}},h("td",null,String(hi+1)),h("td",{style:{textAlign:"left",fontWeight:"600",fontSize:"10px"}},g.name),h("td",null,String(g.recs.length)));
+      secData.forEach(d=>{let sum=0,full=0;g.recs.forEach(rec=>{const row=usedRows.find(r=>r.no===d.no&&r.nm===d.nm);if(!row)return;const x=cR(row,rec.sc,rec.na,rec.ms,rec.bn);if(!x.na&&!x.ms){sum+=x.s;full+=x.f;}});const p=full?Math.round(sum/full*100):null;tr.appendChild(h("td",{style:{fontWeight:"600",color:p===null?"#90a4ae":p>=80?"#2e7d32":"#b71c1c",fontSize:"9px"}},p===null?"NA":String(p)+"%"));});
+      tr.appendChild(h("td",null,h("span",{className:hPass?"status-pass":"status-fail"},hAvg+"%")));
+      tr.appendChild(h("td",null,h("span",{className:hPass?"status-pass":"status-fail"},hPass?"✅ ผ่านเกณฑ์":"⚠️ ต้องปรับปรุง")));
+      extTb.appendChild(tr);
+    });
+    extTbl.appendChild(extTb);extBox.appendChild(extTbl);app.appendChild(extBox);
   }
 
-  if(failRecs.length){
-    aHTML+="<b>4. รายที่คะแนนต่ำกว่าเกณฑ์ (<80%):</b>\n";
-    failRecs.forEach((r,i)=>{aHTML+="   "+(i+1)+". HN <b>"+r.hn+"</b> ("+(r.hname||"-")+") Dx:"+(r.dx||"-")+" = <b style='color:#dc2626'>"+r.pct+"%</b> ("+r.sum+"/"+r.full+")\n";});
-    aHTML+="\n";
-  }
+  /* วิเคราะห์ */
+  const weakSecs=secData.filter(d=>d.pct<80).sort((a,b)=>a.pct-b.pct);
+  const failRecs=recs.filter(r=>(r.pct||0)<80).sort((a,b)=>(a.pct||0)-(b.pct||0));
+  const improvMap={"1":"กำหนดมาตรฐานหน้าปก/Profile sheet ตรวจสอบชื่อ-HN ทุกแผ่น","2":"อบรมซักประวัติ OLDCART/5W2H บันทึก CC/PI/UD ให้ครบ","3":"จัดทำ Check list PE เน้น VS น้ำหนัก และระบุ Dx เป็น Clinical term","4":"อบรมบันทึกคำสั่งยาครบ 4 องค์ประกอบ และให้ Patient education ทุกราย","5":"วางระบบ FU note มาตรฐาน SOAP format","5b":"เพิ่มความถี่ FU note ครั้งที่ 2","5c":"เพิ่มความถี่ FU note ครั้งที่ 3","6":"อบรม Operative note มาตรฐาน ต้องมี Findings/Procedures/Anesthesia/Time ครบ","7":"ปรับกระบวนการขอ IC ก่อนผ่าตัด ให้ครบทุกองค์ประกอบ","8":"อบรม Anesthetic record มาตรฐาน","9":"อบรม Operative note IPD มาตรฐาน","10":"ทบทวนมาตรฐาน Labour record","11":"วางระบบ Rehabilitation record มาตรฐาน","12":"อบรมพยาบาลบันทึก Nurses note ให้ครบถ้วน Assess/Plan/Eval ทุก Shift"};
+  const anaBox=h("div",{className:"cd"});
+  anaBox.appendChild(h("div",{style:{fontWeight:"800",fontSize:"12px",color:"var(--or-dark)",marginBottom:"5px",borderBottom:"2px solid var(--or-border)",paddingBottom:"3px"}},"🔍 การวิเคราะห์และแนวทางพัฒนาคุณภาพ"));
+  const ol=h("div",{style:{fontSize:"10.5px",lineHeight:"1.8",color:"#1e293b"}});
+  ol.appendChild(h("p",{style:{fontWeight:"800",color:"var(--pu-dark)",marginBottom:"2px",fontSize:"11px"}},"1. ผลการตรวจประเมินภาพรวม"));
+  ol.appendChild(h("p",null,"เวชระเบียนทั้งสิ้น "+recs.length+" ราย | คะแนนเฉลี่ย "+avgPct+"% | ผ่านเกณฑ์ ≥80%: "+passN+" ราย ("+(passN/recs.length*100).toFixed(1)+"%) | ต้องปรับปรุง: "+failN+" ราย ("+(failN/recs.length*100).toFixed(1)+"%)"));
+  ol.appendChild(h("p",{style:{fontWeight:"800",color:"var(--or-dark)",marginTop:"5px",marginBottom:"2px",fontSize:"11px"}},"2. หมวดที่ได้คะแนนต่ำกว่าเกณฑ์ (ต้องปรับปรุง)"));
+  if(weakSecs.length){weakSecs.forEach((d,i)=>{const imp=improvMap[String(d.no)]||"ทบทวนเกณฑ์และอบรมผู้บันทึก";ol.appendChild(h("div",{className:"weak-item"},h("span",{style:{fontWeight:"700",color:"#dc2626"}},(i+1)+". "+d.nm+" — "+d.pct+"%"),h("span",{style:{color:"#64748b",fontSize:"9px"}}," ("+d.sum+"/"+d.full+")"),h("br"),h("span",{style:{color:"#1e293b",fontSize:"9.5px"}},"▶ แนวทาง: "+imp)));});}else{ol.appendChild(h("p",{style:{color:"#16a34a",fontWeight:"600"}},"✅ ทุกหมวดผ่านเกณฑ์"));}
+  ol.appendChild(h("p",{style:{fontWeight:"800",color:"var(--or-dark)",marginTop:"5px",marginBottom:"2px",fontSize:"11px"}},"3. เวชระเบียนที่ต้องติดตามปรับปรุง"));
+  if(failRecs.length){failRecs.forEach((r,i)=>{const atype=r.auditType||"opd";const R2=atype==="ipd"?IPD_R:OPD_R;const weakParts=R2.filter(row=>{const x=cR(row,r.sc,r.na,r.ms,r.bn);return !x.na&&!x.ms&&x.f>0&&(x.s/x.f*100)<80;}).map(d=>d.nm.replace(/^\d+\.\s*/,"")).join(", ");ol.appendChild(h("div",{className:"fail-item"},h("span",{style:{fontWeight:"700",color:"#b45309"}},(i+1)+". HN: "+r.hn),r.hname?h("span",{style:{color:"#64748b"}}," ("+r.hname+")"):"",h("span",{style:{color:"#94a3b8",fontSize:"8.5px"}}," | "+r.hospNm),h("span",{style:{fontWeight:"700",color:"#dc2626"}}," = "+r.pct+"%"),weakParts?h("span",{style:{color:"#666"}}," | บกพร่อง: "+weakParts):""));});}else{ol.appendChild(h("p",{style:{color:"#16a34a",fontWeight:"600"}},"✅ ทุกรายผ่านเกณฑ์"));}
+  ol.appendChild(h("p",{style:{fontWeight:"800",color:"var(--pu-dark)",marginTop:"5px",marginBottom:"2px",fontSize:"11px"}},"4. ข้อเสนอแนะในการพัฒนา"));
+  ["จัดอบรมทบทวนมาตรฐานการบันทึกเวชระเบียน โดยเน้นหมวดที่ได้คะแนนต่ำ","กำหนดให้มีระบบตรวจสอบก่อน Discharge/จำหน่าย","จัดทำ Check list ประจำห้องตรวจ/Ward","กำหนดผู้รับผิดชอบตรวจสอบคุณภาพเวชระเบียนประจำหน่วยงาน","ติดตามผลการพัฒนาในรอบถัดไป เปรียบเทียบกับเป้าหมาย ≥80%"].forEach((s,i)=>ol.appendChild(h("p",{style:{fontSize:"10px"}},(i+1)+". "+s)));
+  anaBox.appendChild(ol);app.appendChild(anaBox);
 
-  aHTML+="<b>5. ข้อเสนอแนะ/แนวทางปรับปรุง:</b>\n";
-  if(lowItems.length){
-    aHTML+="   • ควรจัดอบรม/ทบทวนแนวทางการบันทึกเวชระเบียนในหมวด <b>"+lowItems.map(d=>d.nm).join(", ")+"</b>\n";
-    aHTML+="   • จัดทำ Checklist การบันทึกเวชระเบียนให้ครบถ้วนตามเกณฑ์ MRA ก่อนปิดชาร์ท\n";
-    aHTML+="   • กำหนดผู้รับผิดชอบติดตามคุณภาพการบันทึกในแต่ละหมวดที่ไม่ผ่านเกณฑ์\n";
-    aHTML+="   • นำผลการประเมินเข้าที่ประชุมคณะกรรมการเวชระเบียนเพื่อวางแผนปรับปรุง\n";
-  }
-  if(+avgPct>=80){
-    aHTML+="   • ผลประเมินภาพรวมอยู่ในเกณฑ์ดี ควรรักษามาตรฐานอย่างต่อเนื่อง\n";
-    aHTML+="   • ควร Feedback ผลการประเมินให้แพทย์/พยาบาลผู้เกี่ยวข้องทราบ\n";
-  } else {
-    aHTML+="   • ควรทบทวนและปรับปรุงคุณภาพการบันทึกเวชระเบียนให้ได้ ≥80%\n";
-    aHTML+="   • พิจารณาจัดทำ Clinical audit round เพื่อติดตามการปรับปรุง\n";
-  }
-  aHTML+="   • ควรประเมินซ้ำในรอบถัดไปเพื่อติดตามผลการปรับปรุง\n";
-
-  const aDiv=h("div",{className:"analysis"});aDiv.style.whiteSpace="pre-line";aDiv.innerHTML=aHTML;app.appendChild(aDiv);
-
-  // ===== 5. RECORD LIST =====
-  const cd4=h("div",{className:"cd"},h("div",{style:{fontSize:"11px",fontWeight:"700",color:"#1e3a5f",marginBottom:"3px"}},"📋 รายการ ("+recs.length+" ราย)"));
-  const tw3=h("div",{style:{overflowX:"auto"}});const t3=h("table",{className:"rl"});
-  t3.appendChild(h("thead",null,h("tr",null,...["#","รพ.","HN","ชื่อ","Dx","Sum","Full","%","Audit","🖨"].map(x=>h("th",null,x)))));
+  /* รายละเอียด */
+  const detBox=h("div",{className:"cd"});
+  detBox.appendChild(h("div",{style:{fontWeight:"800",fontSize:"11px",color:"var(--pu-dark)",marginBottom:"4px",borderLeft:"3px solid var(--or-mid)",paddingLeft:"6px"}},"📋 รายละเอียด ("+recs.length+" ราย)"));
+  const t3=h("table",{className:"rl"});t3.appendChild(h("thead",null,h("tr",null,...["#","รพ.","HN","ชื่อ-สกุล","Dx","Sum/Full","%","Type","Service Date","Audit Date","🖨",""].map(x=>h("th",null,x)))));
   const tb3=h("tbody");
-  recs.forEach((r,i)=>{tb3.appendChild(h("tr",null,h("td",null,String(i+1)),h("td",{style:{textAlign:"left",fontSize:"9px"}},r.hospNm||""),h("td",{style:{fontWeight:"700",color:"#2563eb"}},r.hn),h("td",{style:{textAlign:"left",fontSize:"9px"}},r.hname||""),h("td",{style:{textAlign:"left",fontSize:"9px"}},r.dx||""),h("td",{style:{fontWeight:"700"}},String(r.sum)),h("td",null,String(r.full)),h("td",{style:{fontWeight:"700",color:r.pct>=80?"#16a34a":r.pct>=60?"#f59e0b":"#dc2626"}},String(r.pct)),h("td",null,r.daStr||""),h("td",null,h("button",{className:"btn btn-o",style:{padding:"1px 4px",fontSize:"8px"},onClick:()=>printCase(r)},"🖨"))));});
-  t3.appendChild(tb3);tw3.appendChild(t3);cd4.appendChild(tw3);app.appendChild(cd4);
-
-  // Summary footer
-  app.appendChild(h("div",{className:"cd",style:{fontSize:"10px",color:"#475569"}},
-    h("div",null,"จำนวนเวชระเบียนที่ Audit: ",h("b",null,String(recs.length))," ฉบับ"),
-    h("div",null,"Sum Score: ",h("b",null,String(totalSum))," คะแนน"),
-    h("div",null,"Full Score: ",h("b",null,String(totalFull))," คะแนน"),
-    h("div",null,"ผลการตรวจสอบความสมบูรณ์: ",h("b",{style:{color:avgPct>=80?"#16a34a":"#dc2626"}},avgPct+"%")),
-  ));
-
-  app.appendChild(h("div",{style:{display:"flex",gap:"4px",justifyContent:"center",margin:"6px 0 16px"}},
-    h("button",{className:"btn btn-p",onClick:()=>{S.tab="form";ren();}},"← กลับบันทึก"),
-    h("button",{className:"btn btn-o",onClick:()=>window.print()},"🖨 พิมพ์หน้านี้"),
-    h("button",{className:"btn btn-o",onClick:()=>{if(confirm("ลบข้อมูลทั้งหมด?")){S.records=[];sv();ren();}}},"🗑 ล้าง"),
-  ));
+  recs.forEach((r,i)=>{const pass=(r.pct||0)>=80;const tr3=h("tr",{className:pass?"pass":"fail"},h("td",null,String(i+1)),h("td",{style:{fontSize:"9px",textAlign:"left"}},r.hospNm||""),h("td",{style:{fontWeight:"700",color:"#2563eb"}},r.hn),h("td",{style:{fontSize:"9px",textAlign:"left"}},r.hname||""),h("td",{style:{fontSize:"9px",textAlign:"left"}},r.dx||""),h("td",null,(r.sum||0)+"/"+(r.full||0)),h("td",null,h("span",{className:pass?"status-pass":"status-fail"},String(r.pct||0)+"%")),h("td",{style:{fontSize:"9px"}},r.auditType||""));tr3.appendChild(h("td",null,toBE(r.vd)||"-"));tr3.appendChild(h("td",null,toBE(r.da)||"-"));const prB=h("button",{className:"btn btn-o",style:{padding:"1px 5px",fontSize:"8px"}},"🖨");prB.addEventListener("click",()=>printCase(r));tr3.appendChild(h("td",null,prB));const dB=h("button",{className:"del-btn"},"🗑");dB.addEventListener("click",()=>{S.records=S.records.filter(x=>x.id!==r.id);sv();ren();});tr3.appendChild(h("td",null,dB));tb3.appendChild(tr3);});
+  t3.appendChild(tb3);detBox.appendChild(t3);app.appendChild(detBox);
+  app.appendChild(h("div",{style:{display:"flex",gap:"4px",justifyContent:"center",margin:"6px 0 16px"}},h("button",{className:"btn btn-p",onClick:()=>{S.tab="form";ren();}},"← บันทึก"),h("button",{className:"btn btn-o",onClick:()=>window.print()},"🖨 พิมพ์รายงาน")));
 }
 
-function rP(app){
-  const p=S.pop;const row=R.find(r=>r.no===p.rn);const sub=row?.s.find(x=>x.c===p.c);
-  if(!sub){S.pop=null;return;}const cv=gV(p.rn,p.c);const canNA=!!CNA[p.rn+"-"+p.c];
-  app.appendChild(h("div",{className:"pov",onClick:()=>{S.pop=null;ren();}}));
-  const px=Math.min(Math.max(4,p.x-150),window.innerWidth-350),py=Math.min(p.y,window.innerHeight-260);
-  const btns=h("div",{style:{display:"flex",gap:"4px",justifyContent:"center",flexWrap:"wrap"}},
-    h("button",{className:"pb ps"+(cv===1?" sl":""),onClick:()=>{S.sc[p.rn+"-"+p.c]=1;S.pop=null;ren();}},"✓ ผ่าน(1)"),
-    h("button",{className:"pb fl"+(cv===0?" sl":""),onClick:()=>{S.sc[p.rn+"-"+p.c]=0;S.pop=null;ren();}},"✗ ไม่ผ่าน(0)"));
-  if(canNA)btns.appendChild(h("button",{className:"pb pna"+(cv==="N"?" sl":""),onClick:()=>{S.sc[p.rn+"-"+p.c]="N";S.pop=null;ren();}},"N/A"));
-  const popup=h("div",{className:"pop",style:{left:px+"px",top:py+"px"}},h("div",{style:{fontSize:"8.5px",color:"#94a3b8"}},row.nm+" → ข้อ"+p.c),h("h4",null,"📋 "+sub.l),h("div",{className:"det"},sub.d),btns);
-  if(row.hB)popup.appendChild(h("div",{className:"bns"},"💡 "+row.bD));
-  if(canNA)popup.appendChild(h("div",{style:{marginTop:"3px",padding:"2px 4px",background:"#fefce8",borderRadius:"3px",fontSize:"9px",color:"#854d0e"}},"💡 ข้อนี้ NA ได้ตามเกณฑ์"));
-  app.appendChild(popup);
-}
+function rP(app,R){const p=S.pop;const row=R.find(r=>r.no===p.rn);if(!row){S.pop=null;return;}const sub=row.s[p.c-1];if(!sub){S.pop=null;return;}const cv=gV(p.rn,p.c);app.appendChild(h("div",{className:"pov",onClick:()=>{S.pop=null;ren();}}));const px=Math.min(Math.max(4,(p.x||200)-150),window.innerWidth-310);const py=Math.min((p.y||200),window.innerHeight-260);const popup=h("div",{className:"pop",style:{left:px+"px",top:py+"px"}},h("div",{style:{fontSize:"8.5px",color:"#94a3b8",marginBottom:"1px"}},row.nm+" → ข้อ "+p.c),h("h4",null,sub.l||(row.nm+" ข้อ "+p.c)));if(sub.d)popup.appendChild(h("div",{className:"pop-det"},sub.d));const btns=h("div",{style:{display:"flex",gap:"3px",justifyContent:"center"}});const bp=h("button",{className:"pb pb-p"+(cv===1?" on":"")},"✓ ผ่าน(1)");bp.addEventListener("click",()=>{S.sc[p.rn+"-"+p.c]=1;S.pop=null;ren();});const bf=h("button",{className:"pb pb-f"+(cv===0?" on":"")},"✗ ไม่ผ่าน(0)");bf.addEventListener("click",()=>{S.sc[p.rn+"-"+p.c]=0;S.pop=null;ren();});const bn=h("button",{className:"pb pb-n"+(cv==="N"?" on":"")},"N/A");bn.addEventListener("click",()=>{S.sc[p.rn+"-"+p.c]="N";S.pop=null;ren();});btns.appendChild(bp);btns.appendChild(bf);btns.appendChild(bn);popup.appendChild(btns);if(row.hB)popup.appendChild(h("div",{style:{textAlign:"center",fontSize:"9px",color:"#16a34a",marginTop:"4px",padding:"2px 4px",background:"#f0fdf4",borderRadius:"2px"}},row.bD));app.appendChild(popup);}
 
-// ===== SAVE WITH DATA =====
-function saveWithData(){
-  if(!S.records.length){alert("ไม่มีข้อมูลให้บันทึก");return;}
-  let src=document.documentElement.outerHTML;
-  const dataStr="const _ED="+JSON.stringify(S.records)+";";
-  src=src.replace(/const _ED=\[.*?\];/,"const _ED=[];");
-  src=src.replace("const _ED=[];",dataStr);
-  const blob=new Blob(["<!DOCTYPE html><html lang=\"th\">"+src+"</html>"],{type:"text/html;charset=utf-8"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;a.download="MRA-Pro-Audit.html";
-  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-  alert("✅ บันทึกไฟล์พร้อมข้อมูล "+S.records.length+" ราย เรียบร้อย\nเอาไฟล์นี้ไปเปิดเครื่องไหนก็มีข้อมูลพร้อมใช้");
-}
+function printCase(rec){const atype=rec.auditType||"opd";const R2=atype==="ipd"?IPD_R:atype==="psych"?PSYCH_R:OPD_R;const t=cT(rec.sc,rec.na,rec.ms,rec.bn,atype);const maxC=(atype==="ipd"||atype==="psych")?9:7;let rows="";R2.forEach(row=>{const res=cR(row,rec.sc,rec.na,rec.ms,rec.bn);const rna=rec.na[row.no],rms=rec.ms[row.no],dis=rna||rms;let cells='<td style="border:1px solid #999;text-align:center;background:#f5f5f5">'+row.no+'</td><td style="border:1px solid #999;text-align:left;padding:1px 4px;font-weight:600">'+row.nm+'</td><td style="border:1px solid #999;text-align:center">'+(rna?"NA":"-")+'</td><td style="border:1px solid #999;text-align:center">'+(rms?"M":"-")+'</td>';for(let c=1;c<=maxC;c++){if(dis){cells+='<td style="border:1px solid #999;color:#bbb">-</td>';continue;}if(c>row.ac){cells+='<td style="border:1px solid #999;background:#f0f0f0"></td>';continue;}const v=rec.sc[row.no+"-"+c];cells+='<td style="border:1px solid #999;text-align:center;font-weight:700">'+(v==="N"?"N":String(v??1))+'</td>';}cells+='<td style="border:1px solid #999;text-align:center">'+(!dis&&row.hB?(rec.bn[row.no]||0):"")+'</td><td style="border:1px solid #999;text-align:center;font-weight:800">'+(res.na?"N":res.ms?"M":res.s)+'</td><td style="border:1px solid #999"></td>';rows+='<tr>'+cells+'</tr>';});const w=window.open("","_blank");w.document.write('<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700;800&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Sarabun,sans-serif;font-size:10px;padding:5mm 7mm}@page{size:landscape;margin:4mm}table{border-collapse:collapse;width:100%}th,td{border:1px solid #999;padding:2px 3px;font-size:9px}</style></head><body><div style="text-align:center;margin-bottom:4px"><b style="font-size:11px">แบบตรวจประเมินคุณภาพการบันทึกเวชระเบียน MRA 2563 — '+atype.toUpperCase()+'</b></div><div style="font-size:9px;margin-bottom:3px">Hcode: '+rec.hcode+' '+( rec.hospNm||"")+" | HN: "+rec.hn+" | ชื่อ: "+(rec.hname||"")+" | Dx: "+(rec.dx||"")+" | VD: "+toBE(rec.vd)+" | AD: "+toBE(rec.da)+'</div><table><thead><tr style="background:#f8c8c8"><th>No</th><th>Contents</th><th>NA</th><th>Miss</th>'+Array.from({length:maxC},(_,i)=>'<th>ข้อ '+(i+1)+'</th>').join('')+'<th>เพิ่ม</th><th>Sum</th><th style="min-width:50px">หมายเหตุ</th></tr></thead><tbody>'+rows+'</tbody></table><div style="margin-top:4px;font-size:9px">Full: <b>'+t.f+'</b> | Sum: <b>'+t.s+'</b> | %: <b>'+t.p+'</b> | Overall: <b>'+(rec.finding==="no_issue"?"ไม่มีปัญหา":rec.finding==="issue"?"มีปัญหา ("+rec.fNote+")":"ข้อมูลไม่เพียงพอ")+'</b></div><div style="font-size:8px;margin-top:5px;color:#666">ผู้ตรวจ: ............................ | วันที่: '+toBE(rec.da)+'</div></body></html>');w.document.close();setTimeout(()=>w.print(),400);}
 
-// ===== STARTUP: Load from cloud then render =====
+function saveWithData(){if(!S.records.length){alert("ไม่มีข้อมูล");return;}let src=document.documentElement.outerHTML;const marker="const _ED=[];";const nd="const _ED="+JSON.stringify(S.records)+";";if(!src.includes(marker)){alert("ไม่พบ marker");return;}src=src.replace(marker,nd);const blob=new Blob([src],{type:"text/html;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="MRA-Pro-Audit-v4.html";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);alert("✅ บันทึกไฟล์พร้อมข้อมูล "+S.records.length+" ราย");}
+
+async function cloudLoad(){try{const r=await fetch(GAS_URL,{redirect:"follow"});if(!r.ok)throw new Error("HTTP "+r.status);const j=await r.json();if(j.ok)return j.data||j.records||[];return[];}catch(e){console.log("cloud err",e);return[];}}
+async function cloudRefresh(){const el=document.getElementById("syncMsg");if(el)el.textContent="☁️ กำลังโหลด...";try{const cloud=await cloudLoad();if(cloud.length){const ids=new Set(S.records.map(r=>String(r.id)));let added=0;cloud.forEach(r=>{if(!ids.has(String(r.id))){S.records.push(r);ids.add(String(r.id));added++;}});const cmap={};cloud.forEach(r=>{cmap[String(r.id)]=r;});S.records=S.records.map(r=>cmap[String(r.id)]||r);sv();S.msg=added?"☁️ เพิ่มจาก Cloud "+added+" ราย (รวม "+S.records.length+" ราย)":"☁️ ข้อมูลตรงกันแล้ว ("+S.records.length+" ราย)";if(el)el.textContent="✅ Sync แล้ว ("+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"})+")";ren();}else{if(el)el.textContent="⚠️ Cloud ว่างเปล่า";}}catch(e){if(el)el.textContent="⚠️ offline";}}
+
 ren();
-if(GAS_URL){
-  (async()=>{
-    try{
-      const cloud=await cloudLoad();
-      if(cloud.length){
-        const ids=new Set(S.records.map(r=>String(r.id)));
-        let added=0;
-        cloud.forEach(r=>{if(!ids.has(String(r.id))){S.records.push(r);ids.add(String(r.id));added++;}});
-        if(added){
-          localStorage.setItem("mra_v5",JSON.stringify(S.records));
-          S.msg="☁️ โหลดจาก Cloud: เพิ่ม "+added+" ราย (รวม "+S.records.length+" ราย)";
-          ren();
-        }
-      }
-    }catch(e){updSync("⚠️ offline","warn");}
-  })();
-} else {
-  updSync("⚠️ ยังไม่ได้ตั้ง GAS_URL","warn");
-}
-
+if(GAS_URL){cloudRefresh();}
 </script></body></html>
